@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bl5oxk27as1xv"]
+[gd_scene load_steps=7 format=3 uid="uid://eviodn4rprr2"]
 
-[ext_resource type="Script" path="res://player_movement.gd" id="1_i8rwf"]
+[ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="2_l1q43"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_bo7fl"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_bnasj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjv4w"]
+radius = 7.0
+height = 14.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_i8rwf")
@@ -19,3 +25,14 @@ position = Vector2(0, -7)
 texture = ExtResource("2_l1q43")
 region_enabled = true
 region_rect = Rect2(290, 86, 15, 14)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_bo7fl")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("4_bnasj")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_vjv4w")
