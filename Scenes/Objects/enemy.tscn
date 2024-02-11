@@ -1,18 +1,29 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7gai7bqt5udr"]
 
+[ext_resource type="Script" path="res://Scenes/Objects/enemy.gd" id="1_1i2tc"]
 [ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="1_w1l3w"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6av8n"]
-radius = 6.0
-
 [node name="Enemy" type="CharacterBody2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_6av8n")
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_1i2tc")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
 texture = ExtResource("1_w1l3w")
 region_enabled = true
 region_rect = Rect2(272, 136, 16, 16)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 3, 4, 0, 0, -3, -4, 0)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
