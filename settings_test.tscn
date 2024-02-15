@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcolkb7aufoyl"]
-
-[ext_resource type="Texture2D" uid="uid://dyefv5mlxu3in" path="res://resolution_test.png" id="1_eqltk"]
-
-[node name="SettingsTest" type="Node2D"]
-
-[node name="ResolutionTest" type="Sprite2D" parent="."]
-position = Vector2(51, 46)
-texture = ExtResource("1_eqltk")
