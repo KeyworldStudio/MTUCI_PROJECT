@@ -634,5 +634,17 @@ layer_0/tile_data = PackedInt32Array(0, 1, 6, 65536, 1, 6, 131072, 1, 6, 131073,
 position = Vector2(337, 167)
 player = NodePath("../Player")
 
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_lnxpr")]
+position = Vector2(304, 86)
+player = NodePath("../Player")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_lnxpr")]
+position = Vector2(365, 64)
+player = NodePath("../Player")
+
+[node name="Enemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_lnxpr")]
+position = Vector2(379, 133)
+player = NodePath("../Player")
+
 [node name="Player" parent="." instance=ExtResource("1_34yaw")]
 position = Vector2(159, 91)
