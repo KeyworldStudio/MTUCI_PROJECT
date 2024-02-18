@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b01ang7hvulbj"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_73hks"]
+[ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="1_ex2cm"]
+[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="2_1vxt3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpll"]
+size = Vector2(16, 16)
+
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
+script = ExtResource("1_73hks")
+guns = [NodePath("Turret_gun")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wkpll")
+
+[node name="Turret-base" type="Sprite2D" parent="."]
+texture = ExtResource("1_ex2cm")
+
+[node name="Turret_gun" parent="." instance=ExtResource("2_1vxt3")]

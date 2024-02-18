@@ -30,7 +30,7 @@ texture = ExtResource("3_bmugu")
 
 [node name="TestTopdownPlayer" type="Sprite2D" parent="."]
 position = Vector2(-3.8147e-06, 155)
-rotation = -1.24763
+rotation = -0.989226
 texture = ExtResource("4_nmg75")
 
 [node name="TestTopdownEnemy2" type="Sprite2D" parent="."]
