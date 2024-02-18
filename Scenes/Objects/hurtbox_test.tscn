@@ -6,16 +6,16 @@
 
 [sub_resource type="Resource" id="Resource_pv4fw"]
 script = ExtResource("2_voyqe")
-attack_damage = 5.0
-knockback_force = 0.0
-attack_position = Vector2(0, 0)
+attack_damage = 1.0
+knockback_force = 1000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ryhav"]
 radius = 5.0
 
-[node name="Attack" type="Area2D"]
+[node name="HurtBox" type="Area2D" node_paths=PackedStringArray("knockback_origin")]
 script = ExtResource("1_p74dy")
 attack = SubResource("Resource_pv4fw")
+knockback_origin = NodePath("Marker2D")
 
 [node name="Tilemap" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
@@ -26,3 +26,5 @@ region_rect = Rect2(71, 87, 10, 12)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_ryhav")
+
+[node name="Marker2D" type="Marker2D" parent="."]
