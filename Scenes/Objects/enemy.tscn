@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7gai7bqt5udr"]
+[gd_scene load_steps=9 format=3 uid="uid://b7gai7bqt5udr"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/enemy.gd" id="1_1i2tc"]
-[ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="1_w1l3w"]
+[ext_resource type="Texture2D" uid="uid://bmwq5ebraxadu" path="res://Assets/Visual/Sprites/TestTopdownEnemy.png" id="2_ake3j"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_005sx"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_u3vjf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_og3ay"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_fb2mf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
+radius = 35.0143
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
+radius = 6.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -10,11 +20,19 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_1i2tc")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, -7)
-texture = ExtResource("1_w1l3w")
-region_enabled = true
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ake3j")
 region_rect = Rect2(272, 136, 16, 16)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hm2is")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -23,7 +41,39 @@ debug_enabled = true
 wait_time = 0.1
 autostart = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 3, 4, 0, 0, -3, -4, 0)
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_005sx")
 
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("4_u3vjf")
+initial_state = NodePath("Pursuit")
+
+[node name="Pursuit" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Attack" type="Node" parent="StateChart/Root/Pursuit"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Attack")
+event = &"player_close"
+
+[node name="Attack" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Rest" type="Node" parent="StateChart/Root/Attack"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Rest")
+delay_seconds = 0.5
+
+[node name="Rest" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Pursuit" type="Node" parent="StateChart/Root/Rest"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Pursuit")
+delay_seconds = 1.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Rest" to="." method="_on_rest_state_physics_processing"]
