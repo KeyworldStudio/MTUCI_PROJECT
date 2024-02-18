@@ -4,6 +4,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ye8aaypkslut"]
 >>>>>>> f69de13 (velocity tweaks)
 
+<<<<<<< HEAD
 [ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="2_l1q43"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_bo7fl"]
@@ -11,9 +12,14 @@
 [ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_041a8"]
 [ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_paud1"]
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
+=======
+[ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_1b6bk"]
+[ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_p5r4g"]
+>>>>>>> f7a7f3f (Implemented Basic State Machine)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
-radius = 7.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx8i7"]
+radius = 3.0
+height = 12.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("5_041a8")
@@ -27,6 +33,7 @@ height = 14.0
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
+<<<<<<< HEAD
 script = ExtResource("1_i8rwf")
 <<<<<<< HEAD
 
@@ -38,6 +45,12 @@ shape = SubResource("CircleShape2D_8sd8m")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_l1q43")
 region_enabled = true
+=======
+script = ExtResource("1_1b6bk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p5r4g")
+>>>>>>> f7a7f3f (Implemented Basic State Machine)
 region_rect = Rect2(290, 86, 15, 14)
 
 <<<<<<< HEAD
@@ -73,6 +86,10 @@ script = ExtResource("5_paud1")
 health_component = NodePath("../HealthComponent")
 =======
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+<<<<<<< HEAD
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_8sd8m")
 >>>>>>> f69de13 (velocity tweaks)
+=======
+shape = SubResource("CapsuleShape2D_tx8i7")
+>>>>>>> f7a7f3f (Implemented Basic State Machine)

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+class_name PlayerController
+>>>>>>> f7a7f3f (Implemented Basic State Machine)
 extends CharacterBody2D
 <<<<<<< HEAD:Scenes/Objects/player_movement.gd
 @export var speed = 300.0
