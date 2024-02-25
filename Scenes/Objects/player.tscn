@@ -1,21 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://bl5oxk27as1xv"]
+[gd_scene load_steps=11 format=3 uid="uid://eviodn4rprr2"]
 
-[ext_resource type="Script" path="res://player_movement.gd" id="1_i8rwf"]
+[ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="2_l1q43"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_bo7fl"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_bnasj"]
+[ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_041a8"]
+[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_paud1"]
+[ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
 
+[sub_resource type="Resource" id="Resource_v6yhw"]
+script = ExtResource("5_041a8")
+armor = 0.0
+coefficient_of_knockback = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjv4w"]
+radius = 7.0
+height = 14.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_i8rwf")
-speed = 9000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_8sd8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -7)
 texture = ExtResource("2_l1q43")
 region_enabled = true
 region_rect = Rect2(290, 86, 15, 14)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_bo7fl")
+health = 10.0
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
+position = Vector2(0, 7)
+script = ExtResource("4_bnasj")
+health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
+resists = SubResource("Resource_v6yhw")
+knockback_target = NodePath("../Marker2D")
+timer = NodePath("Timer")
+
+[node name="PlayerCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_vjv4w")
+
+[node name="Timer" type="Timer" parent="HitboxComponent"]
+process_callback = 0
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("6_2spfu")
+target = NodePath("..")
+
+[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("5_paud1")
+health_component = NodePath("../HealthComponent")

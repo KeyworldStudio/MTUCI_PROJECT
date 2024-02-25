@@ -11,15 +11,17 @@ config_version=5
 [application]
 
 config/name="TurretMancer"
-run/main_scene="res://settings_test.tscn"
+run/main_scene="res://Scenes/Levels/settings_test.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=2048
-window/size/viewport_height=1152
-window/stretch/scale=4.0
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
 [input]
@@ -45,7 +47,14 @@ move_left={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Level Geometry"
+2d_physics/layer_2="Characters"
+2d_physics/layer_3="Player Hurtbox"
+2d_physics/layer_4="Enemy Hurtbox"
+2d_physics/layer_5="Turret Hurtbox"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"
