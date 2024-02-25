@@ -13,8 +13,8 @@ func _ready():
 	health = max_health
 	
 	
-func damage(attack: Attack):       #нанесения урона
-	health -= attack.attack_damage
+func damage(attack: Attack, resists: Resists):       #нанесения урона
+	health -= (attack.attack_damage - resists.armor)
 	damaged.emit()
 	if health <= 0:
 		health_zero.emit()        

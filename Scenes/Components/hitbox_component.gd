@@ -46,7 +46,7 @@ func damage(attack: Attack):            #функция получения уд�
 		return
 	
 	if health_component: 
-		health_component.damage(attack)
+		health_component.damage(attack, resists)
 	
 	if knockback_component:
 		var knockback_vector: Vector2
@@ -54,7 +54,7 @@ func damage(attack: Attack):            #функция получения уд�
 			knockback_vector = knockback_target.global_position - attack.attack_position
 		else:
 			knockback_vector = global_position - attack.attack_position
-		knockback_component.apply_knockback(knockback_vector,attack.knockback_force)
+		knockback_component.apply_knockback(knockback_vector, attack.knockback_force, resists)
 	
 	if timer:
 		timer.start()
