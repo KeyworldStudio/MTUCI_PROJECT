@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_pv4fw"]
 script = ExtResource("2_voyqe")
-attack_damage = 1.0
+attack_damage = 5.0
 knockback_force = 1000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ryhav"]
