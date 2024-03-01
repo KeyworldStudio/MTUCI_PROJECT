@@ -10,7 +10,7 @@ signal died
 			health_component.health_zero.connect(death)
 
 
-#функция смерти
+# функция смерти
 func death():                                             
 	health_component.get_parent().queue_free()
 	died.emit()

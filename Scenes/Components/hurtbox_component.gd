@@ -21,8 +21,9 @@ func _on_area_entered(area):
 
 	var hitbox : HitboxComponent = area              
 
+	# определение координат атаки
 	if knockback_origin:
-		attack.attack_position = knockback_origin.global_position #определение координат атаки
+		attack.attack_position = knockback_origin.global_position 
 	else:
 		attack.attack_position = global_position
 

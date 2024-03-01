@@ -1,5 +1,4 @@
 class_name Resists
-
 extends Resource
 
 @export var armor: float
