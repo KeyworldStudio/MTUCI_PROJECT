@@ -9,9 +9,8 @@ signal died
 		if health_component is HealthComponent:
 			health_component.health_zero.connect(death)
 
-		
-func death():                                              #функция смерти
+
+#функция смерти
+func death():                                             
 	health_component.get_parent().queue_free()
 	died.emit()
-	
-	
