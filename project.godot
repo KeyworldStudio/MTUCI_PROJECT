@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/_Debug/settings_test.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EnemyDeathSignalBus="*res://Scenes/Components/EnemyManager/enemy_death_signal_bus.gd"
+
 [display]
 
 window/size/viewport_width=640
