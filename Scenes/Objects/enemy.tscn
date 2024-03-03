@@ -1,0 +1,128 @@
+[gd_scene load_steps=18 format=3 uid="uid://b7gai7bqt5udr"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/enemy.gd" id="1_1i2tc"]
+[ext_resource type="Texture2D" uid="uid://bmwq5ebraxadu" path="res://Assets/Visual/Sprites/TestTopdownEnemy.png" id="2_ake3j"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_3qhdi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_005sx"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_62k7e"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_u3vjf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_og3ay"]
+[ext_resource type="Script" path="res://Scenes/Components/hurtbox_component.gd" id="5_oy2gd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_fb2mf"]
+[ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_qk4gf"]
+[ext_resource type="Script" path="res://Scenes/Components/attack.gd" id="6_qnm5e"]
+[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="7_uxf1g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pp40y"]
+radius = 8.0
+
+[sub_resource type="Resource" id="Resource_pic8g"]
+script = ExtResource("6_qnm5e")
+attack_damage = 1.0
+knockback_force = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8crn4"]
+radius = 8.94427
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_1i2tc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ake3j")
+region_rect = Rect2(272, 136, 16, 16)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_hm2is")
+debug_color = Color(0.647059, 0.701961, 0, 0.419608)
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 12.0
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_3qhdi")
+health = 10.0
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("4_62k7e")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_pp40y")
+debug_color = Color(0.964706, 0, 0.498039, 0.419608)
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("5_oy2gd")
+attack = SubResource("Resource_pic8g")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_8crn4")
+debug_color = Color(0, 0.623529, 0.541176, 0.419608)
+
+[node name="KnockbackComponent" type="Node" parent="."]
+script = ExtResource("6_qk4gf")
+
+[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("7_uxf1g")
+health_component = NodePath("../HealthComponent")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_005sx")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("4_u3vjf")
+initial_state = NodePath("Pursuit")
+
+[node name="Pursuit" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Attack" type="Node" parent="StateChart/Root/Pursuit"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Attack")
+event = &"player_close"
+
+[node name="Attack" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Rest" type="Node" parent="StateChart/Root/Attack"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Rest")
+delay_seconds = 0.5
+
+[node name="Rest" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Pursuit" type="Node" parent="StateChart/Root/Rest"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Pursuit")
+delay_seconds = 1.0
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_area_2d_body_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Rest" to="." method="_on_rest_state_physics_processing"]
