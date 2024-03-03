@@ -11,26 +11,28 @@ signal damaged
 
 func _ready():
 	health = max_health
-	
-	
-func damage(attack: Attack, resists: Resists):       #нанесения урона
+
+
+# нанесение урона
+func damage(attack: Attack, resists: Resists):       
 	health -= (attack.attack_damage - resists.armor)
 	damaged.emit()
 	if health <= 0:
 		health_zero.emit()        
-	
-	
-func healing(recovery):            #лечение
+
+
+# лечение
+func healing(recovery):            
 	health += recovery
 	healed.emit()
-	
 
-func healing_to_max():             #максимальное восстановление
+
+# максимальное восстановление
+func healing_to_max():             
 	health = max_health
 
 
-func zeroing_out_health():         #обнуление здоровья
+# обнуление здоровья
+func zeroing_out_health():         
 	health = 0
 	health_zero.emit() 
-
-
