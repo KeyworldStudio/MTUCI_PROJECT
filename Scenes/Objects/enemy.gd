@@ -17,6 +17,8 @@ func change_detector_disabled(new_value: bool) -> void:
 
 
 func makepath() -> void:
+	if !player:
+		return
 	nav_agent.target_position = player.global_position
 
 
@@ -44,6 +46,9 @@ func _on_pursuit_state_exited():
 
 #region Attack state
 func motion_attack() -> void:
+	if !player:
+		return
+	
 	velocity = global_position.direction_to(player.global_position) * dash_speed
 	move_and_slide()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=16 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_041a8"]
 [ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_paud1"]
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
+[ext_resource type="Script" path="res://Scenes/Objects/TurretCreator.gd" id="8_m8gx5"]
+[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="9_63nyn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
@@ -48,7 +50,11 @@ func _on_area_2d_body_exited(body):
 [sub_resource type="CircleShape2D" id="CircleShape2D_0c51q"]
 radius = 82.0061
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_i8rwf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -64,6 +70,8 @@ health = 10.0
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
 position = Vector2(0, 7)
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("4_bnasj")
 health_component = NodePath("../HealthComponent")
 knockback_component = NodePath("../KnockbackComponent")
@@ -89,10 +97,18 @@ target = NodePath("..")
 script = ExtResource("5_paud1")
 health_component = NodePath("../HealthComponent")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="TurretActivator" type="Area2D" parent="."]
 script = SubResource("GDScript_cx1vt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretActivator"]
 shape = SubResource("CircleShape2D_0c51q")
+
+[node name="TurretCreator" type="Area2D" parent="."]
+position = Vector2(18, 0)
+script = ExtResource("8_m8gx5")
+turret = ExtResource("9_63nyn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
+shape = SubResource("CircleShape2D_vl8fu")
 
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]

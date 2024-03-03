@@ -1,5 +1,5 @@
-extends CharacterBody2D
 class_name PlayerController
+extends CharacterBody2D
 
 @export var acceleration = 1800.0
 @export var max_speed = 400.0

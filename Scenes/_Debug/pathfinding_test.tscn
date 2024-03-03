@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=6 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="TileSet" uid="uid://r66y185oj36x" path="res://Assets/Visual/Tilesets/TestTileSet.tres" id="1_s63aq"]
 [ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/enemy.tscn" id="2_vv7q4"]
-[ext_resource type="PackedScene" uid="uid://ye8aaypkslut" path="res://Scenes/Objects/player.tscn" id="3_qgaxj"]
+[ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/player.tscn" id="3_qgaxj"]
+[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="4_xcu3w"]
+[ext_resource type="PackedScene" uid="uid://dot3v41487bjd" path="res://Scenes/Objects/double_turret.tscn" id="5_lu7yv"]
 
 [node name="PathfindingTest" type="Node2D"]
 
@@ -36,5 +38,11 @@ player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_qgaxj")]
 position = Vector2(249, 176)
+
+[node name="Turret" parent="." instance=ExtResource("4_xcu3w")]
+position = Vector2(305, 285)
+
+[node name="double_turret" parent="." instance=ExtResource("5_lu7yv")]
+position = Vector2(126, 68)
 
 [editable path="Enemy"]

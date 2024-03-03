@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b01ang7hvulbj"]
+[gd_scene load_steps=10 format=3 uid="uid://b01ang7hvulbj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_73hks"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="1_e3r42"]
@@ -6,11 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="2_1vxt3"]
 [ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_5phil"]
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_wyttb"]
+[ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="6_t18tv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpll"]
 size = Vector2(16, 16)
 
+[sub_resource type="Resource" id="Resource_u2a0n"]
+script = ExtResource("6_t18tv")
+armor = 0.0
+coefficient_of_knockback = 0.0
+
 [node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
+top_level = true
 script = ExtResource("1_73hks")
 guns = [NodePath("Turret_gun")]
 
@@ -30,6 +37,7 @@ health_component = NodePath("../HealthComponent")
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("5_wyttb")
 health_component = NodePath("../HealthComponent")
+resists = SubResource("Resource_u2a0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_wkpll")
