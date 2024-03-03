@@ -1,26 +1,15 @@
-<<<<<<< HEAD
-[gd_scene load_steps=5 format=3 uid="uid://bl5oxk27as1xv"]
+[gd_scene load_steps=13 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
-[ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_4dhjj"]
-=======
-[gd_scene load_steps=11 format=3 uid="uid://eviodn4rprr2"]
-
-[ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
-[ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="2_l1q43"]
+[ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_bo7fl"]
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_bnasj"]
 [ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_041a8"]
 [ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_paud1"]
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
->>>>>>> main
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ivpi8"]
-radius = 5.0
-height = 14.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_pfsdn"]
-radius = 93.1343
+[sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
+radius = 7.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("5_041a8")
@@ -31,31 +20,38 @@ coefficient_of_knockback = 0.0
 radius = 7.0
 height = 14.0
 
+[sub_resource type="GDScript" id="GDScript_cx1vt"]
+script/source = "extends Area2D
+
+
+func _on_area_2d_body_entered(body):
+	if(body is BasicTurret):
+		body.activated = true
+
+func _on_area_2d_body_exited(body):
+	if(body is BasicTurret):
+		body.activated = false
+
+
+func _on_body_entered(body):
+	pass # Replace with function body.
+
+
+func _on_body_exited(body):
+	pass # Replace with function body.
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0c51q"]
+radius = 82.0061
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_i8rwf")
 
-<<<<<<< HEAD
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_4dhjj")
-region_rect = Rect2(290, 86, 15, 14)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ivpi8")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_pfsdn")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-=======
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8sd8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_l1q43")
-region_enabled = true
+texture = ExtResource("2_f7wsf")
 region_rect = Rect2(290, 86, 15, 14)
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -88,4 +84,13 @@ target = NodePath("..")
 [node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("5_paud1")
 health_component = NodePath("../HealthComponent")
->>>>>>> main
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_cx1vt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0c51q")
+
+[connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

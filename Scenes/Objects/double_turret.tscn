@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dot3v41487bjd"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_je33k"]
+[ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="2_1ovlv"]
+[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="3_c0ram"]
+[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="4_xh0xr"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="5_q1te6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3skp"]
+size = Vector2(16, 16)
+
+[node name="double_turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
+script = ExtResource("1_je33k")
+guns = [NodePath("Turret_gun"), NodePath("Turret_gun2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a3skp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1ovlv")
+
+[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("4_xh0xr")
+health_component = NodePath("../HealthComponent")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_q1te6")
+
+[node name="Turret_gun" parent="." instance=ExtResource("3_c0ram")]
+position = Vector2(0, -4)
+
+[node name="Turret_gun2" parent="." instance=ExtResource("3_c0ram")]
+position = Vector2(0, 4)

@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b01ang7hvulbj"]
+[gd_scene load_steps=8 format=3 uid="uid://b01ang7hvulbj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_73hks"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="1_e3r42"]
 [ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="1_ex2cm"]
 [ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="2_1vxt3"]
+[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_5phil"]
+[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_wyttb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpll"]
 size = Vector2(16, 16)
@@ -16,5 +19,19 @@ shape = SubResource("RectangleShape2D_wkpll")
 
 [node name="Turret-base" type="Sprite2D" parent="."]
 texture = ExtResource("1_ex2cm")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_e3r42")
+
+[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("5_5phil")
+health_component = NodePath("../HealthComponent")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("5_wyttb")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_wkpll")
 
 [node name="Turret_gun" parent="." instance=ExtResource("2_1vxt3")]

@@ -4,8 +4,9 @@
 [ext_resource type="Script" path="res://Scenes/Objects/turret_gun.gd" id="1_g844w"]
 [ext_resource type="PackedScene" uid="uid://bsunkp8872rsk" path="res://Scenes/Objects/bullet.tscn" id="2_3xi4e"]
 
-[node name="Turret_gun" type="Node2D" node_paths=PackedStringArray("bullet_place")]
+[node name="Turret_gun" type="Node2D" node_paths=PackedStringArray("timer", "bullet_place")]
 script = ExtResource("1_g844w")
+timer = NodePath("Timer")
 bullet = ExtResource("2_3xi4e")
 bullet_place = NodePath("Marker2D")
 
@@ -15,3 +16,10 @@ offset = Vector2(3, 0)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(13, 0)
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
