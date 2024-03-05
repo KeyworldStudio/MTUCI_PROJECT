@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpy5i7s5fr2jd"]
+
+[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="1_7ajfh"]
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameWorld" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="PathfindingTest" parent="GameWorld" instance=ExtResource("1_7ajfh")]
+
+[node name="Bullets" type="Node2D" parent="GameWorld"]
+
+[node name="Enemies" type="Node2D" parent="GameWorld"]
+
+[node name="MainGUI" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
