@@ -19,6 +19,8 @@ unique_name_in_owner = true
 
 [node name="Enemies" type="Node2D" parent="GameWorld"]
 
+[node name="Turrets" type="Node2D" parent="GameWorld"]
+
 [node name="MainGUI" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
