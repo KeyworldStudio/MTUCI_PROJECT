@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 @export var speed: float = 50.0
 @export var dash_speed: float = 100.0
-@export var player: Node2D
 
 
 var nav_agent_safe_velocity: Vector2 = Vector2.ZERO
 
+@onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $NavigationAgent2D as NavigationAgent2D
 @onready var player_detector: = $PlayerDetector as Area2D
 
