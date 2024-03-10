@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalRefs="*res://Scenes/global_refs.gd"
+
 [display]
 
 window/size/viewport_width=640

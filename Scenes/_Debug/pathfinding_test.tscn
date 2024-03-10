@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=23 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_d7qti"]
 [ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/enemy.tscn" id="2_vv7q4"]
 [ext_resource type="PackedScene" uid="uid://ye8aaypkslut" path="res://Scenes/Objects/player.tscn" id="3_qgaxj"]
+[ext_resource type="Script" path="res://Scenes/_Debug/test.gd" id="4_ra8mp"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17yu"]
 vertices = PackedVector2Array(6, 6, -6, 6, -6, -6, 6, -6)
@@ -418,5 +419,8 @@ player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_qgaxj")]
 position = Vector2(249, 176)
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("4_ra8mp")
 
 [editable path="Enemy"]
