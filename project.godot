@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 EnemyDeathSignalBus="*res://Scenes/Components/EnemyManager/enemy_death_signal_bus.gd"
+GlobalRefs="*res://Scenes/global_refs.gd"
 
 [display]
 

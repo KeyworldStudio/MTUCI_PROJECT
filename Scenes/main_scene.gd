@@ -1,0 +1,13 @@
+extends Node
+
+
+
+func _ready():
+	GlobalRefs.player_node = $GameWorld/Player as PlayerController
+	GlobalRefs.game_world_node = $GameWorld as Node2D
+	GlobalRefs.bullet_holder = $GameWorld/Bullets  as Node2D
+	GlobalRefs.turret_holder = $GameWorld/Turrets  as Node2D
+	GlobalRefs.enemy_holder = $GameWorld/Enemies  as Node2D
+	GlobalRefs.gui_holder = $MainGUI as Control
+
+

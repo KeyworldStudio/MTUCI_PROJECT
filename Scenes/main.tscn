@@ -1,19 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpy5i7s5fr2jd"]
+[gd_scene load_steps=5 format=3 uid="uid://bpy5i7s5fr2jd"]
 
 [ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="1_7ajfh"]
+[ext_resource type="Script" path="res://Scenes/main_scene.gd" id="1_yylq0"]
+[ext_resource type="Script" path="res://Scenes/game_world.gd" id="2_61ne2"]
+[ext_resource type="PackedScene" uid="uid://ye8aaypkslut" path="res://Scenes/Objects/player.tscn" id="2_ayoe2"]
 
-[node name="MainScene" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainScene" type="Node"]
+script = ExtResource("1_yylq0")
 
 [node name="GameWorld" type="Node2D" parent="."]
-unique_name_in_owner = true
+script = ExtResource("2_61ne2")
+starting_scene = ExtResource("1_7ajfh")
 
-[node name="PathfindingTest" parent="GameWorld" instance=ExtResource("1_7ajfh")]
+[node name="Player" parent="GameWorld" instance=ExtResource("2_ayoe2")]
+position = Vector2(-54, -22)
 
 [node name="Bullets" type="Node2D" parent="GameWorld"]
 
@@ -22,6 +22,7 @@ unique_name_in_owner = true
 [node name="Turrets" type="Node2D" parent="GameWorld"]
 
 [node name="MainGUI" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
