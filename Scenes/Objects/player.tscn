@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=18 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
 [ext_resource type="Script" path="res://Scenes/Objects/TurretCreator.gd" id="8_m8gx5"]
 [ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="9_63nyn"]
+[ext_resource type="PackedScene" uid="uid://dot3v41487bjd" path="res://Scenes/Objects/double_turret.tscn" id="10_w1my8"]
+[ext_resource type="PackedScene" uid="uid://bx7w4lmuwfdpa" path="res://Scenes/Objects/mine.tscn" id="11_b3r4c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
@@ -106,7 +108,7 @@ shape = SubResource("CircleShape2D_0c51q")
 [node name="TurretCreator" type="Area2D" parent="."]
 position = Vector2(18, 0)
 script = ExtResource("8_m8gx5")
-turret = ExtResource("9_63nyn")
+turret = Array[PackedScene]([ExtResource("9_63nyn"), ExtResource("10_w1my8"), ExtResource("11_b3r4c")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
