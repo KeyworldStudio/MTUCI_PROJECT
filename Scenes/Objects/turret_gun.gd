@@ -4,6 +4,7 @@ extends Node2D
 @export var bullet: PackedScene
 @export var bullet_place: Node2D
 @export var bullet_speed = 200.0
+@onready var bullet_holder = GlobalRefs.bullet_holder
 
 var activated = false
 var on_cooldown = false
@@ -17,7 +18,7 @@ func shoot():
 	timer.start()
 	on_cooldown = true
 	var instance = bullet.instantiate()
-	add_child(instance)
+	bullet_holder.add_child(instance)
 	if bullet_place:
 		instance.global_position = bullet_place.global_position
 		instance.initialize_velocity(bullet_place.global_rotation,bullet_speed)

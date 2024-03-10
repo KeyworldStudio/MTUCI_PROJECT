@@ -18,7 +18,7 @@ func _on_area_2d_body_exited(body):
 func turret_creation():
 	if Input.is_action_pressed(("place_turret")) and objects_in_scope == 0:
 		var instance = turret.instantiate()
-		add_child(instance)
+		GlobalRefs.turret_holder.add_child(instance)
 		instance.global_position = global_position
 		instance.global_rotation = global_rotation
 func _physics_process(delta):
