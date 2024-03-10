@@ -1,5 +1,4 @@
 class_name EnemyWave
-
 extends Resource
 
 @export var wave_scene: PackedScene

@@ -9,11 +9,12 @@
 script = ExtResource("1_yylq0")
 
 [node name="GameWorld" type="Node2D" parent="."]
+position = Vector2(2, 0)
 script = ExtResource("2_61ne2")
 starting_scene = ExtResource("1_7ajfh")
 
 [node name="Player" parent="GameWorld" instance=ExtResource("2_ayoe2")]
-position = Vector2(-54, -22)
+position = Vector2(308, 177)
 
 [node name="Bullets" type="Node2D" parent="GameWorld"]
 
