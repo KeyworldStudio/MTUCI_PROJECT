@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="7_uxf1g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
-radius = 28.0179
+radius = 46.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
 radius = 6.0
@@ -31,17 +31,18 @@ radius = 8.0
 [sub_resource type="Resource" id="Resource_pic8g"]
 script = ExtResource("6_qnm5e")
 attack_damage = 1.0
-knockback_force = 400.0
+knockback_force = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8crn4"]
 radius = 8.94427
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_1i2tc")
+dash_speed = 200.0
+dash_acceleration = 4000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ake3j")
@@ -53,15 +54,14 @@ collision_mask = 2
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("CircleShape2D_hm2is")
-debug_color = Color(0.647059, 0.701961, 0, 0.419608)
+debug_color = Color(0.647059, 0.701961, 0, 0.101961)
 
 [node name="GeometryCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qu30e")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
-radius = 12.0
-debug_enabled = true
+radius = 8.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -69,7 +69,6 @@ autostart = true
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_3qhdi")
-health = 10.0
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 collision_layer = 8
@@ -78,7 +77,12 @@ script = ExtResource("4_62k7e")
 health_component = NodePath("../HealthComponent")
 knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_h0kpn")
-timer = NodePath("../InvincibilityTimer")
+timer = NodePath("InvincibilityTimer")
+
+[node name="InvincibilityTimer" type="Timer" parent="HitboxComponent"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
 
 [node name="HitboxCollider" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_pp40y")
@@ -133,16 +137,13 @@ script = ExtResource("6_fb2mf")
 to = NodePath("../../Pursuit")
 delay_seconds = 1.0
 
-[node name="InvincibilityTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.5
-one_shot = true
-
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Attack" to="." method="_on_attack_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Rest" to="." method="_on_rest_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Rest" to="." method="_on_rest_state_physics_processing"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b01ang7hvulbj"]
+[gd_scene load_steps=11 format=3 uid="uid://b01ang7hvulbj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_73hks"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="1_e3r42"]
@@ -8,38 +8,45 @@
 [ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_wyttb"]
 [ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="6_t18tv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpll"]
-size = Vector2(16, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_be6am"]
+radius = 7.0
 
 [sub_resource type="Resource" id="Resource_u2a0n"]
 script = ExtResource("6_t18tv")
 armor = 0.0
-coefficient_of_knockback = 0.0
+coefficient_of_knockback = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6akb"]
+radius = 8.0
 
 [node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
-top_level = true
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_73hks")
 guns = [NodePath("Turret_gun")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_wkpll")
+shape = SubResource("CircleShape2D_be6am")
 
 [node name="Turret-base" type="Sprite2D" parent="."]
 texture = ExtResource("1_ex2cm")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_e3r42")
+max_health = 3.0
 
 [node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("5_5phil")
 health_component = NodePath("../HealthComponent")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 16
+collision_mask = 0
 script = ExtResource("5_wyttb")
 health_component = NodePath("../HealthComponent")
 resists = SubResource("Resource_u2a0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-shape = SubResource("RectangleShape2D_wkpll")
+shape = SubResource("CircleShape2D_s6akb")
 
 [node name="Turret_gun" parent="." instance=ExtResource("2_1vxt3")]

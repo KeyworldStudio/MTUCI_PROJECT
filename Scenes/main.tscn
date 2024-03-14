@@ -13,14 +13,14 @@ position = Vector2(2, 0)
 script = ExtResource("2_61ne2")
 starting_scene = ExtResource("1_7ajfh")
 
-[node name="Player" parent="GameWorld" instance=ExtResource("2_ayoe2")]
-position = Vector2(308, 177)
-
-[node name="Bullets" type="Node2D" parent="GameWorld"]
+[node name="Turrets" type="Node2D" parent="GameWorld"]
 
 [node name="Enemies" type="Node2D" parent="GameWorld"]
 
-[node name="Turrets" type="Node2D" parent="GameWorld"]
+[node name="Bullets" type="Node2D" parent="GameWorld"]
+
+[node name="Player" parent="GameWorld" instance=ExtResource("2_ayoe2")]
+position = Vector2(308, 177)
 
 [node name="MainGUI" type="Control" parent="."]
 layout_mode = 3

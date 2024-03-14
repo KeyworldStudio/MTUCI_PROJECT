@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=17 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
 [ext_resource type="Script" path="res://Scenes/Objects/TurretCreator.gd" id="8_m8gx5"]
 [ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="9_63nyn"]
+[ext_resource type="Script" path="res://Scenes/Objects/HealthDisplayer.gd" id="10_ydc12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
@@ -16,7 +17,7 @@ radius = 7.0
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("5_041a8")
 armor = 0.0
-coefficient_of_knockback = 1.0
+coefficient_of_knockback = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjv4w"]
 radius = 7.0
@@ -54,10 +55,10 @@ radius = 82.0061
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_i8rwf")
+max_speed = 200.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8sd8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -66,7 +67,6 @@ region_rect = Rect2(290, 86, 15, 14)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_bo7fl")
-health = 10.0
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
 position = Vector2(0, 7)
@@ -79,7 +79,7 @@ resists = SubResource("Resource_v6yhw")
 knockback_target = NodePath("../Marker2D")
 timer = NodePath("Timer")
 
-[node name="PlayerCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="PlayerHitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_vjv4w")
 
@@ -98,17 +98,35 @@ script = ExtResource("5_paud1")
 health_component = NodePath("../HealthComponent")
 
 [node name="TurretActivator" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 script = SubResource("GDScript_cx1vt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretActivator"]
 shape = SubResource("CircleShape2D_0c51q")
+debug_color = Color(0, 0.6, 0.701961, 0.0980392)
 
 [node name="TurretCreator" type="Area2D" parent="."]
 position = Vector2(18, 0)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("8_m8gx5")
 turret = ExtResource("9_63nyn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
+debug_color = Color(0, 0.6, 0, 0.164706)
 
+[node name="Label" type="Label" parent="."]
+top_level = true
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 63.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+script = ExtResource("10_ydc12")
+
+[connection signal="damaged" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]

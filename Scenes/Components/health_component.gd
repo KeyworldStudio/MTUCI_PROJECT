@@ -2,11 +2,11 @@ class_name HealthComponent
 extends Node
 
 signal health_zero
-signal healed
+signal healed(new_health)
 signal damaged
 
 @export var max_health:= 10.0
-@export var health: float
+var health: float = max_health
 
 
 func _ready():
@@ -17,7 +17,7 @@ func _ready():
 func damage(attack: Attack, resists: Resists):       
 	print_debug(str(self) + "'s Health: " + str(health))
 	health -= (attack.attack_damage - resists.armor)
-	damaged.emit()
+	damaged.emit(health)
 	if health <= 0:
 		health_zero.emit()        
 

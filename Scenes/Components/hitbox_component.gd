@@ -7,12 +7,14 @@ signal end_of_invulnerability
 
 @export var health_component: HealthComponent
 @export var knockback_component: KnockbackComponent
-@export var active: bool = true:
+@export var active: bool = true
+""":
 	set(new_value):
 		active = new_value
 		for i in get_children():
 			if i is CollisionShape2D or i is CollisionPolygon2D:
 				i.set_deferred("disabled", invulnerability or !active)
+"""
 @export var resists: Resists
 @export var knockback_target: Node2D
 @export var timer: Timer:
@@ -21,7 +23,7 @@ signal end_of_invulnerability
 		if timer is Timer:
 			timer.timeout.connect(disable_invulnerability)
 
-var invulnerability: bool = false:
+var invulnerability: bool = false :
 	set(new_value):
 		invulnerability = new_value
 		for i in get_children():
