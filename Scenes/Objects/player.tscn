@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
 [ext_resource type="Script" path="res://Scenes/Objects/TurretCreator.gd" id="8_m8gx5"]
 [ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="9_63nyn"]
-[ext_resource type="Script" path="res://Scenes/Objects/HealthDisplayer.gd" id="10_ydc12"]
+[ext_resource type="Script" path="res://Scenes/_Debug/HealthDisplayer.gd" id="10_ydc12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
@@ -65,10 +65,6 @@ shape = SubResource("CircleShape2D_8sd8m")
 texture = ExtResource("2_f7wsf")
 region_rect = Rect2(290, 86, 15, 14)
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_bo7fl")
-max_health = 5.0
-
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
 position = Vector2(0, 7)
 collision_layer = 4
@@ -77,7 +73,7 @@ script = ExtResource("4_bnasj")
 health_component = NodePath("../HealthComponent")
 knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_v6yhw")
-knockback_target = NodePath("../Marker2D")
+knockback_target = NodePath("")
 timer = NodePath("Timer")
 
 [node name="PlayerHitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
@@ -86,9 +82,12 @@ shape = SubResource("CapsuleShape2D_vjv4w")
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
 process_callback = 0
+wait_time = 0.5
 one_shot = true
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_bo7fl")
+max_health = 5.0
 
 [node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("6_2spfu")

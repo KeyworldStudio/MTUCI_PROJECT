@@ -421,3 +421,4 @@ script = ExtResource("4_ra8mp")
 [node name="WaveManager" type="Node2D" parent="."]
 script = ExtResource("3_24rvc")
 waves = Array[ExtResource("4_e8swj")]([SubResource("Resource_cmwxm"), SubResource("Resource_sy0ur")])
+loop_count = 1

@@ -15,8 +15,8 @@ func _ready():
 
 # нанесение урона
 func damage(attack: Attack, resists: Resists):       
-	print_debug(str(self) + "'s Health: " + str(health))
-	health -= (attack.attack_damage - resists.armor)
+	#print_debug(str(self) + "'s Health: " + str(health))
+	health -= max(attack.attack_damage - resists.armor, 0)
 	damaged.emit(health)
 	if health <= 0:
 		health_zero.emit()        

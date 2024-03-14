@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_fb2mf"]
 [ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_qk4gf"]
 [ext_resource type="Script" path="res://Scenes/Components/attack.gd" id="6_qnm5e"]
-[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="7_uxf1g"]
+[ext_resource type="Script" path="res://Scenes/Components/enemy_death_component.gd" id="13_iweay"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
 radius = 46.0
@@ -64,11 +64,9 @@ avoidance_enabled = true
 radius = 8.0
 
 [node name="Timer" type="Timer" parent="."]
+process_callback = 0
 wait_time = 0.1
 autostart = true
-
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_3qhdi")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 collision_layer = 8
@@ -98,12 +96,16 @@ attack = SubResource("Resource_pic8g")
 shape = SubResource("CircleShape2D_8crn4")
 debug_color = Color(0, 0.623529, 0.541176, 0.419608)
 
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_3qhdi")
+max_health = 6.0
+
 [node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("6_qk4gf")
 target = NodePath("..")
 
-[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("7_uxf1g")
+[node name="EnemyDeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("13_iweay")
 health_component = NodePath("../HealthComponent")
 
 [node name="StateChart" type="Node" parent="."]

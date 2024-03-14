@@ -11,10 +11,10 @@ attack_damage = 1.0
 knockback_force = 100.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrw24"]
-size = Vector2(9, 4)
+size = Vector2(7, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ki74f"]
-size = Vector2(9, 4)
+size = Vector2(7, 4)
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_s8d34")
@@ -30,7 +30,7 @@ attack = SubResource("Resource_8aken")
 knockback_origin = NodePath("../Marker2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0.5, 0)
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_rrw24")
 
 [node name="Collision Detector" type="Area2D" parent="."]
@@ -38,7 +38,7 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Detector"]
-position = Vector2(0.5, 0)
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_ki74f")
 
 [node name="Marker2D" type="Marker2D" parent="."]
