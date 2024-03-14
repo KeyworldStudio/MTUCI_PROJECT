@@ -24,8 +24,10 @@ func shoot():
 	instance.original_turret_base = turret_base
 	if bullet_place:
 		instance.global_position = bullet_place.global_position
-		instance.initialize_velocity(bullet_place.global_rotation,bullet_speed)
-		instance.global_rotation = bullet_place.global_rotation
+		instance.global_rotation = bullet_place.global_rotation 
+		instance.global_rotation += deg_to_rad(randf_range(-10,10))
+		instance.initialize_velocity(instance.global_rotation,bullet_speed)
+		
 	
 func _on_timer_timeout():
 	on_cooldown = false

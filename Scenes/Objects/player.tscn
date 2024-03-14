@@ -67,6 +67,7 @@ region_rect = Rect2(290, 86, 15, 14)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_bo7fl")
+max_health = 5.0
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
 position = Vector2(0, 7)
