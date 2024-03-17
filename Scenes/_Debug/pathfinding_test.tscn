@@ -12,112 +12,96 @@ vertices = PackedVector2Array(6, 6, -6, 6, -6, -6, 6, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_yhuvy"]
 vertices = PackedVector2Array(6, 8, -6, 8, -6, -6, 6, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -6, 6, -6, 6, 8, -6, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_guwqu"]
 vertices = PackedVector2Array(6, 8, -6, 8, -6, -8, 6, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -8, 6, -8, 6, 8, -6, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8tslg"]
 vertices = PackedVector2Array(6, 6, -6, 6, -6, -8, 6, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -8, 6, -8, 6, 6, -6, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ejv5f"]
 vertices = PackedVector2Array(8, 6, -6, 6, -6, -6, 8, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -6, 8, -6, 8, 6, -6, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s15pr"]
 vertices = PackedVector2Array(8, 8, -6, 8, -6, -6, 8, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -6, 8, -6, 8, 8, -6, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q7gm1"]
 vertices = PackedVector2Array(8, 8, -6, 8, -6, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -8, 8, -8, 8, 8, -6, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_hbstf"]
 vertices = PackedVector2Array(8, 6, -6, 6, -6, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-6, -8, 8, -8, 8, 6, -6, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qtcnw"]
 vertices = PackedVector2Array(8, 6, -8, 6, -8, -6, 8, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_u4jr7"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -6, 8, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 8, -6, 8, 8, -8, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gu41t"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ain7h"]
 vertices = PackedVector2Array(8, 6, -8, 6, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 6, -8, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bjlp4"]
 vertices = PackedVector2Array(6, 6, -8, 6, -8, -6, 6, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 6, -6, 6, 6, -8, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_emwxc"]
 vertices = PackedVector2Array(6, 8, -8, 8, -8, -6, 6, -6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 6, -6, 6, 8, -8, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cmmed"]
 vertices = PackedVector2Array(6, 8, -8, 8, -8, -8, 6, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 6, -8, 6, 8, -8, 8)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rxb5s"]
 vertices = PackedVector2Array(6, 6, -8, 6, -8, -8, 6, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 6, -8, 6, 6, -8, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3pt1d"]
 texture = ExtResource("1_d7qti")
@@ -421,4 +405,4 @@ script = ExtResource("4_ra8mp")
 [node name="WaveManager" type="Node2D" parent="."]
 script = ExtResource("3_24rvc")
 waves = Array[ExtResource("4_e8swj")]([SubResource("Resource_cmwxm"), SubResource("Resource_sy0ur")])
-loop_count = 1
+loop_count = 3
