@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EnemyDeathSignalBus="*res://Scenes/Components/EnemyManager/enemy_death_signal_bus.gd"
-GlobalRefs="*res://Scenes/global_refs.gd"
+EnemyDeathSignalBus="*res://Scripts/enemy_death_signal_bus.gd"
+GlobalRefs="*res://Scripts/global_refs.gd"
 
 [display]
 
@@ -68,6 +68,7 @@ place_turret={
 2d_physics/layer_3="Player Hitbox"
 2d_physics/layer_4="Enemy Hitbox"
 2d_physics/layer_5="Turret Hitbox"
+2d_physics/layer_6="Collectables"
 
 [rendering]
 

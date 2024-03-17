@@ -1,18 +1,18 @@
 [gd_scene load_steps=11 format=3 uid="uid://b01ang7hvulbj"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_73hks"]
-[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="1_e3r42"]
-[ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="1_ex2cm"]
-[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="2_1vxt3"]
-[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_5phil"]
-[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="5_wyttb"]
-[ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="6_t18tv"]
+[ext_resource type="Script" path="res://Scripts/Turrets/turret.gd" id="1_t5f27"]
+[ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="2_7dpu6"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="3_araxt"]
+[ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="4_ugntn"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="5_67tf4"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="6_m5kj0"]
+[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/Turrets/turret_gun.tscn" id="7_wkspl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_be6am"]
 radius = 7.0
 
 [sub_resource type="Resource" id="Resource_u2a0n"]
-script = ExtResource("6_t18tv")
+script = ExtResource("6_m5kj0")
 armor = 0.0
 coefficient_of_knockback = 1.0
 
@@ -22,31 +22,31 @@ radius = 8.0
 [node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_73hks")
+script = ExtResource("1_t5f27")
 guns = [NodePath("Turret_gun")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_be6am")
 
 [node name="Turret-base" type="Sprite2D" parent="."]
-texture = ExtResource("1_ex2cm")
+texture = ExtResource("2_7dpu6")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("1_e3r42")
+script = ExtResource("3_araxt")
 max_health = 3.0
 
 [node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("5_5phil")
+script = ExtResource("4_ugntn")
 health_component = NodePath("../HealthComponent")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("5_wyttb")
+script = ExtResource("5_67tf4")
 health_component = NodePath("../HealthComponent")
 resists = SubResource("Resource_u2a0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_s6akb")
 
-[node name="Turret_gun" parent="." instance=ExtResource("2_1vxt3")]
+[node name="Turret_gun" parent="." instance=ExtResource("7_wkspl")]

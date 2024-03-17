@@ -11,7 +11,7 @@ signal died
 
 
 # функция смерти
-func death():                                             
+func death():
 	if health_component.get_parent() == GlobalRefs.player_node:
 		get_tree().reload_current_scene()
 	else:

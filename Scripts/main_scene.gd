@@ -8,6 +8,7 @@ func _ready():
 	GlobalRefs.bullet_holder = $GameWorld/Bullets  as Node2D
 	GlobalRefs.turret_holder = $GameWorld/Turrets  as Node2D
 	GlobalRefs.enemy_holder = $GameWorld/Enemies  as Node2D
+	GlobalRefs.drop_holder = $GameWorld/Drops as Node2D
 	GlobalRefs.gui_holder = $MainGUI as Control
 
 

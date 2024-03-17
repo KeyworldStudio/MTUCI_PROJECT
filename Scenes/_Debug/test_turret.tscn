@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxfudjch1s5op"]
 
-[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="1_qt7mk"]
-[ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/player.tscn" id="3_6pqhv"]
-[ext_resource type="PackedScene" uid="uid://dot3v41487bjd" path="res://Scenes/Objects/double_turret.tscn" id="4_rte7d"]
+[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="1_qt7mk"]
+[ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/Player/player.tscn" id="3_6pqhv"]
+[ext_resource type="PackedScene" uid="uid://dot3v41487bjd" path="res://Scenes/Objects/Turrets/double_turret.tscn" id="4_rte7d"]
 
 [sub_resource type="TileSet" id="TileSet_b7wgl"]
 resource_local_to_scene = true

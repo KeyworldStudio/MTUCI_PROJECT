@@ -1,21 +1,21 @@
 [gd_scene load_steps=17 format=3 uid="uid://08tbf1hiogqj"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/player_movement.gd" id="1_i8rwf"]
+[ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
-[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_bo7fl"]
-[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_bnasj"]
-[ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_041a8"]
-[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="5_paud1"]
-[ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_2spfu"]
-[ext_resource type="Script" path="res://Scenes/Objects/TurretCreator.gd" id="8_m8gx5"]
-[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/turret.tscn" id="9_63nyn"]
-[ext_resource type="Script" path="res://Scenes/_Debug/HealthDisplayer.gd" id="10_ydc12"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_v32i7"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_fbra3"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_e3uyi"]
+[ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="6_s7rs4"]
+[ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="7_tdum8"]
+[ext_resource type="Script" path="res://Scripts/Player/turret_creator.gd" id="8_m8gx5"]
+[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="9_63nyn"]
+[ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
 radius = 7.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
-script = ExtResource("5_041a8")
+script = ExtResource("4_fbra3")
 armor = 0.0
 coefficient_of_knockback = 3.0
 
@@ -65,15 +65,14 @@ shape = SubResource("CircleShape2D_8sd8m")
 texture = ExtResource("2_f7wsf")
 region_rect = Rect2(290, 86, 15, 14)
 
-[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 position = Vector2(0, 7)
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("4_bnasj")
+script = ExtResource("3_v32i7")
 health_component = NodePath("../HealthComponent")
 knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_v6yhw")
-knockback_target = NodePath("")
 timer = NodePath("Timer")
 
 [node name="PlayerHitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
@@ -86,15 +85,15 @@ wait_time = 0.5
 one_shot = true
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_bo7fl")
+script = ExtResource("5_e3uyi")
 max_health = 5.0
 
 [node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
-script = ExtResource("6_2spfu")
+script = ExtResource("6_s7rs4")
 target = NodePath("..")
 
 [node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("5_paud1")
+script = ExtResource("7_tdum8")
 health_component = NodePath("../HealthComponent")
 
 [node name="TurretActivator" type="Area2D" parent="."]
@@ -126,7 +125,7 @@ offset_bottom = 39.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
-script = ExtResource("10_ydc12")
+script = ExtResource("10_uc35w")
 
 [connection signal="damaged" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]

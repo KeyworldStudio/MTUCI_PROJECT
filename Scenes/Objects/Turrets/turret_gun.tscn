@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://cq7f3luyl2pkt"]
 
-[ext_resource type="Texture2D" uid="uid://drk87uniwmoew" path="res://Assets/Visual/Sprites/TestTopdownTurret.png" id="1_f8x2e"]
-[ext_resource type="Script" path="res://Scenes/Objects/turret_gun.gd" id="1_g844w"]
-[ext_resource type="PackedScene" uid="uid://bsunkp8872rsk" path="res://Scenes/Objects/bullet.tscn" id="2_3xi4e"]
+[ext_resource type="Script" path="res://Scripts/Turrets/turret_gun.gd" id="1_ldy88"]
+[ext_resource type="PackedScene" uid="uid://bsunkp8872rsk" path="res://Scenes/Objects/Turrets/bullet.tscn" id="2_u8rxb"]
+[ext_resource type="Texture2D" uid="uid://drk87uniwmoew" path="res://Assets/Visual/Sprites/TestTopdownTurret.png" id="3_2oal1"]
 
 [node name="Turret_gun" type="Node2D" node_paths=PackedStringArray("timer", "bullet_place")]
-script = ExtResource("1_g844w")
+script = ExtResource("1_ldy88")
 timer = NodePath("Timer")
-bullet = ExtResource("2_3xi4e")
+bullet = ExtResource("2_u8rxb")
 bullet_place = NodePath("Marker2D")
 
 [node name="Turret-gun" type="Sprite2D" parent="."]
-texture = ExtResource("1_f8x2e")
+texture = ExtResource("3_2oal1")
 offset = Vector2(3, 0)
 
 [node name="Marker2D" type="Marker2D" parent="."]

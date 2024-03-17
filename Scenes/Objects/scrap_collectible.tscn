@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxi1gobebnnh5"]
+
+[ext_resource type="Texture2D" uid="uid://b846b4mfroveo" path="res://Assets/Visual/Sprites/metal_gear.png" id="1_adla4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_osl5l"]
+radius = 6.0
+
+[node name="Scrap" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_adla4")
+
+[node name="ScrapCollider" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScrapCollider"]
+shape = SubResource("CircleShape2D_osl5l")

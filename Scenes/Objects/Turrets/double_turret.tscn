@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dot3v41487bjd"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/turret.gd" id="1_je33k"]
+[ext_resource type="Script" path="res://Scripts/Turrets/turret.gd" id="1_je33k"]
 [ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="2_1ovlv"]
-[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/turret_gun.tscn" id="3_c0ram"]
-[ext_resource type="Script" path="res://Scenes/Components/death_component.gd" id="4_xh0xr"]
-[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="5_q1te6"]
+[ext_resource type="PackedScene" uid="uid://cq7f3luyl2pkt" path="res://Scenes/Objects/Turrets/turret_gun.tscn" id="3_c0ram"]
+[ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="4_xh0xr"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_q1te6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3skp"]
 size = Vector2(16, 16)

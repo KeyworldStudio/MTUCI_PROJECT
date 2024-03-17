@@ -1,18 +1,18 @@
 [gd_scene load_steps=20 format=3 uid="uid://b7gai7bqt5udr"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/enemy.gd" id="1_1i2tc"]
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_1i2tc"]
 [ext_resource type="Texture2D" uid="uid://bmwq5ebraxadu" path="res://Assets/Visual/Sprites/TestTopdownEnemy.png" id="2_ake3j"]
-[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_3qhdi"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_4ov4x"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_005sx"]
-[ext_resource type="Script" path="res://Scenes/Components/hitbox_component.gd" id="4_62k7e"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_ipmnn"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_u3vjf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_og3ay"]
-[ext_resource type="Script" path="res://Scenes/Components/hurtbox_component.gd" id="5_oy2gd"]
-[ext_resource type="Script" path="res://Scenes/Components/resists.gd" id="5_xnyu5"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="5_pioc2"]
+[ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="6_6wqqm"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_fb2mf"]
-[ext_resource type="Script" path="res://Scenes/Components/knockback_component.gd" id="6_qk4gf"]
-[ext_resource type="Script" path="res://Scenes/Components/attack.gd" id="6_qnm5e"]
-[ext_resource type="Script" path="res://Scenes/Components/enemy_death_component.gd" id="13_iweay"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="7_6pcvx"]
+[ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="8_j8clu"]
+[ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="9_8am6s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
 radius = 46.0
@@ -21,7 +21,7 @@ radius = 46.0
 radius = 6.0
 
 [sub_resource type="Resource" id="Resource_h0kpn"]
-script = ExtResource("5_xnyu5")
+script = ExtResource("4_ipmnn")
 armor = 0.0
 coefficient_of_knockback = 1.0
 
@@ -29,7 +29,7 @@ coefficient_of_knockback = 1.0
 radius = 8.0
 
 [sub_resource type="Resource" id="Resource_pic8g"]
-script = ExtResource("6_qnm5e")
+script = ExtResource("6_6wqqm")
 attack_damage = 1.0
 knockback_force = 100.0
 
@@ -71,7 +71,7 @@ autostart = true
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("4_62k7e")
+script = ExtResource("3_4ov4x")
 health_component = NodePath("../HealthComponent")
 knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_h0kpn")
@@ -89,7 +89,7 @@ debug_color = Color(0.964706, 0, 0.498039, 0.419608)
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource("5_oy2gd")
+script = ExtResource("5_pioc2")
 attack = SubResource("Resource_pic8g")
 
 [node name="HurtboxCollider" type="CollisionShape2D" parent="HurtBox"]
@@ -97,15 +97,15 @@ shape = SubResource("CircleShape2D_8crn4")
 debug_color = Color(0, 0.623529, 0.541176, 0.419608)
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_3qhdi")
+script = ExtResource("7_6pcvx")
 max_health = 6.0
 
 [node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
-script = ExtResource("6_qk4gf")
+script = ExtResource("8_j8clu")
 target = NodePath("..")
 
 [node name="EnemyDeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("13_iweay")
+script = ExtResource("9_8am6s")
 health_component = NodePath("../HealthComponent")
 
 [node name="StateChart" type="Node" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://daype233016vu"]
 
-[ext_resource type="Script" path="res://Scenes/Components/hurtbox_component.gd" id="1_p74dy"]
-[ext_resource type="Script" path="res://Scenes/Components/attack.gd" id="2_voyqe"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="1_p74dy"]
+[ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="2_voyqe"]
 [ext_resource type="Texture2D" uid="uid://c4udtvblix4kc" path="res://Assets/Visual/Sheets/tilemap.png" id="2_w52pp"]
 
 [sub_resource type="Resource" id="Resource_pv4fw"]
