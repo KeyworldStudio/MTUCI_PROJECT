@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7gai7bqt5udr"]
+[gd_scene load_steps=21 format=3 uid="uid://b7gai7bqt5udr"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_1i2tc"]
 [ext_resource type="Texture2D" uid="uid://bmwq5ebraxadu" path="res://Assets/Visual/Sprites/TestTopdownEnemy.png" id="2_ake3j"]
+[ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="2_ktf76"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_4ov4x"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_005sx"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_ipmnn"]
@@ -13,9 +14,6 @@
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="7_6pcvx"]
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="8_j8clu"]
 [ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="9_8am6s"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
-radius = 46.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
 radius = 6.0
@@ -36,6 +34,9 @@ knockback_force = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8crn4"]
 radius = 8.94427
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
+radius = 46.0
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
@@ -44,20 +45,12 @@ script = ExtResource("1_1i2tc")
 dash_speed = 200.0
 dash_acceleration = 4000.0
 
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ake3j")
 region_rect = Rect2(272, 136, 16, 16)
-
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerDetector"]
-shape = SubResource("CircleShape2D_hm2is")
-debug_color = Color(0.647059, 0.701961, 0, 0.101961)
-
-[node name="GeometryCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_qu30e")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
@@ -104,9 +97,21 @@ max_health = 6.0
 script = ExtResource("8_j8clu")
 target = NodePath("..")
 
-[node name="EnemyDeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="EnemyDeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component", "drop_spawner")]
 script = ExtResource("9_8am6s")
 health_component = NodePath("../HealthComponent")
+drop_spawner = NodePath("../DropSpawner")
+
+[node name="DropSpawner" type="Node2D" parent="."]
+script = ExtResource("2_ktf76")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_hm2is")
+debug_color = Color(0.647059, 0.701961, 0, 0.101961)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("3_005sx")
@@ -139,9 +144,9 @@ script = ExtResource("6_fb2mf")
 to = NodePath("../../Pursuit")
 delay_seconds = 1.0
 
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_area_2d_body_entered"]
 [connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]

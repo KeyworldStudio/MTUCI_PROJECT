@@ -11,8 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="9_63nyn"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8sd8m"]
-radius = 7.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
+radius = 4.0
+height = 14.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("4_fbra3")
@@ -31,7 +32,7 @@ func _ready():
 	body_entered.connect(_on_area_2d_body_entered)
 	body_exited.connect(_on_area_2d_body_exited)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	collider_set_disabled(Input.is_action_pressed(\"ui_accept\"))
 
 func collider_set_disabled(value: bool):
@@ -58,12 +59,12 @@ collision_layer = 2
 script = ExtResource("1_i8rwf")
 max_speed = 200.0
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8sd8m")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_f7wsf")
 region_rect = Rect2(290, 86, 15, 14)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_nro1a")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 position = Vector2(0, 7)

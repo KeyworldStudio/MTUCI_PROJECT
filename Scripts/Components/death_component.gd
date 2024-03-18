@@ -13,7 +13,7 @@ signal died
 # функция смерти
 func death():
 	if health_component.get_parent() == GlobalRefs.player_node:
-		get_tree().reload_current_scene()
+		get_tree().reload_current_scene.call_deferred()
 	else:
 		health_component.get_parent().queue_free()
-		died.emit()
+	died.emit()

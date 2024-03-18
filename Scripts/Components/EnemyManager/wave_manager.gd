@@ -48,7 +48,7 @@ func _on_wave_timer_timeout():
 
 
 func _set_current_enemies(value: int): 
-	current_enemies = maxf(value,0)
+	current_enemies = maxi(value,0)
 	if current_enemies==0:
 		wave_end()
 

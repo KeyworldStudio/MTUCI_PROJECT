@@ -40,7 +40,7 @@ func motion_pursuit() -> void:
 
 func _on_pursuit_state_physics_processing(_delta):
 	motion_pursuit()
-	#if velocity.length_squared() > 0.1:
+	
 	rotation = global_position.angle_to_point(nav_agent.get_next_path_position())
 
 

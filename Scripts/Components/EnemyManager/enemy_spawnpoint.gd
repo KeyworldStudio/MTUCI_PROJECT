@@ -9,11 +9,6 @@ extends Sprite2D
 func _ready():
 	await get_tree().create_timer(spawn_delay).timeout
 	var instanced_scene = enemy_scene.instantiate()
-	GlobalRefs.enemy_holder.add_child(instanced_scene)
-	instanced_scene.global_position = global_position
+	GlobalRefs.enemy_holder.add_child.call_deferred(instanced_scene)
+	instanced_scene.set_deferred("global_position", global_position)
 	queue_free()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
