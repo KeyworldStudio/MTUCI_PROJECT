@@ -2,11 +2,15 @@ class_name HealthComponent
 extends Node
 
 signal health_zero
-signal healed(new_health)
-signal damaged
+signal healed(new_value)
+signal damaged(new_value)
+signal health_changed(new_value)
 
 @export var max_health:= 10.0
-var health: float = max_health
+var health: float = max_health:
+	set(new_value):
+		health = clampf(new_value,0,max_health)
+		health_changed.emit(health)
 
 
 func _ready():
@@ -24,8 +28,9 @@ func damage(attack: Attack, resists: Resists):
 
 
 # лечение
-func healing(recovery):            
-	health += recovery
+func heal(recovery):
+	print_debug("BWAH??")       
+	health = minf(health + recovery, max_health)
 	healed.emit()
 
 

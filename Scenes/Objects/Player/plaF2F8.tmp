@@ -123,9 +123,8 @@ resource_component = NodePath("../ResourceComponent")
 shape = SubResource("CircleShape2D_vl8fu")
 debug_color = Color(0, 0.6, 0, 0.164706)
 
-[node name="ResourceComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="ResourceComponent" type="Node" parent="."]
 script = ExtResource("10_6rnd7")
-health_component = NodePath("../HealthComponent")
 
 [node name="ResourceCollector" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
 collision_layer = 0
@@ -148,6 +147,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 script = ExtResource("10_uc35w")
 
-[connection signal="health_changed" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
+[connection signal="damaged" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]
 [connection signal="scrap_changed" from="ResourceComponent" to="Label" method="_on_resource_component_scrap_changed"]

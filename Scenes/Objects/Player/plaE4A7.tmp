@@ -111,27 +111,24 @@ script = SubResource("GDScript_cx1vt")
 shape = SubResource("CircleShape2D_0c51q")
 debug_color = Color(0, 0.6, 0.701961, 0.0980392)
 
-[node name="TurretCreator" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
+[node name="TurretCreator" type="Area2D" parent="."]
 position = Vector2(18, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_m8gx5")
 turret = ExtResource("9_63nyn")
-resource_component = NodePath("../ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
 debug_color = Color(0, 0.6, 0, 0.164706)
 
-[node name="ResourceComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="ResourceComponent" type="Node" parent="."]
 script = ExtResource("10_6rnd7")
-health_component = NodePath("../HealthComponent")
 
-[node name="ResourceCollector" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
+[node name="ResourceCollector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("11_2o3mk")
-resource_component = NodePath("../ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceCollector"]
 shape = SubResource("CircleShape2D_hv12w")
@@ -148,6 +145,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 script = ExtResource("10_uc35w")
 
-[connection signal="health_changed" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
+[connection signal="damaged" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]
 [connection signal="scrap_changed" from="ResourceComponent" to="Label" method="_on_resource_component_scrap_changed"]

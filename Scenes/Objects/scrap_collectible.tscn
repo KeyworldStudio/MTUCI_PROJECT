@@ -12,10 +12,8 @@ collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_3sopg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_fqitd")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_adla4")
 
-[node name="Scrap" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fqitd")
