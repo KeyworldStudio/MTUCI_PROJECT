@@ -111,6 +111,10 @@ script = SubResource("GDScript_cx1vt")
 shape = SubResource("CircleShape2D_0c51q")
 debug_color = Color(0, 0.6, 0.701961, 0.0980392)
 
+[node name="ResourceComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("10_6rnd7")
+health_component = NodePath("../HealthComponent")
+
 [node name="TurretCreator" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
 position = Vector2(18, 0)
 collision_layer = 0
@@ -122,10 +126,6 @@ resource_component = NodePath("../ResourceComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
 debug_color = Color(0, 0.6, 0, 0.164706)
-
-[node name="ResourceComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("10_6rnd7")
-health_component = NodePath("../HealthComponent")
 
 [node name="ResourceCollector" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
 collision_layer = 0

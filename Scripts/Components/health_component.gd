@@ -28,8 +28,7 @@ func damage(attack: Attack, resists: Resists):
 
 
 # лечение
-func heal(recovery):
-	print_debug("BWAH??")       
+func heal(recovery):    
 	health = minf(health + recovery, max_health)
 	healed.emit()
 
