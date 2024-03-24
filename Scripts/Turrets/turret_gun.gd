@@ -17,10 +17,10 @@ func shoot():
 	GlobalRefs.bullet_holder.add_child.call_deferred(instance)
 	instance.original_turret_base = turret_base
 	if bullet_place:
+		var intended_angle:float = bullet_place.global_rotation +deg_to_rad(randf_range(-10,10))
 		instance.global_position = bullet_place.global_position
-		instance.global_rotation = bullet_place.global_rotation 
-		instance.global_rotation += deg_to_rad(randf_range(-10,10))
-		instance.initialize_velocity(instance.global_rotation,bullet_speed)
+		instance.global_rotation = intended_angle
+		instance.initialize_velocity(intended_angle,bullet_speed)
 		
 	
 func _on_timer_timeout():
