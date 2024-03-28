@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://l8b35yvhwxnn"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Turrets/big_turret_aim.gd" id="1_f75ck"]
+[ext_resource type="Texture2D" uid="uid://ct1dkm4ndxgkf" path="res://Assets/Visual/Sprites/BigTurretGun.png" id="1_glunt"]
+[ext_resource type="PackedScene" uid="uid://bsunkp8872rsk" path="res://Scenes/Objects/Turrets/bullet.tscn" id="2_6sc2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6b5jm"]
+radius = 47.0
+
+[node name="BigTurretGun" type="Node2D" node_paths=PackedStringArray("player_proximity_detector", "bullet_spawn_point", "reload_timer")]
+script = ExtResource("1_f75ck")
+player_proximity_detector = NodePath("Area2D")
+bullet_scene = ExtResource("2_6sc2t")
+bullet_spawn_point = NodePath("BulletSpawnPoint")
+reload_timer = NodePath("ReloadTimer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+texture = ExtResource("1_glunt")
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(28, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6b5jm")
+debug_color = Color(0.756863, 0, 0.780392, 0.054902)
+
+[node name="ReloadTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

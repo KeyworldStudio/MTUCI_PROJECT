@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cba7b5dsl0vle"]
+
+[ext_resource type="Texture2D" uid="uid://cadatn31eoibx" path="res://Assets/Visual/Sprites/BigTurretBase.png" id="1_dhrhe"]
+[ext_resource type="Script" path="res://Scenes/Objects/Turrets/big_turret_base.gd" id="1_ev2xa"]
+[ext_resource type="PackedScene" uid="uid://l8b35yvhwxnn" path="res://Scenes/Objects/Turrets/big_turret_gun.tscn" id="2_yn1jb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3hec0"]
+radius = 23.1948
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gt71"]
+radius = 15.0333
+
+[node name="BigTurretBase" type="CharacterBody2D" node_paths=PackedStringArray("player_proximity_detector")]
+script = ExtResource("1_ev2xa")
+player_proximity_detector = NodePath("NoDragZone")
+
+[node name="NoDragZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoDragZone"]
+shape = SubResource("CircleShape2D_3hec0")
+debug_color = Color(0.94902, 0, 0.568627, 0.129412)
+
+[node name="BigTurretBase" type="Sprite2D" parent="."]
+texture = ExtResource("1_dhrhe")
+
+[node name="BigTurretGun" parent="." instance=ExtResource("2_yn1jb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6gt71")
