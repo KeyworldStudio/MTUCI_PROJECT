@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends CharacterBody2D
 class_name Turret
 
 @export var guns: Array[Node2D]:

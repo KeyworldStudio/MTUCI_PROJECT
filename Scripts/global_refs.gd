@@ -7,5 +7,3 @@ var turret_holder: Node2D
 var enemy_holder: Node2D
 var drop_holder: Node2D
 var gui_holder: Control
-
-
