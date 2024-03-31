@@ -1,10 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=29 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_d7qti"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/wave_manager.gd" id="2_w7j46"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_wave.gd" id="3_ah40y"]
 [ext_resource type="PackedScene" uid="uid://d4myegbnqgje8" path="res://Scenes/Levels/Enemy Waves/test_wave_1.tscn" id="5_etadm"]
 [ext_resource type="PackedScene" uid="uid://b7w448rh1d8q3" path="res://Scenes/Levels/Enemy Waves/test_wave_2.tscn" id="6_5amkm"]
+[ext_resource type="Script" path="res://Scripts/level_transition.gd" id="6_rgpvo"]
+[ext_resource type="PackedScene" uid="uid://dc43wpjcxe2tr" path="res://Scenes/_Debug/transition_test.tscn" id="7_ql8mx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17yu"]
 vertices = PackedVector2Array(6, 6, -6, 6, -6, -6, 6, -6)
@@ -384,6 +386,8 @@ wave_scene = ExtResource("6_5amkm")
 wave_time = 20.0
 enemy_count = 5
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq3al"]
+
 [node name="PathfindingTest" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -402,3 +406,13 @@ layer_0/tile_data = PackedInt32Array(0, 327680, 1, 65575, 458752, 2, 39, 458752,
 script = ExtResource("2_w7j46")
 waves = Array[ExtResource("3_ah40y")]([SubResource("Resource_cmwxm"), SubResource("Resource_sy0ur")])
 loop_count = 3
+
+[node name="LevelTransition" type="Area2D" parent="."]
+position = Vector2(143, 11)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_rgpvo")
+level_scene = ExtResource("7_ql8mx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
+shape = SubResource("RectangleShape2D_iq3al")
