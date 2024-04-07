@@ -19,11 +19,10 @@ coefficient_of_knockback = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_s6akb"]
 radius = 8.0
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("guns")]
+[node name="Turret" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 3
 script = ExtResource("1_t5f27")
-guns = [NodePath("Turret_gun")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_be6am")
@@ -39,6 +38,8 @@ max_health = 3.0
 script = ExtResource("4_ugntn")
 health_component = NodePath("../HealthComponent")
 
+[node name="Turret_gun" parent="." instance=ExtResource("7_wkspl")]
+
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 16
 collision_mask = 0
@@ -48,5 +49,3 @@ resists = SubResource("Resource_u2a0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_s6akb")
-
-[node name="Turret_gun" parent="." instance=ExtResource("7_wkspl")]
