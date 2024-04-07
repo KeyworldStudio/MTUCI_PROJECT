@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://y3aaagjy6vq7"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_k7q7u"]
+specular_color = Color(0.870588, 0, 0.0627451, 1)
+
+[node name="a_fucking_ray" type="Node2D"]
+
+[node name="Begin" type="Sprite2D" parent="."]
+position = Vector2(-0.25, 0)
+scale = Vector2(0.5, 1)
+texture = SubResource("CanvasTexture_k7q7u")
+
+[node name="Ray" type="Sprite2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(69, 0)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(69, 0)
