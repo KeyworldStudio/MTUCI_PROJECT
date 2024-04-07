@@ -1,5 +1,7 @@
 extends Node
 
+
+
 func _ready():
 	GlobalRefs.player_node = $GameWorld/Player as PlayerController
 	GlobalRefs.game_world_node = $GameWorld as Node2D
@@ -8,3 +10,6 @@ func _ready():
 	GlobalRefs.enemy_holder = $GameWorld/Enemies  as Node2D
 	GlobalRefs.drop_holder = $GameWorld/Drops as Node2D
 	GlobalRefs.gui_holder = $MainGUI as Control
+
+
+
