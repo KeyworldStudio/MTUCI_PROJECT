@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbijsdbhqliw4"]
+
+[ext_resource type="Script" path="res://Scenes/Components/hurtbox_component.gd" id="1_0rty2"]
+[ext_resource type="Script" path="res://Scenes/Objects/mine_explosion.gd" id="1_8ymgh"]
+[ext_resource type="Script" path="res://Scenes/Components/attack.gd" id="2_84j2d"]
+
+[sub_resource type="Resource" id="Resource_e4kma"]
+script = ExtResource("2_84j2d")
+attack_damage = 10.0
+knockback_force = 1000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0v2v"]
+radius = 74.027
+
+[node name="mine_explosion" type="Node2D"]
+script = ExtResource("1_8ymgh")
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("1_0rty2")
+attack = SubResource("Resource_e4kma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_b0v2v")
