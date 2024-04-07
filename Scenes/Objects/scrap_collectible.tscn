@@ -7,9 +7,8 @@
 resource_local_to_scene = true
 radius = 5.0
 
-[node name="ScrapCollider" type="Area2D"]
+[node name="ScrapCollider" type="CharacterBody2D"]
 collision_layer = 32
-collision_mask = 0
 script = ExtResource("1_3sopg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
