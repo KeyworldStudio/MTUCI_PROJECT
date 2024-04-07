@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=27 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_d7qti"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_eawms"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/wave_manager.gd" id="2_w7j46"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_wave.gd" id="3_ah40y"]
 [ext_resource type="PackedScene" uid="uid://d4myegbnqgje8" path="res://Scenes/Levels/Enemy Waves/test_wave_1.tscn" id="5_etadm"]
@@ -383,13 +384,16 @@ wave_scene = ExtResource("6_5amkm")
 wave_time = 20.0
 enemy_count = 5
 
-[node name="PathfindingTest" type="Node2D"]
+[node name="PathfindingTest" type="Node2D" node_paths=PackedStringArray("top_left_limit", "bottom_right_limit")]
+script = ExtResource("1_eawms")
+top_left_limit = NodePath("TopLeft")
+bottom_right_limit = NodePath("BottomRight")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -47.0
-offset_top = -37.0
-offset_right = 688.0
-offset_bottom = 404.0
+offset_left = -34.0
+offset_top = -31.0
+offset_right = 701.0
+offset_bottom = 410.0
 color = Color(0, 0, 0, 1)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -401,3 +405,8 @@ layer_0/tile_data = PackedInt32Array(0, 327680, 1, 65575, 458752, 2, 39, 458752,
 script = ExtResource("2_w7j46")
 waves = Array[ExtResource("3_ah40y")]([SubResource("Resource_cmwxm"), SubResource("Resource_sy0ur")])
 loop_count = 3
+
+[node name="TopLeft" type="Marker2D" parent="."]
+
+[node name="BottomRight" type="Marker2D" parent="."]
+position = Vector2(641, 368)
