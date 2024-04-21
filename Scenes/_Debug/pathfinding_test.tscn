@@ -6,8 +6,6 @@
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_wave.gd" id="3_ah40y"]
 [ext_resource type="PackedScene" uid="uid://d4myegbnqgje8" path="res://Scenes/Levels/Enemy Waves/test_wave_1.tscn" id="5_etadm"]
 [ext_resource type="PackedScene" uid="uid://b7w448rh1d8q3" path="res://Scenes/Levels/Enemy Waves/test_wave_2.tscn" id="6_5amkm"]
-[ext_resource type="Script" path="res://Scripts/level_transition.gd" id="6_rgpvo"]
-[ext_resource type="PackedScene" uid="uid://dc43wpjcxe2tr" path="res://Scenes/_Debug/transition_test.tscn" id="7_ql8mx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17yu"]
 vertices = PackedVector2Array(6, 6, -6, 6, -6, -6, 6, -6)
