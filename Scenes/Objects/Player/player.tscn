@@ -22,7 +22,7 @@ height = 14.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("4_fbra3")
-armor = 0.0
+armor = 1.0
 coefficient_of_knockback = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjv4w"]

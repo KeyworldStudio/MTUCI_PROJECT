@@ -28,7 +28,6 @@ starting_scene = ExtResource("1_7ajfh")
 
 [node name="PlayerController" parent="GameWorld/Player" instance=ExtResource("2_ayoe2")]
 position = Vector2(308, 177)
-max_speed = 100.0
 
 [node name="PlayerCamera" type="Camera2D" parent="GameWorld/Player"]
 editor_draw_limits = true
