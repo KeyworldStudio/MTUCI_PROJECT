@@ -34,14 +34,12 @@ func motion_pursuit() -> void:
 func _on_pursuit_state_physics_processing(_delta):
 	motion_pursuit()
 	rotation = global_position.angle_to_point(nav_agent.get_next_path_position())
-	player_sightline.target_position = player.global_position - global_position
-	player_sightline.global_rotation = 0
-	if not(player_sightline.is_colliding()):
-		$StateChart.send_event("see_the_player")
+	
 
 
 func _on_pursuit_state_entered():
 	acceleration = pursuit_acceleration
+	player_sightline.enabled = true
 #endregion
 
 
@@ -65,6 +63,7 @@ func _on_attack_state_physics_processing(_delta):
 
 
 func _on_attack_state_entered():
+	player_sightline.enabled = false
 	acceleration = attack_acceleration
 	rotation = global_position.angle_to_point(player.global_position)
 	shoot()
@@ -80,6 +79,10 @@ func makepath() -> void:
 
 func _on_timer_timeout() -> void:
 	makepath()
+	player_sightline.target_position = player.global_position - global_position
+	player_sightline.global_rotation = 0
+	if not(player_sightline.is_colliding()):
+		$StateChart.send_event("see_the_player")
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
