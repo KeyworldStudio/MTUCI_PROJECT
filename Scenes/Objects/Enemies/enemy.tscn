@@ -45,12 +45,12 @@ script = ExtResource("1_1i2tc")
 dash_speed = 200.0
 dash_acceleration = 4000.0
 
-[node name="GeometryCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_qu30e")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ake3j")
 region_rect = Rect2(272, 136, 16, 16)
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true

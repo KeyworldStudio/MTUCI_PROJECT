@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://dag66grdq6o78"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Enemies/ranged_enemy.gd" id="1_j8dao"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_wagro"]
+[ext_resource type="PackedScene" uid="uid://cag6br1vm13bt" path="res://Scenes/Objects/Enemies/enemy_bullet.tscn" id="2_ihx1q"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="3_257cy"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="3_oc303"]
+[ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="4_vhbw0"]
+[ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="5_ybmfm"]
+[ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="6_qd7mg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="8_fqy8c"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="9_ytss7"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="10_5nkbi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="11_2ecfx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1qg1u"]
+radius = 6.0
+
+[sub_resource type="Resource" id="Resource_kjcer"]
+script = ExtResource("3_oc303")
+armor = 0.0
+coefficient_of_knockback = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgcdd"]
+radius = 8.0
+
+[node name="RangedEnemy" type="CharacterBody2D" node_paths=PackedStringArray("bullet_place")]
+collision_layer = 2
+script = ExtResource("1_j8dao")
+bullet = ExtResource("2_ihx1q")
+bullet_place = NodePath(".")
+bullet_speed = 150.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-117, -59)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(113, 51, 121, 51, 125, 59, 121, 67, 113, 67, 109, 59)
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1qg1u")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 8.0
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_wagro")
+health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
+resists = SubResource("Resource_kjcer")
+timer = NodePath("InvincibilityTimer")
+
+[node name="InvincibilityTimer" type="Timer" parent="HitboxComponent"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_mgcdd")
+debug_color = Color(0.964706, 0, 0.498039, 0.419608)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_257cy")
+
+[node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("4_vhbw0")
+target = NodePath("..")
+
+[node name="EnemyDeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component", "drop_spawner")]
+script = ExtResource("5_ybmfm")
+health_component = NodePath("../HealthComponent")
+drop_spawner = NodePath("../DropSpawner")
+
+[node name="DropSpawner" type="Node2D" parent="."]
+script = ExtResource("6_qd7mg")
+
+[node name="SightLine" type="RayCast2D" parent="."]
+target_position = Vector2(500, 0)
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("8_fqy8c")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("9_ytss7")
+initial_state = NodePath("Pursuit")
+
+[node name="Pursuit" type="Node" parent="StateChart/Root"]
+script = ExtResource("10_5nkbi")
+
+[node name="To Attack" type="Node" parent="StateChart/Root/Pursuit"]
+script = ExtResource("11_2ecfx")
+to = NodePath("../../Attack")
+event = &"see_the_player"
+delay_seconds = 1.0
+
+[node name="Attack" type="Node" parent="StateChart/Root"]
+script = ExtResource("10_5nkbi")
+
+[node name="To Pursuit" type="Node" parent="StateChart/Root/Attack"]
+script = ExtResource("11_2ecfx")
+to = NodePath("../../Pursuit")
+delay_seconds = 2.0
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]

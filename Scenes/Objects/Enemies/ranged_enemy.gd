@@ -1,31 +1,26 @@
 extends CharacterBody2D
 
 @export var speed: float = 50.0
-@export var dash_speed: float = 100.0
 @export var pursuit_acceleration: float = 400.0
-@export var dash_acceleration: float = 2000.0
-@export var rest_acceleration: float = 500.0
+@export var attack_acceleration: float = 500.0
+@export var bullet: PackedScene
+@export var bullet_place: Node2D
+@export var bullet_speed: float = 500.0
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
 var acceleration: float
-var dash_target: Vector2
+var shoot_target: Vector2
 
 @onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $NavigationAgent2D as NavigationAgent2D
-@onready var player_detector: = $PlayerDetector as Area2D
+@onready var player_sightline: = $SightLine as RayCast2D
 
 
 func _physics_process(delta):
 	velocity = velocity.move_toward(desired_velocity,acceleration * delta)
 	#velocity = Vector2.RIGHT * 10
 	move_and_slide()
-
-
-func change_detector_disabled(new_value: bool) -> void:
-	for i in player_detector.get_children():
-		if i is CollisionShape2D or i is CollisionPolygon2D:
-			i.set_deferred("disabled", new_value)
 
 
 #region Pursuit state
@@ -38,26 +33,31 @@ func motion_pursuit() -> void:
 
 func _on_pursuit_state_physics_processing(_delta):
 	motion_pursuit()
-	
 	rotation = global_position.angle_to_point(nav_agent.get_next_path_position())
+	player_sightline.target_position = player.global_position - global_position
+	player_sightline.global_rotation = 0
+	if not(player_sightline.is_colliding()):
+		$StateChart.send_event("see_the_player")
 
 
 func _on_pursuit_state_entered():
 	acceleration = pursuit_acceleration
-	change_detector_disabled(false)
-
-
-func _on_pursuit_state_exited():
-	change_detector_disabled(true)
 #endregion
 
 
 #region Attack state
 func motion_attack() -> void:
-	if !player:
-		return
-	
-	desired_velocity = global_position.direction_to(dash_target) * dash_speed
+	desired_velocity = Vector2.ZERO
+
+
+func shoot():
+	var instance = bullet.instantiate()
+	GlobalRefs.bullet_holder.add_child.call_deferred(instance)
+	if bullet_place:
+		var intended_angle:float = bullet_place.global_rotation 
+		instance.global_position = bullet_place.global_position
+		instance.global_rotation = intended_angle
+		instance.initialize_velocity(intended_angle,bullet_speed)
 
 
 func _on_attack_state_physics_processing(_delta):
@@ -65,23 +65,9 @@ func _on_attack_state_physics_processing(_delta):
 
 
 func _on_attack_state_entered():
-	acceleration = dash_acceleration
-	dash_target = player.global_position
-	rotation = global_position.angle_to_point(dash_target)
-#endregion
-
-
-#region Rest state
-func motion_rest() -> void:
-	desired_velocity = Vector2.ZERO
-
-
-func _on_rest_state_physics_processing(_delta):
-	motion_rest()
-
-
-func _on_rest_state_entered():
-	acceleration = rest_acceleration
+	acceleration = attack_acceleration
+	rotation = global_position.angle_to_point(player.global_position)
+	shoot()
 #endregion
 
 
@@ -94,11 +80,6 @@ func makepath() -> void:
 
 func _on_timer_timeout() -> void:
 	makepath()
-
-
-func _on_area_2d_body_entered(body) -> void:
-	if body is PlayerController:
-		$StateChart.send_event("player_close")
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
