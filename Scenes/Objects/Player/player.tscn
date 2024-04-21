@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=22 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -13,8 +13,6 @@
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="10_7ncur"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 [ext_resource type="Script" path="res://Scenes/Objects/Player/resource_collector.gd" id="11_2o3mk"]
-[ext_resource type="PackedScene" uid="uid://dot3v41487bjd" path="res://Scenes/Objects/Turrets/double_turret.tscn" id="12_xw2ya"]
-[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/big_turret.tscn" id="13_gcihx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
 radius = 4.0
@@ -60,20 +58,8 @@ radius = 82.0061
 [sub_resource type="Resource" id="Resource_383fh"]
 script = ExtResource("10_7ncur")
 price = 5
-size = 5.0
-scene = ExtResource("9_63nyn")
-
-[sub_resource type="Resource" id="Resource_f0xjj"]
-script = ExtResource("10_7ncur")
-price = 8
 size = 10.0
-scene = ExtResource("12_xw2ya")
-
-[sub_resource type="Resource" id="Resource_vevko"]
-script = ExtResource("10_7ncur")
-price = 10
-size = 21.0
-scene = ExtResource("13_gcihx")
+scene = ExtResource("9_63nyn")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
 
@@ -141,7 +127,7 @@ position = Vector2(18, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_m8gx5")
-turrets = Array[ExtResource("10_7ncur")]([SubResource("Resource_383fh"), SubResource("Resource_f0xjj"), SubResource("Resource_vevko")])
+turrets = Array[ExtResource("10_7ncur")]([SubResource("Resource_383fh")])
 resource_component = NodePath("../ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
