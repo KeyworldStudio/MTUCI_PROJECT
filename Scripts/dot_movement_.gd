@@ -2,13 +2,16 @@ class_name StepTarget
 extends Node2D
 
 @export var target: Node2D
-var is_following: bool = false
 @export var trigger_distance: float = 25
 @export var rest_distance: float = 2
 @export var linear_speed: float = 200
 @export var proportional_speed: float = 0.2
 @export var required_points: Array[StepTarget] 
+
+var is_following: bool = false
+
 @onready var prev_position: Vector2 = target.global_position
+
 
 	
 func check_dist(rest_position: Vector2):
