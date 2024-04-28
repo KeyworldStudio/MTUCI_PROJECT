@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpy5i7s5fr2jd"]
+
+[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="1_7ajfh"]
+[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_yylq0"]
+[ext_resource type="Script" path="res://Scripts/game_world.gd" id="2_61ne2"]
+[ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/Player/player.tscn" id="2_ayoe2"]
+
+[node name="MainScene" type="Node"]
+script = ExtResource("1_yylq0")
+
+[node name="GameWorld" type="Node2D" parent="."]
+position = Vector2(2, 0)
+script = ExtResource("2_61ne2")
+starting_scene = ExtResource("1_7ajfh")
+
+[node name="Drops" type="Node2D" parent="GameWorld"]
+
+[node name="Turrets" type="Node2D" parent="GameWorld"]
+
+[node name="Enemies" type="Node2D" parent="GameWorld"]
+
+[node name="Bullets" type="Node2D" parent="GameWorld"]
+
+[node name="Player" parent="GameWorld" instance=ExtResource("2_ayoe2")]
+position = Vector2(308, 177)
+
+[node name="MainGUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
