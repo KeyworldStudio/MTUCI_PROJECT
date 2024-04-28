@@ -154,6 +154,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 script = ExtResource("10_uc35w")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="health_changed" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]
