@@ -8,7 +8,7 @@ func _physics_process(delta):
 	velocity = velocity.move_toward(input_direction * speed, acceleration * delta)
 
 	if velocity.length_squared()>0:
-		rotation = velocity.angle()
+		rotation = lerp_angle(rotation, velocity.angle(), 0.1)
 	move_and_slide()
 	
 	
