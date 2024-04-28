@@ -45,12 +45,12 @@ script = ExtResource("1_1i2tc")
 dash_speed = 200.0
 dash_acceleration = 4000.0
 
-[node name="GeometryCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_qu30e")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ake3j")
 region_rect = Rect2(272, 136, 16, 16)
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
@@ -91,7 +91,7 @@ debug_color = Color(0, 0.623529, 0.541176, 0.419608)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_6pcvx")
-max_health = 1.0
+max_health = 3.0
 
 [node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("8_j8clu")
@@ -104,8 +104,9 @@ drop_spawner = NodePath("../DropSpawner")
 
 [node name="DropSpawner" type="Node2D" parent="."]
 script = ExtResource("2_ktf76")
-min_drops = 10
-max_drops = 30
+min_drops = 2
+max_drops = 4
+drop_velocity = 512
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0
