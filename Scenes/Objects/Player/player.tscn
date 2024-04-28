@@ -66,10 +66,10 @@ scene = ExtResource("9_63nyn")
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv12w"]
 radius = 33.0151
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 2
 script = ExtResource("1_i8rwf")
-max_speed = 200.0
+hitbox = NodePath("HitboxComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_f7wsf")
