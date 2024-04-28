@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cag6br1vm13bt"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy_bullet.gd" id="1_aqk3h"]
+[ext_resource type="Texture2D" uid="uid://bfwwhv0mbjkxf" path="res://Assets/Visual/Sprites/test_bullet.png" id="1_nm4wp"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="2_mjuj8"]
+[ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="3_pnpha"]
+
+[sub_resource type="Resource" id="Resource_r4vae"]
+script = ExtResource("3_pnpha")
+attack_damage = 1.0
+knockback_force = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4iw8"]
+size = Vector2(7, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ye3lf"]
+size = Vector2(7, 4)
+
+[node name="EnemyBullet" type="Node2D"]
+script = ExtResource("1_aqk3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.827451, 0, 0.407843, 1)
+texture = ExtResource("1_nm4wp")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("knockback_origin")]
+collision_layer = 0
+collision_mask = 20
+script = ExtResource("2_mjuj8")
+attack = SubResource("Resource_r4vae")
+knockback_origin = NodePath("../Marker2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_g4iw8")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_ye3lf")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-37, 0)
+
+[connection signal="hit_is_applied" from="HurtBox" to="." method="_on_hurt_box_hit_is_applied"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
