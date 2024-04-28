@@ -12,8 +12,8 @@ var acceleration: float
 var dash_target: Vector2
 
 @onready var player: = GlobalRefs.player_node
-@onready var nav_agent: = $NavigationAgent2D as NavigationAgent2D
-@onready var player_detector: = $PlayerDetector as Area2D
+@onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
+@onready var player_detector: = $MOTION/PlayerDetector as Area2D
 
 
 func _physics_process(delta):
@@ -39,7 +39,13 @@ func motion_pursuit() -> void:
 func _on_pursuit_state_physics_processing(_delta):
 	motion_pursuit()
 	
-	rotation = global_position.angle_to_point(nav_agent.get_next_path_position())
+	rotation = lerp_angle(
+			rotation,
+			global_position.angle_to_point(
+					nav_agent.get_next_path_position()
+				),
+			0.2
+		)
 
 
 func _on_pursuit_state_entered():
