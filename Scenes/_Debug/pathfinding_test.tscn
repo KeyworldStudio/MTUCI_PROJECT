@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=24 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_d7qti"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_eawms"]
 [ext_resource type="Script" path="res://NewWaveManager.gd" id="3_xxjun"]
 [ext_resource type="Resource" uid="uid://1nfum6v058ps" path="res://Resources/MeleeEnemy.tres" id="4_5itaq"]
+[ext_resource type="Resource" uid="uid://nu4vuar05kmm" path="res://Resources/Ranged_enemy.tres" id="5_iqboy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l17yu"]
 vertices = PackedVector2Array(6, 6, -6, 6, -6, -6, 6, -6)
@@ -395,8 +396,8 @@ position = Vector2(641, 368)
 
 [node name="NewWaveManager" type="Node2D" parent="."]
 script = ExtResource("3_xxjun")
-mana = 400
-enemy_data = Array[Resource("res://enemy_placement_data.gd")]([ExtResource("4_5itaq")])
+mana = 50
+enemy_data = Array[Resource("res://enemy_placement_data.gd")]([ExtResource("4_5itaq"), ExtResource("5_iqboy")])
 wave_max_number = 1
 
 [node name="Node2D" type="Node2D" parent="NewWaveManager"]
