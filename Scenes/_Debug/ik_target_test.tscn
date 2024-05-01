@@ -473,7 +473,6 @@ region_rect = Rect2(33, 13, 10, 4)
 [node name="RBFoot" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(-5, 13)
 rotation = 3.00543
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -481,7 +480,6 @@ region_rect = Rect2(54, 13, 8, 8)
 [node name="RBLeg2" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(-2.52316, 12.6606)
 rotation = -0.136169
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -489,7 +487,6 @@ region_rect = Rect2(44, 13, 9, 4)
 [node name="RBLeg1" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(-0.773132, 9.41061)
 rotation = 1.32608
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 flip_v = true
 region_enabled = true
@@ -498,7 +495,6 @@ region_rect = Rect2(33, 13, 10, 4)
 [node name="LFFoot" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(11, -7)
 rotation = -1.82657
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -506,7 +502,6 @@ region_rect = Rect2(54, 13, 8, 8)
 [node name="LFLeg2" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(11.6325, -4.58134)
 rotation = 1.31502
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -514,7 +509,6 @@ region_rect = Rect2(44, 13, 9, 4)
 [node name="LFLeg1" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(9.38251, -1.33133)
 rotation = -0.280782
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 flip_v = true
 region_enabled = true
@@ -523,7 +517,6 @@ region_rect = Rect2(33, 13, 10, 4)
 [node name="RFFoot" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(11, 13)
 rotation = 1.82659
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -531,7 +524,6 @@ region_rect = Rect2(54, 13, 8, 8)
 [node name="RFLeg2" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(11.6325, 10.5813)
 rotation = -1.31501
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -539,7 +531,6 @@ region_rect = Rect2(44, 13, 9, 4)
 [node name="RFLeg1" type="Sprite2D" parent="target/SPRITES"]
 position = Vector2(9.38251, 7.33133)
 rotation = 0.28079
-scale = Vector2(1, 1)
 texture = ExtResource("4_vi23x")
 region_enabled = true
 region_rect = Rect2(33, 13, 10, 4)
@@ -599,6 +590,7 @@ remote_path = NodePath("../../../SPRITES/Body")
 [node name="LBLeg1" type="Bone2D" parent="target/Skeleton2D/Body"]
 position = Vector2(-4.5, -3.5)
 rotation = -1.49187
+scale = Vector2(1, 1)
 rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -4.5, -3.5)
 
 [node name="LBLeg2" type="Bone2D" parent="target/Skeleton2D/Body/LBLeg1"]
@@ -628,13 +620,11 @@ remote_path = NodePath("../../../../SPRITES/LBLeg1")
 [node name="RBLeg1" type="Bone2D" parent="target/Skeleton2D/Body"]
 position = Vector2(-4.5, 3.5)
 rotation = 1.32608
-scale = Vector2(1, 1)
 rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -4.5, 3.5)
 
 [node name="RBLeg2" type="Bone2D" parent="target/Skeleton2D/Body/RBLeg1"]
 position = Vector2(5.99999, -2.27133e-05)
 rotation = -1.46225
-scale = Vector2(1, 1)
 rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, 5.99999, -2.27133e-05)
 
 [node name="RBFoot" type="Bone2D" parent="target/Skeleton2D/Body/RBLeg1/RBLeg2"]
@@ -659,7 +649,6 @@ remote_path = NodePath("../../../../SPRITES/RBLeg1")
 [node name="LFLeg1" type="Bone2D" parent="target/Skeleton2D/Body"]
 position = Vector2(3.5, -3.5)
 rotation = -0.280782
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 3.5, -3.5)
 
 [node name="LFLeg2" type="Bone2D" parent="target/Skeleton2D/Body/LFLeg1"]
@@ -689,7 +678,6 @@ remote_path = NodePath("../../../../SPRITES/LFLeg1")
 [node name="RFLeg1" type="Bone2D" parent="target/Skeleton2D/Body"]
 position = Vector2(3.5, 3.5)
 rotation = 0.28079
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 3.5, 3.5)
 
 [node name="RFLeg2" type="Bone2D" parent="target/Skeleton2D/Body/RFLeg1"]

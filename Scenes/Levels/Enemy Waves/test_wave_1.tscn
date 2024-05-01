@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4myegbnqgje8"]
+[gd_scene load_steps=5 format=3 uid="uid://d4myegbnqgje8"]
 
 [ext_resource type="Texture2D" uid="uid://jnbvub0308ls" path="res://Assets/Visual/Sprites/WarningSign.png" id="2_2ec5g"]
 [ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/Enemies/enemy.tscn" id="3_47qxe"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_spawnpoint.gd" id="3_o50p2"]
+[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/ranged_enemy.tscn" id="4_2qirb"]
 
 [node name="TestWave1" type="Node2D"]
 
@@ -16,7 +17,7 @@ enemy_scene = ExtResource("3_47qxe")
 position = Vector2(390, 83)
 texture = ExtResource("2_2ec5g")
 script = ExtResource("3_o50p2")
-enemy_scene = ExtResource("3_47qxe")
+enemy_scene = ExtResource("4_2qirb")
 
 [node name="EnemySpawnpoint4" type="Sprite2D" parent="."]
 position = Vector2(194, 73)
@@ -28,9 +29,99 @@ enemy_scene = ExtResource("3_47qxe")
 position = Vector2(579, 113)
 texture = ExtResource("2_2ec5g")
 script = ExtResource("3_o50p2")
-enemy_scene = ExtResource("3_47qxe")
+enemy_scene = ExtResource("4_2qirb")
 
 [node name="EnemySpawnpoint" type="Sprite2D" parent="."]
+position = Vector2(62, 61)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint6" type="Sprite2D" parent="."]
+position = Vector2(288, 63)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint7" type="Sprite2D" parent="."]
+position = Vector2(390, 83)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint8" type="Sprite2D" parent="."]
+position = Vector2(194, 73)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint9" type="Sprite2D" parent="."]
+position = Vector2(579, 113)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint10" type="Sprite2D" parent="."]
+position = Vector2(62, 61)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint11" type="Sprite2D" parent="."]
+position = Vector2(288, 63)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint12" type="Sprite2D" parent="."]
+position = Vector2(390, 83)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint13" type="Sprite2D" parent="."]
+position = Vector2(194, 73)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint14" type="Sprite2D" parent="."]
+position = Vector2(579, 113)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint15" type="Sprite2D" parent="."]
+position = Vector2(62, 61)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint16" type="Sprite2D" parent="."]
+position = Vector2(288, 63)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint17" type="Sprite2D" parent="."]
+position = Vector2(390, 83)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint18" type="Sprite2D" parent="."]
+position = Vector2(194, 73)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("3_47qxe")
+
+[node name="EnemySpawnpoint19" type="Sprite2D" parent="."]
+position = Vector2(579, 113)
+texture = ExtResource("2_2ec5g")
+script = ExtResource("3_o50p2")
+enemy_scene = ExtResource("4_2qirb")
+
+[node name="EnemySpawnpoint20" type="Sprite2D" parent="."]
 position = Vector2(62, 61)
 texture = ExtResource("2_2ec5g")
 script = ExtResource("3_o50p2")
