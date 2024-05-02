@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7w448rh1d8q3"]
+[gd_scene load_steps=5 format=3 uid="uid://b7w448rh1d8q3"]
 
 [ext_resource type="Texture2D" uid="uid://jnbvub0308ls" path="res://Assets/Visual/Sprites/WarningSign.png" id="2_v0h42"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_spawnpoint.gd" id="3_jv215"]
 [ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/Enemies/enemy.tscn" id="4_mcwut"]
+[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/ranged_enemy.tscn" id="4_rnwv4"]
 
 [node name="TestWave2" type="Node2D"]
 
@@ -22,7 +23,7 @@ enemy_scene = ExtResource("4_mcwut")
 position = Vector2(466, 311)
 texture = ExtResource("2_v0h42")
 script = ExtResource("3_jv215")
-enemy_scene = ExtResource("4_mcwut")
+enemy_scene = ExtResource("4_rnwv4")
 
 [node name="EnemySpawnpoint4" type="Sprite2D" parent="."]
 position = Vector2(308, 309)

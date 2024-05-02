@@ -15,6 +15,7 @@ var shoot_target: Vector2
 @onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
 @onready var player_sightline: = $MOTION/SightLine as RayCast2D
+@onready var anim_player: = $VISUAL/AnimationPlayer as AnimationPlayer
 
 
 func _physics_process(delta):
@@ -66,7 +67,7 @@ func _on_attack_state_entered():
 	player_sightline.enabled = false
 	acceleration = attack_acceleration
 	rotation = global_position.angle_to_point(player.global_position)
-	shoot()
+	anim_player.play("Shoot")
 #endregion
 
 
