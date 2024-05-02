@@ -19,7 +19,46 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="11_2ecfx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1qg1u"]
-radius = 5.09902
+radius = 7.07107
+
+[sub_resource type="Animation" id="Animation_webby"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Body/Jaw1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Body/Jaw2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Body/Gun:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_qp32u"]
 resource_name = "Shoot"
@@ -75,45 +114,6 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_webby"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton2D/Body/Jaw1:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Skeleton2D/Body/Jaw2:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Skeleton2D/Body/Gun:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gg7ia"]
 _data = {
 "RESET": SubResource("Animation_webby"),
@@ -129,11 +129,12 @@ armor = 0.0
 coefficient_of_knockback = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgcdd"]
-radius = 7.0
+radius = 9.0
 
 [node name="RangedEnemy" type="CharacterBody2D" node_paths=PackedStringArray("bullet_place")]
 collision_layer = 2
 script = ExtResource("1_j8dao")
+speed = 40.0
 bullet = ExtResource("2_ihx1q")
 bullet_place = NodePath("VISUAL/Skeleton2D/Body/Gun/BulletSpawn")
 bullet_speed = 150.0
@@ -143,6 +144,7 @@ shape = SubResource("CircleShape2D_1qg1u")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="VISUAL" type="Node2D" parent="."]
+position = Vector2(-1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="VISUAL"]
 libraries = {
@@ -153,16 +155,17 @@ libraries = {
 position = Vector2(-1, 0)
 
 [node name="FootR" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(7.21708, 9.4262)
-rotation = 1.44644
+position = Vector2(7.80853, 9.18138)
+rotation = 1.38545
+scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 region_enabled = true
 region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegR1" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(5.82065, 4.20956)
-rotation = 2.43034
+position = Vector2(5.82827, 3.97009)
+rotation = 2.34561
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -170,8 +173,9 @@ region_enabled = true
 region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegR2" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-7.56778, 7.85622)
-rotation = 0.429773
+position = Vector2(-7.18591, 8.72852)
+rotation = 0.349618
+scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -179,17 +183,17 @@ region_enabled = true
 region_rect = Rect2(33, 22, 15, 5)
 
 [node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-2.70556, -10.6665)
-rotation = -1.44644
+position = Vector2(-2.02005, -11.0242)
+rotation = -1.38545
+scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 region_enabled = true
 region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegL1" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(3.20954, -1.17935)
-rotation = -2.43034
-scale = Vector2(1, 1)
+position = Vector2(2.97007, -1.17173)
+rotation = -2.34561
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -197,8 +201,8 @@ region_enabled = true
 region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegL2" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-10.0678, -13.3105)
-rotation = -0.429778
+position = Vector2(-9.24115, -14.3655)
+rotation = -0.349623
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -206,7 +210,7 @@ region_enabled = true
 region_rect = Rect2(33, 22, 15, 5)
 
 [node name="FootB" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-8, 5)
+position = Vector2(-7, 5)
 rotation = -3.14159
 scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
@@ -215,8 +219,9 @@ region_enabled = true
 region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegB1" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-2.20954, 2.82065)
-rotation = -2.28204
+position = Vector2(-2.31125, 2.81125)
+rotation = -2.24593
+scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -224,8 +229,9 @@ region_enabled = true
 region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegB2" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-5.85616, -10.5678)
-rotation = 2.00057
+position = Vector2(-5.63975, -11.1277)
+rotation = 1.92837
+scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -233,7 +239,7 @@ region_enabled = true
 region_rect = Rect2(33, 22, 15, 5)
 
 [node name="Gun" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(2.66667, -3)
+position = Vector2(-2, -3)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -241,8 +247,7 @@ region_enabled = true
 region_rect = Rect2(21, 2, 9, 5)
 
 [node name="Jaw1" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-0.643452, -3.65084)
-rotation = -1.14537
+position = Vector2(3, -6)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -250,9 +255,7 @@ region_enabled = true
 region_rect = Rect2(11, 1, 9, 7)
 
 [node name="Jaw2" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(6.64345, 0.349166)
-rotation = 1.14537
-scale = Vector2(1, 1)
+position = Vector2(3, -2)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -328,7 +331,6 @@ remote_path = NodePath("../../../../SPRITES/Jaw1")
 
 [node name="Jaw2" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(2, 2)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 2, 2)
 auto_calculate_length_and_angle = false
 length = 8.0
@@ -354,7 +356,8 @@ position = Vector2(7, 0)
 
 [node name="LegB1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(-3, 0)
-rotation = 0.859551
+rotation = 0.895665
+scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -3, 0)
 
 [node name="LegB1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegB1"]
@@ -364,7 +367,8 @@ remote_path = NodePath("../../../../SPRITES/LegB1")
 
 [node name="LegB2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegB1"]
 position = Vector2(-12, 0)
-rotation = -2.00057
+rotation = -2.10889
+scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
 [node name="LegB2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegB1/LegB2"]
@@ -374,8 +378,7 @@ remote_path = NodePath("../../../../../SPRITES/LegB2")
 
 [node name="FootB" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegB1/LegB2"]
 position = Vector2(-10, 0)
-rotation = 1.14102
-scale = Vector2(1, 1)
+rotation = 1.21323
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -388,7 +391,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootB")
 
 [node name="LegL1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(2, -4)
-rotation = 0.711245
+rotation = 0.795979
 rest = Transform2D(2.22127e-06, 1, -1, 2.22127e-06, 2, -4)
 
 [node name="LegL1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegL1"]
@@ -398,7 +401,7 @@ remote_path = NodePath("../../../../SPRITES/LegL1")
 
 [node name="LegL2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegL1"]
 position = Vector2(-12, 0)
-rotation = 2.00057
+rotation = 1.99599
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
 [node name="LegL2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegL1/LegL2"]
@@ -408,7 +411,8 @@ remote_path = NodePath("../../../../../SPRITES/LegL2")
 
 [node name="FootL" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegL1/LegL2"]
 position = Vector2(-10, 0)
-rotation = -1.01667
+rotation = -1.03583
+scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -421,7 +425,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootL")
 
 [node name="LegR1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(2, 4)
-rotation = -0.711246
+rotation = -0.795979
 rest = Transform2D(-6.6638e-06, -1, 1, -6.6638e-06, 2, 4)
 
 [node name="LegR1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegR1"]
@@ -431,7 +435,8 @@ remote_path = NodePath("../../../../SPRITES/LegR1")
 
 [node name="LegR2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegR1"]
 position = Vector2(-12, 0)
-rotation = -2.00057
+rotation = -1.99599
+scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
 [node name="LegR2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegR1/LegR2"]
@@ -441,7 +446,8 @@ remote_path = NodePath("../../../../../SPRITES/LegR2")
 
 [node name="FootR" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegR1/LegR2"]
 position = Vector2(-10, 0)
-rotation = 1.01667
+rotation = 1.03583
+scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -466,14 +472,13 @@ position = Vector2(2, 16)
 [node name="DB" type="CharacterBody2D" parent="VISUAL/TARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(-15, 0)
 collision_layer = 0
-motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("6_34ypk")
 target = NodePath("../../TB")
-trigger_distance = 16.0
-hard_limit = 20.0
-rest_trigger_distance = 4.0
-rest_distance = 1.0
-linear_speed = 60.0
+trigger_distance = 10.0
+hard_limit = 12.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
 required_points = [NodePath("../DL")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VISUAL/TARGETS/DB"]
@@ -482,14 +487,13 @@ shape = SubResource("CircleShape2D_7rntc")
 [node name="DL" type="CharacterBody2D" parent="VISUAL/TARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(2, -16)
 collision_layer = 0
-motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("6_34ypk")
 target = NodePath("../../TL")
-trigger_distance = 16.0
-hard_limit = 20.0
-rest_trigger_distance = 4.0
-rest_distance = 1.0
-linear_speed = 60.0
+trigger_distance = 10.0
+hard_limit = 12.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
 required_points = [NodePath("../DR")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VISUAL/TARGETS/DL"]
@@ -498,15 +502,14 @@ shape = SubResource("CircleShape2D_7rntc")
 [node name="DR" type="CharacterBody2D" parent="VISUAL/TARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(2, 16)
 collision_layer = 0
-motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("6_34ypk")
 target = NodePath("../../TR")
-trigger_distance = 16.0
-hard_limit = 20.0
-rest_trigger_distance = 4.0
-rest_distance = 1.0
-linear_speed = 60.0
-required_points = [NodePath(".")]
+trigger_distance = 10.0
+hard_limit = 12.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
+required_points = [NodePath("../DB")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VISUAL/TARGETS/DR"]
 shape = SubResource("CircleShape2D_7rntc")
@@ -537,7 +540,7 @@ delay_seconds = 2.0
 [node name="COMBAT" type="Node2D" parent="."]
 
 [node name="HitboxComponent" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
-position = Vector2(4, 0)
+position = Vector2(6, 0)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_wagro")

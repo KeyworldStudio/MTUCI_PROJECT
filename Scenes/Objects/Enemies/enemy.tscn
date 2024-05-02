@@ -111,7 +111,6 @@ region_rect = Rect2(33, 13, 10, 4)
 [node name="LFFoot" type="Sprite2D" parent="VISUALS/SPRITES"]
 position = Vector2(11, -7)
 rotation = -1.82657
-scale = Vector2(1, 1)
 texture = ExtResource("2_bndh7")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -119,13 +118,12 @@ region_rect = Rect2(54, 13, 8, 8)
 [node name="LFLeg2" type="Sprite2D" parent="VISUALS/SPRITES"]
 position = Vector2(11.6325, -4.58135)
 rotation = 1.31502
-scale = Vector2(1, 1)
 texture = ExtResource("2_bndh7")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
 
 [node name="LFLeg1" type="Sprite2D" parent="VISUALS/SPRITES"]
-position = Vector2(9.38251, -1.33133)
+position = Vector2(9.38251, -1.33134)
 rotation = -0.280782
 texture = ExtResource("2_bndh7")
 flip_v = true

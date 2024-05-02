@@ -90,6 +90,10 @@ dash={
 2d_physics/layer_5="Turret Hitbox"
 2d_physics/layer_6="Collectables"
 
+[navigation]
+
+2d/default_edge_connection_margin=4.0
+
 [physics]
 
 common/physics_ticks_per_second=32
