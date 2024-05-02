@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dja5wnntu2sx4"]
+
+[ext_resource type="Script" path="res://Scripts/Pickups/pickup_double_turret.gd" id="1_7i1ni"]
+[ext_resource type="Resource" uid="uid://dj2qqryw8agjg" path="res://Resources/DoubleTurret.tres" id="2_fpja8"]
+[ext_resource type="Texture2D" uid="uid://dqp2uq232lea0" path="res://Assets/Visual/Sprites/TestTopdownTurretStand.png" id="2_sos87"]
+[ext_resource type="Texture2D" uid="uid://drk87uniwmoew" path="res://Assets/Visual/Sprites/TestTopdownTurret.png" id="3_j0af0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqxr2"]
+size = Vector2(19, 20)
+
+[node name="Area2D" type="Area2D"]
+modulate = Color(0, 1, 1, 0.447059)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_7i1ni")
+turret_scene = ExtResource("2_fpja8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sos87")
+
+[node name="Turret-gun" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
+texture = ExtResource("3_j0af0")
+offset = Vector2(3, 0)
+
+[node name="Turret-gun2" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+texture = ExtResource("3_j0af0")
+offset = Vector2(3, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_gqxr2")

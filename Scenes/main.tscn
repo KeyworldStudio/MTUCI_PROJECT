@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpy5i7s5fr2jd"]
 
-[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="1_7ajfh"]
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_yylq0"]
 [ext_resource type="Script" path="res://Scripts/game_world.gd" id="2_61ne2"]
 [ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/Player/player.tscn" id="2_ayoe2"]
+[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="3_8yfse"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
@@ -14,7 +14,7 @@ script = ExtResource("1_yylq0")
 [node name="GameWorld" type="Node2D" parent="."]
 position = Vector2(2, 0)
 script = ExtResource("2_61ne2")
-starting_scene = ExtResource("1_7ajfh")
+starting_scene = ExtResource("3_8yfse")
 
 [node name="Drops" type="Node2D" parent="GameWorld"]
 
