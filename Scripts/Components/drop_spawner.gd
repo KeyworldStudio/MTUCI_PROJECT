@@ -25,5 +25,5 @@ func spawn_drops():
 		
 		GlobalRefs.drop_holder.add_child.call_deferred(drop_instance)
 		drop_instance.set_deferred("global_position", global_position)
-		drop_instance.set_deferred("velocity", intended_velocity)
+		drop_instance.set_deferred("linear_velocity", intended_velocity)
 		drop_instance.set_deferred("global_rotation", randf_range(0,2*PI))

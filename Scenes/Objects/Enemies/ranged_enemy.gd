@@ -13,8 +13,8 @@ var acceleration: float
 var shoot_target: Vector2
 
 @onready var player: = GlobalRefs.player_node
-@onready var nav_agent: = $NavigationAgent2D as NavigationAgent2D
-@onready var player_sightline: = $SightLine as RayCast2D
+@onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
+@onready var player_sightline: = $MOTION/SightLine as RayCast2D
 
 
 func _physics_process(delta):
@@ -79,8 +79,9 @@ func makepath() -> void:
 
 func _on_timer_timeout() -> void:
 	makepath()
-	player_sightline.target_position = player.global_position - global_position
 	player_sightline.global_rotation = 0
+	player_sightline.target_position = player.global_position - global_position
+	await get_tree().physics_frame
 	if not(player_sightline.is_colliding()):
 		$StateChart.send_event("see_the_player")
 

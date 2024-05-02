@@ -13,7 +13,8 @@ var on_cooldown = false
 var direction_input = 0
 
 func _ready():
-	timer.timeout.connect(_on_timer_timeout)
+	if not timer.timeout.is_connected(_on_timer_timeout):
+		timer.timeout.connect(_on_timer_timeout)
 
 func shoot():
 	var instance = bullet.instantiate()

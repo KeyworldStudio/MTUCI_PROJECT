@@ -119,7 +119,7 @@ region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
 
 [node name="LFLeg1" type="Sprite2D" parent="VISUALS/SPRITES"]
-position = Vector2(9.38251, -1.33133)
+position = Vector2(9.38251, -1.33134)
 rotation = -0.280782
 texture = ExtResource("2_bndh7")
 flip_v = true
@@ -386,10 +386,11 @@ required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VISUALS/STEPTARGETS/dot_4"]
 shape = SubResource("CircleShape2D_logmi")
 
-[node name="INTERACTIONS" type="Node2D" parent="."]
+[node name="COMBAT" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
-[node name="HitboxComponent" type="Area2D" parent="INTERACTIONS" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
+[node name="HitboxComponent" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_4ov4x")
@@ -398,40 +399,41 @@ knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_h0kpn")
 timer = NodePath("InvincibilityTimer")
 
-[node name="InvincibilityTimer" type="Timer" parent="INTERACTIONS/HitboxComponent"]
+[node name="InvincibilityTimer" type="Timer" parent="COMBAT/HitboxComponent"]
 process_callback = 0
 wait_time = 0.2
 one_shot = true
 
-[node name="HitboxCollider" type="CollisionShape2D" parent="INTERACTIONS/HitboxComponent"]
+[node name="HitboxCollider" type="CollisionShape2D" parent="COMBAT/HitboxComponent"]
 shape = SubResource("CircleShape2D_pp40y")
 debug_color = Color(0.964706, 0, 0.498039, 0.419608)
 
-[node name="HurtBox" type="Area2D" parent="INTERACTIONS"]
+[node name="HurtBox" type="Area2D" parent="COMBAT"]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("5_pioc2")
 attack = SubResource("Resource_pic8g")
 
-[node name="HurtboxCollider" type="CollisionShape2D" parent="INTERACTIONS/HurtBox"]
+[node name="HurtboxCollider" type="CollisionShape2D" parent="COMBAT/HurtBox"]
 position = Vector2(4.5, 0)
 shape = SubResource("RectangleShape2D_4ccr8")
 debug_color = Color(0.956863, 0, 0.529412, 0.419608)
 
-[node name="HealthComponent" type="Node" parent="INTERACTIONS"]
+[node name="HealthComponent" type="Node" parent="COMBAT"]
 script = ExtResource("7_6pcvx")
 max_health = 3.0
 
-[node name="KnockbackComponent" type="Node" parent="INTERACTIONS" node_paths=PackedStringArray("target")]
+[node name="KnockbackComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("target")]
 script = ExtResource("8_j8clu")
 target = NodePath("../..")
 
-[node name="EnemyDeathComponent" type="Node" parent="INTERACTIONS" node_paths=PackedStringArray("health_component", "drop_spawner")]
+[node name="EnemyDeathComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component", "target", "drop_spawner")]
 script = ExtResource("9_8am6s")
 health_component = NodePath("../HealthComponent")
+target = NodePath("../..")
 drop_spawner = NodePath("../DropSpawner")
 
-[node name="DropSpawner" type="Node2D" parent="INTERACTIONS"]
+[node name="DropSpawner" type="Node2D" parent="COMBAT"]
 script = ExtResource("2_ktf76")
 min_drops = 2
 max_drops = 4
@@ -470,6 +472,7 @@ delay_seconds = 1.0
 
 [node name="MOTION" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="MOTION"]
 avoidance_enabled = true
