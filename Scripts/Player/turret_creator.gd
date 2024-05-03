@@ -18,8 +18,8 @@ func _on_area_2d_body_exited(_body):
 	objects_in_scope -= 1
 
 func size_change():
-	get_child(0).shape.radius = turrets[current].size
 	position.x = turrets[current].size + 10
+	get_child(0).shape.radius = turrets[current].size
 
 func turret_change():
 	if (Input.is_action_just_pressed('turret_change_left') and current > 0):

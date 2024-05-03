@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b7gai7bqt5udr"]
+[gd_scene load_steps=24 format=3 uid="uid://b7gai7bqt5udr"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_1i2tc"]
 [ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="2_bndh7"]
@@ -20,9 +20,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
 radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_logmi"]
-radius = 4.12311
 
 [sub_resource type="Resource" id="Resource_h0kpn"]
 script = ExtResource("4_ipmnn")
@@ -324,75 +321,63 @@ remote_path = NodePath("../../../../../SPRITES/RFLeg2")
 position = Vector2(3, -1.33276e-05)
 remote_path = NodePath("../../../../SPRITES/RFLeg1")
 
-[node name="Marker2D" type="Marker2D" parent="VISUALS"]
-position = Vector2(-9, -10)
+[node name="Marker2D" type="RayCast2D" parent="VISUALS"]
+target_position = Vector2(-9, -10)
 
-[node name="Marker2D2" type="Marker2D" parent="VISUALS"]
-position = Vector2(8, -10)
+[node name="Marker2D2" type="RayCast2D" parent="VISUALS"]
+target_position = Vector2(8, -10)
 
-[node name="Marker2D3" type="Marker2D" parent="VISUALS"]
-position = Vector2(8, 10)
+[node name="Marker2D3" type="RayCast2D" parent="VISUALS"]
+target_position = Vector2(8, 10)
 
-[node name="Marker2D4" type="Marker2D" parent="VISUALS"]
-position = Vector2(-9, 10)
+[node name="Marker2D4" type="RayCast2D" parent="VISUALS"]
+target_position = Vector2(-9, 10)
 
 [node name="STEPTARGETS" type="Node" parent="VISUALS"]
 
-[node name="dot_1" type="CharacterBody2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+[node name="dot_1" type="Node2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(-9, -10)
-collision_layer = 0
 script = ExtResource("5_wuxqs")
 target = NodePath("../../Marker2D")
-trigger_distance = 6.0
+trigger_distance = 5.0
 hard_limit = 7.0
 rest_trigger_distance = 2.0
 linear_speed = 80.0
+proportional_speed = 0.3
 required_points = [NodePath("../dot_2"), NodePath("../dot_4")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VISUALS/STEPTARGETS/dot_1"]
-shape = SubResource("CircleShape2D_logmi")
-
-[node name="dot_2" type="CharacterBody2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+[node name="dot_2" type="Node2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(8, -10)
-collision_layer = 0
 script = ExtResource("5_wuxqs")
 target = NodePath("../../Marker2D2")
-trigger_distance = 6.0
+trigger_distance = 5.0
 hard_limit = 7.0
 rest_trigger_distance = 2.0
 linear_speed = 80.0
+proportional_speed = 0.3
 required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VISUALS/STEPTARGETS/dot_2"]
-shape = SubResource("CircleShape2D_logmi")
-
-[node name="dot_3" type="CharacterBody2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+[node name="dot_3" type="Node2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(8, 10)
-collision_layer = 0
 script = ExtResource("5_wuxqs")
 target = NodePath("../../Marker2D3")
-trigger_distance = 6.0
+trigger_distance = 5.0
 hard_limit = 7.0
 rest_trigger_distance = 2.0
 linear_speed = 80.0
+proportional_speed = 0.3
 required_points = [NodePath("../dot_2"), NodePath("../dot_4")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VISUALS/STEPTARGETS/dot_3"]
-shape = SubResource("CircleShape2D_logmi")
-
-[node name="dot_4" type="CharacterBody2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+[node name="dot_4" type="Node2D" parent="VISUALS/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
 position = Vector2(-9, 10)
-collision_layer = 0
 script = ExtResource("5_wuxqs")
 target = NodePath("../../Marker2D4")
-trigger_distance = 6.0
+trigger_distance = 5.0
 hard_limit = 7.0
 rest_trigger_distance = 2.0
 linear_speed = 80.0
+proportional_speed = 0.3
 required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VISUALS/STEPTARGETS/dot_4"]
-shape = SubResource("CircleShape2D_logmi")
 
 [node name="COMBAT" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

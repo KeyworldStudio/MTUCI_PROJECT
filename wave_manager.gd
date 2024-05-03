@@ -1,3 +1,4 @@
+class_name WaveManager
 extends Node2D
 
 @export var mana: int = 100

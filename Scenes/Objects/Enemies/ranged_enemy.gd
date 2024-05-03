@@ -10,7 +10,7 @@ extends CharacterBody2D
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
 var acceleration: float
-var shoot_target: Vector2
+var shoot_dir: float
 
 @onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
@@ -34,8 +34,13 @@ func motion_pursuit() -> void:
 
 func _on_pursuit_state_physics_processing(_delta):
 	motion_pursuit()
-	rotation = global_position.angle_to_point(nav_agent.get_next_path_position())
-	
+	rotation = lerp_angle(
+			rotation,
+			global_position.angle_to_point(
+					nav_agent.get_next_path_position()
+				),
+			0.2
+		)
 
 
 func _on_pursuit_state_entered():
@@ -47,6 +52,12 @@ func _on_pursuit_state_entered():
 #region Attack state
 func motion_attack() -> void:
 	desired_velocity = Vector2.ZERO
+	rotation = lerp_angle(
+			rotation,
+			shoot_dir,
+			0.3
+		)
+	
 
 
 func shoot():
@@ -66,7 +77,8 @@ func _on_attack_state_physics_processing(_delta):
 func _on_attack_state_entered():
 	player_sightline.enabled = false
 	acceleration = attack_acceleration
-	rotation = global_position.angle_to_point(player.global_position)
+	shoot_dir = global_position.angle_to_point(player.global_position)
+	#rotation = global_position.angle_to_point(player.global_position)
 	anim_player.play("Shoot")
 #endregion
 

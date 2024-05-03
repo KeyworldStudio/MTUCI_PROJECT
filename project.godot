@@ -94,6 +94,10 @@ dash={
 
 2d/default_edge_connection_margin=4.0
 
+[phantom_camera]
+
+updater/show_new_release_info_on_editor_launch_in_output=false
+
 [physics]
 
 common/physics_ticks_per_second=32

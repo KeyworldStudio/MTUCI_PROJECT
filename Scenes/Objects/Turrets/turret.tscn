@@ -34,9 +34,10 @@ texture = ExtResource("2_7dpu6")
 script = ExtResource("3_araxt")
 max_health = 3.0
 
-[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component", "target")]
 script = ExtResource("4_ugntn")
 health_component = NodePath("../HealthComponent")
+target = NodePath("..")
 
 [node name="Turret_gun" parent="." instance=ExtResource("7_wkspl")]
 

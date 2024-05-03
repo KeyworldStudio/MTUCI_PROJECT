@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=23 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
+[ext_resource type="Texture2D" uid="uid://dq0uu7ed2ilm5" path="res://Assets/Visual/Sheets/PlayerSheet.png" id="3_qyrk3"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_v32i7"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_fbra3"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_e3uyi"]
@@ -21,40 +22,12 @@ height = 14.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("4_fbra3")
-armor = 1.0
+armor = 0.0
 coefficient_of_knockback = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjv4w"]
-radius = 7.0
+radius = 4.0
 height = 14.0
-
-[sub_resource type="GDScript" id="GDScript_cx1vt"]
-script/source = "class_name TurretActivator
-extends Area2D
-
-func _ready():
-	body_entered.connect(_on_area_2d_body_entered)
-	body_exited.connect(_on_area_2d_body_exited)
-
-func _physics_process(_delta):
-	collider_set_disabled(Input.is_action_pressed(\"ui_accept\"))
-
-func collider_set_disabled(value: bool):
-	for i in get_children():
-		if i is CollisionShape2D or i is CollisionPolygon2D:
-			i.set_deferred(\"disabled\", not value)
-
-func _on_area_2d_body_entered(body):
-	if(body is Turret):
-		body.activated = true
-
-func _on_area_2d_body_exited(body):
-	if(body is Turret):
-		body.activated = false
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0c51q"]
-radius = 82.0061
 
 [sub_resource type="Resource" id="Resource_lcm4w"]
 script = ExtResource("10_7ncur")
@@ -65,7 +38,7 @@ scene = ExtResource("9_63nyn")
 [sub_resource type="Resource" id="Resource_nhm3g"]
 script = ExtResource("10_7ncur")
 price = 20
-size = 32.0
+size = 16.0
 scene = ExtResource("12_nxajq")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
@@ -76,16 +49,79 @@ radius = 33.0151
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 2
 script = ExtResource("1_i8rwf")
-hitbox = NodePath("HitboxComponent")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_f7wsf")
-region_rect = Rect2(290, 86, 15, 14)
+hitbox = NodePath("COMBAT/HitboxComponent")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_nro1a")
 
-[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
+[node name="VISUALS" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="VISUALS"]
+visible = false
+texture = ExtResource("2_f7wsf")
+region_rect = Rect2(290, 86, 15, 14)
+
+[node name="SPRITES" type="Node2D" parent="VISUALS"]
+
+[node name="FootL" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-3, -5)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(1, 5, 8, 4)
+
+[node name="FootR" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-3, 0)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(1, 10, 8, 4)
+
+[node name="Crotch" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-3, -4)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(10, 6, 5, 7)
+
+[node name="ArmL" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-4, -8)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(23, 1, 8, 4)
+
+[node name="ArmR" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-4, 3)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(23, 14, 8, 4)
+
+[node name="Torso" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-4, -8)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(16, 2, 6, 15)
+
+[node name="Head" type="Sprite2D" parent="VISUALS/SPRITES"]
+position = Vector2(-3, -4)
+texture = ExtResource("3_qyrk3")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(23, 6, 6, 7)
+
+[node name="COMBAT" type="Node2D" parent="."]
+
+[node name="HitboxComponent" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 position = Vector2(0, 7)
 collision_layer = 4
 collision_mask = 0
@@ -95,38 +131,31 @@ knockback_component = NodePath("../KnockbackComponent")
 resists = SubResource("Resource_v6yhw")
 timer = NodePath("Timer")
 
-[node name="PlayerHitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="PlayerHitboxShape" type="CollisionShape2D" parent="COMBAT/HitboxComponent"]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_vjv4w")
 
-[node name="Timer" type="Timer" parent="HitboxComponent"]
+[node name="Timer" type="Timer" parent="COMBAT/HitboxComponent"]
 process_callback = 0
 wait_time = 0.5
 one_shot = true
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="COMBAT"]
 script = ExtResource("5_e3uyi")
 max_health = 5.0
 
-[node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+[node name="KnockbackComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("target")]
 script = ExtResource("6_s7rs4")
-target = NodePath("..")
+target = NodePath("../..")
 
-[node name="DeathComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="DeathComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component", "target")]
 script = ExtResource("7_tdum8")
 health_component = NodePath("../HealthComponent")
+target = NodePath("../..")
 
-[node name="TurretActivator" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-script = SubResource("GDScript_cx1vt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretActivator"]
-shape = SubResource("CircleShape2D_0c51q")
-debug_color = Color(0, 0.6, 0.701961, 0.0980392)
-
-[node name="ResourceComponent" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="ResourceComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component")]
 script = ExtResource("10_6rnd7")
+starting_scrap = 20
 health_component = NodePath("../HealthComponent")
 
 [node name="TurretCreator" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
@@ -135,7 +164,7 @@ collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_m8gx5")
 turrets = Array[ExtResource("10_7ncur")]([SubResource("Resource_lcm4w"), SubResource("Resource_nhm3g")])
-resource_component = NodePath("../ResourceComponent")
+resource_component = NodePath("../COMBAT/ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
@@ -145,7 +174,7 @@ debug_color = Color(0, 0.6, 0, 0.164706)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("11_2o3mk")
-resource_component = NodePath("../ResourceComponent")
+resource_component = NodePath("../COMBAT/ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResourceCollector"]
 shape = SubResource("CircleShape2D_hv12w")
@@ -163,6 +192,6 @@ theme_override_constants/outline_size = 1
 script = ExtResource("10_uc35w")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="health_changed" from="HealthComponent" to="Label" method="_on_health_component_damaged"]
-[connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]
-[connection signal="scrap_changed" from="ResourceComponent" to="Label" method="_on_resource_component_scrap_changed"]
+[connection signal="health_changed" from="COMBAT/HealthComponent" to="Label" method="_on_health_component_damaged"]
+[connection signal="died" from="COMBAT/DeathComponent" to="." method="_on_death_component_died"]
+[connection signal="scrap_changed" from="COMBAT/ResourceComponent" to="Label" method="_on_resource_component_scrap_changed"]
