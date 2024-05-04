@@ -396,7 +396,7 @@ position = Vector2(641, 368)
 
 [node name="NewWaveManager" type="Node2D" parent="."]
 script = ExtResource("3_xxjun")
-mana = 50
+mana = 30
 enemy_data = Array[Resource("res://enemy_placement_data.gd")]([ExtResource("4_5itaq"), ExtResource("5_iqboy")])
 wave_max_number = 1
 
@@ -404,19 +404,19 @@ wave_max_number = 1
 position = Vector2(65, 66)
 
 [node name="Node2D2" type="Node2D" parent="NewWaveManager"]
-position = Vector2(457, 308)
+position = Vector2(567, 296)
 
 [node name="Node2D3" type="Node2D" parent="NewWaveManager"]
-position = Vector2(562, 71)
+position = Vector2(589, 58)
 
 [node name="Node2D4" type="Node2D" parent="NewWaveManager"]
-position = Vector2(425, 86)
+position = Vector2(448, 74)
 
 [node name="Node2D5" type="Node2D" parent="NewWaveManager"]
-position = Vector2(267, 197)
+position = Vector2(302, 310)
 
 [node name="Node2D6" type="Node2D" parent="NewWaveManager"]
-position = Vector2(186, 70)
+position = Vector2(193, 102)
 
 [node name="Node2D7" type="Node2D" parent="NewWaveManager"]
-position = Vector2(72, 308)
+position = Vector2(61, 314)
