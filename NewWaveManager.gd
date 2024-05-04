@@ -73,5 +73,5 @@ func _on_wave_cooldown_timeout():
 	
 func choose_spawn_points():
 	actual_spawn_points = []
-	for i in randf_range(0, len(initial_spawn_points) - 1):
+	for i in randf_range(1, len(initial_spawn_points) - 1):
 		actual_spawn_points.append(initial_spawn_points[randi() % (len(initial_spawn_points) - 1)])
