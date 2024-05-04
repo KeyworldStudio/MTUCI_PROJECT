@@ -3,10 +3,8 @@ extends Node2D
 @export var mana: int = 100
 @export var enemy_data: Array[EnemyPlacementData]
 @export var wave_max_number: int = 8
-@export var max_number_of_tries: int = 5
 @export var wave_time: int = 5
 @export var prize_scene: PackedScene
-@export var enemy_cap: int = 20
 
 @onready var wave_timer:= Timer.new()
 
@@ -45,9 +43,9 @@ func start_new_wave():
 		while chosen_enemy.price > mana or chosen_enemy.starting_wave > wave_number:
 			number_of_tries += 1
 			chosen_enemy = enemy_data[len(enemy_data) - number_of_tries]
-			if number_of_tries == len(enemy_data) + 1:
+			if number_of_tries == len(enemy_data):
 				break
-		if number_of_tries == len(enemy_data) + 1:
+		if number_of_tries == len(enemy_data):
 			break
 		var instance = chosen_enemy.scene.instantiate()
 		GlobalRefs.enemy_holder.add_child.call_deferred(instance)
@@ -73,5 +71,5 @@ func _on_wave_cooldown_timeout():
 	
 func choose_spawn_points():
 	actual_spawn_points = []
-	for i in randf_range(1, len(initial_spawn_points) - 1):
+	for i in randf_range(1, len(initial_spawn_points)):
 		actual_spawn_points.append(initial_spawn_points[randi() % (len(initial_spawn_points) - 1)])
