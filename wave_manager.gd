@@ -5,6 +5,7 @@ extends Node2D
 @export var enemy_data: Array[EnemyPlacementData]
 @export var wave_max_number: int = 8
 @export var max_number_of_tries: int = 5
+#@export var progression: Expression
 
 var wave_number: int = 0
 var number_of_tries: int = 0

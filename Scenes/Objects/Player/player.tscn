@@ -1,19 +1,20 @@
-[gd_scene load_steps=23 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=24 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
 [ext_resource type="Texture2D" uid="uid://dq0uu7ed2ilm5" path="res://Assets/Visual/Sheets/PlayerSheet.png" id="3_qyrk3"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_v32i7"]
+[ext_resource type="Script" path="res://Scripts/Player/advanced_leg_stepper.gd" id="4_e0ahq"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_fbra3"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_e3uyi"]
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="6_s7rs4"]
 [ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="7_tdum8"]
 [ext_resource type="Script" path="res://Scripts/Player/turret_creator.gd" id="8_m8gx5"]
 [ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="9_63nyn"]
-[ext_resource type="Script" path="res://Scenes/Objects/Player/resource_component.gd" id="10_6rnd7"]
+[ext_resource type="Script" path="res://Scripts/Player/resource_component.gd" id="10_6rnd7"]
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="10_7ncur"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
-[ext_resource type="Script" path="res://Scenes/Objects/Player/resource_collector.gd" id="11_2o3mk"]
+[ext_resource type="Script" path="res://Scripts/Player/resource_collector.gd" id="11_2o3mk"]
 [ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/big_turret.tscn" id="12_nxajq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
@@ -55,11 +56,6 @@ hitbox = NodePath("COMBAT/HitboxComponent")
 shape = SubResource("CapsuleShape2D_nro1a")
 
 [node name="VISUALS" type="Node2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="VISUALS"]
-visible = false
-texture = ExtResource("2_f7wsf")
-region_rect = Rect2(290, 86, 15, 14)
 
 [node name="SPRITES" type="Node2D" parent="VISUALS"]
 
@@ -118,6 +114,37 @@ centered = false
 offset = Vector2(0.5, 0.5)
 region_enabled = true
 region_rect = Rect2(23, 6, 6, 7)
+
+[node name="Sprite2D" type="Sprite2D" parent="VISUALS"]
+visible = false
+texture = ExtResource("2_f7wsf")
+region_rect = Rect2(290, 86, 15, 14)
+
+[node name="TLL" type="Marker2D" parent="VISUALS"]
+position = Vector2(0, -2)
+
+[node name="TLR" type="Marker2D" parent="VISUALS"]
+position = Vector2(0, 2)
+
+[node name="SEGMENTS" type="Node" parent="VISUALS"]
+
+[node name="LegL" type="Node2D" parent="VISUALS/SEGMENTS" node_paths=PackedStringArray("target")]
+position = Vector2(0, -2)
+script = ExtResource("4_e0ahq")
+target = NodePath("../../TLL")
+
+[node name="LegLRT" type="RemoteTransform2D" parent="VISUALS/SEGMENTS/LegL"]
+position = Vector2(-3, -3)
+remote_path = NodePath("../../../SPRITES/FootL")
+
+[node name="LegR" type="Node2D" parent="VISUALS/SEGMENTS" node_paths=PackedStringArray("target")]
+position = Vector2(0, 2)
+script = ExtResource("4_e0ahq")
+target = NodePath("../../TLR")
+
+[node name="LegRRT" type="RemoteTransform2D" parent="VISUALS/SEGMENTS/LegR"]
+position = Vector2(-3, -2)
+remote_path = NodePath("../../../SPRITES/FootR")
 
 [node name="COMBAT" type="Node2D" parent="."]
 
