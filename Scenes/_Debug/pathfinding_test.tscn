@@ -33,7 +33,7 @@ position = Vector2(641, 368)
 script = ExtResource("3_xxjun")
 mana = 60
 enemy_data = Array[Resource("res://enemy_placement_data.gd")]([ExtResource("4_5itaq"), ExtResource("5_iqboy")])
-wave_max_number = 2
+wave_time = 1000
 
 [node name="Node2D" type="Node2D" parent="NewWaveManager"]
 position = Vector2(65, 66)
