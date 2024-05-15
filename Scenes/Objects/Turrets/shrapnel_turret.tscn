@@ -48,4 +48,4 @@ resists = SubResource("Resource_u2a0n")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_s6akb")
 
-[node name="Turret_gun" parent="." instance=ExtResource("7_5d8cp")]
+[node name="Shrapnel-gun" parent="." instance=ExtResource("7_5d8cp")]
