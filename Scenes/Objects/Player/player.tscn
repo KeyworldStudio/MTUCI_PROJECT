@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=28 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -14,7 +14,8 @@
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 [ext_resource type="Script" path="res://Scenes/Objects/Player/resource_collector.gd" id="11_2o3mk"]
 [ext_resource type="PackedScene" uid="uid://b4tok10eh3ky3" path="res://Scenes/Objects/Turrets/shrapnel_turret.tscn" id="12_cpjjl"]
-[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/big_turret.tscn" id="13_lkren"]
+[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/gatling_turret.tscn" id="13_lkren"]
+[ext_resource type="PackedScene" uid="uid://di4foi8vno0t" path="res://Scenes/Objects/Turrets/railgun_turret.tscn" id="14_ge50i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
 radius = 4.0
@@ -74,6 +75,12 @@ script = ExtResource("10_7ncur")
 price = 0
 size = 0.0
 scene = ExtResource("13_lkren")
+
+[sub_resource type="Resource" id="Resource_nvjut"]
+script = ExtResource("10_7ncur")
+price = 0
+size = 0.0
+scene = ExtResource("14_ge50i")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
 
@@ -141,7 +148,7 @@ position = Vector2(18, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_m8gx5")
-turrets = Array[ExtResource("10_7ncur")]([SubResource("Resource_383fh"), SubResource("Resource_60okq"), SubResource("Resource_l13gj")])
+turrets = Array[ExtResource("10_7ncur")]([SubResource("Resource_383fh"), SubResource("Resource_60okq"), SubResource("Resource_l13gj"), SubResource("Resource_nvjut")])
 resource_component = NodePath("../ResourceComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]

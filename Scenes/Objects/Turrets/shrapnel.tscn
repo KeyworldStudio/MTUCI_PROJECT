@@ -12,10 +12,10 @@ attack_damage = 1.0
 knockback_force = 100.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ua6x"]
-size = Vector2(33, 17)
+size = Vector2(29, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpud5"]
-size = Vector2(33, 17)
+size = Vector2(29, 13)
 
 [node name="shrapnel" type="Node2D"]
 position = Vector2(5, -2)
@@ -23,8 +23,8 @@ script = ExtResource("1_euwi0")
 small_bullets = ExtResource("2_u1wh0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-4, 2.5)
-scale = Vector2(2.60417, 2.58333)
+position = Vector2(-5, 2)
+scale = Vector2(2.43616, 2.41666)
 texture = ExtResource("2_r2msm")
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -41,7 +41,7 @@ knockback_origin = NodePath("../Marker2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 visibility_layer = 15
-position = Vector2(-4.5, 2.5)
+position = Vector2(-5, 2)
 shape = SubResource("RectangleShape2D_0ua6x")
 
 [node name="Collision Detector" type="Area2D" parent="."]
@@ -52,7 +52,7 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Detector"]
 visibility_layer = 15
-position = Vector2(-4.5, 2.5)
+position = Vector2(-5, 2)
 shape = SubResource("RectangleShape2D_cpud5")
 
 [connection signal="hit_is_applied" from="HurtBox" to="." method="_on_hurt_box_hit_is_applied"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://di4foi8vno0t"]
+
+[ext_resource type="PackedScene" uid="uid://dimor6bnadbit" path="res://Scenes/Objects/Turrets/railgun.tscn" id="1_sikt0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbyv4"]
+size = Vector2(32, 32)
+
+[node name="railgun_turret" type="CharacterBody2D"]
+
+[node name="big_turret_gun" parent="." instance=ExtResource("1_sikt0")]
+position = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_nbyv4")

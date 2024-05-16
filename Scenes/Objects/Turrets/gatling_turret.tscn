@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://bednccijx876g"]
 
-[ext_resource type="Script" path="res://Scripts/Turrets/turret.gd" id="1_h0uej"]
-[ext_resource type="PackedScene" uid="uid://c1h3534h42e1f" path="res://Scenes/Objects/Turrets/big_turret_gun.tscn" id="3_v58up"]
+[ext_resource type="Script" path="res://Scripts/Turrets/turret.gd" id="1_rbj3q"]
+[ext_resource type="PackedScene" uid="uid://c1h3534h42e1f" path="res://Scenes/Objects/Turrets/gatling_turret_gun.tscn" id="2_g88xp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxhmq"]
 radius = 11.0454
 
 [node name="big_turret" type="CharacterBody2D" node_paths=PackedStringArray("guns")]
 collision_layer = 2
-script = ExtResource("1_h0uej")
+script = ExtResource("1_rbj3q")
 guns = [NodePath("big_turret_gun")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cxhmq")
 
-[node name="big_turret_gun" parent="." instance=ExtResource("3_v58up")]
+[node name="big_turret_gun" parent="." instance=ExtResource("2_g88xp")]
