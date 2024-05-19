@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bapfjx76y3dbl"]
+
+[sub_resource type="SystemFont" id="SystemFont_p3hth"]
+font_names = PackedStringArray("Consolas")
+font_italic = true
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 641.0
+offset_bottom = 136.0
+theme_override_fonts/font = SubResource("SystemFont_p3hth")
+theme_override_font_sizes/font_size = 32
+text = "HIIIIIII FOLKS
+HERE IS OUR TEST SCENE
+WILL BE REPLACED SOON,
+ WE PROMISE... MB"
