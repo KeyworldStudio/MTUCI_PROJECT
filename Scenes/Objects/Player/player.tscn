@@ -35,12 +35,14 @@ script = ExtResource("10_7ncur")
 price = 5
 size = 10.0
 scene = ExtResource("12_nawcp")
+turret_id = ""
 
 [sub_resource type="Resource" id="Resource_nhm3g"]
 script = ExtResource("10_7ncur")
 price = 20
 size = 16.0
 scene = ExtResource("12_nxajq")
+turret_id = ""
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
 

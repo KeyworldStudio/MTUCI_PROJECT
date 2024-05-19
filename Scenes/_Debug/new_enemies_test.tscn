@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://urhrba570qpp"]
 
 [ext_resource type="TileSet" uid="uid://r66y185oj36x" path="res://Assets/Visual/Tilesets/TestTileSet.tres" id="1_1kyhv"]
-[ext_resource type="Script" path="res://wave_manager.gd" id="2_o2v4y"]
+[ext_resource type="Script" path="res://Scripts/wave_manager.gd" id="2_o2v4y"]
 [ext_resource type="Resource" uid="uid://1nfum6v058ps" path="res://Resources/MeleeEnemy.tres" id="3_4sbxp"]
 
 [node name="NewEnemiesTest" type="Node2D"]

@@ -2,7 +2,7 @@ extends Node2D
 
 @export var mana: int = 100
 @export var enemy_data: Array[EnemyPlacementData]
-@export var enemy_cap: float = 2
+@export var enemy_cap: float = 30
 @export var wave_max_number: int = 8
 @export var wave_time: int = 5
 @export var prize_scene: PackedScene
@@ -25,6 +25,9 @@ func sort_price(a, b) -> bool:
 	return false
 
 func _ready() -> void:
+	print_debug(enemy_data.size())
+	print_debug(enemy_data)
+	print_debug(enemy_cap)
 	for i in get_children():
 		spawn_points.append(i)
 	add_child(wave_timer)

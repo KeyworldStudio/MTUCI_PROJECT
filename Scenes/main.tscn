@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
-[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/UI/TurretHotbar.tscn" id="8_xmx3k"]
+[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/ui/TurretHotbar.tscn" id="8_xmx3k"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_yylq0")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://dag66grdq6o78"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Enemies/ranged_enemy.gd" id="1_j8dao"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ranged_enemy.gd" id="1_j5rce"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_wagro"]
 [ext_resource type="PackedScene" uid="uid://cag6br1vm13bt" path="res://Scenes/Objects/Enemies/enemy_bullet.tscn" id="2_ihx1q"]
 [ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="3_2hr53"]
@@ -154,7 +154,7 @@ radius = 9.0
 
 [node name="RangedEnemy" type="CharacterBody2D" node_paths=PackedStringArray("bullet_place")]
 collision_layer = 2
-script = ExtResource("1_j8dao")
+script = ExtResource("1_j5rce")
 speed = 40.0
 bullet = ExtResource("2_ihx1q")
 bullet_place = NodePath("VISUAL/Skeleton2D/Body/Gun/BulletSpawn")
@@ -178,7 +178,6 @@ position = Vector2(-1, 0)
 [node name="FootR" type="Sprite2D" parent="VISUAL/SPRITES"]
 position = Vector2(7.80853, 9.18137)
 rotation = 1.38545
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 region_enabled = true
@@ -196,7 +195,6 @@ region_rect = Rect2(33, 18, 15, 3)
 [node name="LegR2" type="Sprite2D" parent="VISUAL/SPRITES"]
 position = Vector2(-7.18591, 8.72852)
 rotation = 0.349618
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -206,7 +204,6 @@ region_rect = Rect2(33, 22, 15, 5)
 [node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
 position = Vector2(-2.02005, -11.0242)
 rotation = -1.38545
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 region_enabled = true
@@ -222,9 +219,8 @@ region_enabled = true
 region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegL2" type="Sprite2D" parent="VISUAL/SPRITES"]
-position = Vector2(-9.24114, -14.3655)
+position = Vector2(-9.24115, -14.3655)
 rotation = -0.349623
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -234,7 +230,6 @@ region_rect = Rect2(33, 22, 15, 5)
 [node name="FootB" type="Sprite2D" parent="VISUAL/SPRITES"]
 position = Vector2(-7, 5)
 rotation = -3.14159
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 region_enabled = true
@@ -252,7 +247,6 @@ region_rect = Rect2(33, 18, 15, 3)
 [node name="LegB2" type="Sprite2D" parent="VISUAL/SPRITES"]
 position = Vector2(-5.63975, -11.1277)
 rotation = 1.92837
-scale = Vector2(1, 1)
 texture = ExtResource("3_2hr53")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -433,7 +427,6 @@ remote_path = NodePath("../../../../../SPRITES/LegL2")
 [node name="FootL" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegL1/LegL2"]
 position = Vector2(-10, 0)
 rotation = -1.03583
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
