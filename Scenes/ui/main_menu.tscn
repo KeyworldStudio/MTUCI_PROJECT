@@ -53,7 +53,7 @@ theme_override_constants/shadow_offset_x = 8
 theme_override_constants/shadow_offset_y = 8
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("3_ou7o4")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Turret Mancer"
 horizontal_alignment = 1
 
@@ -72,7 +72,6 @@ layout_mode = 2
 
 [node name="StartButton" type="Button" parent="TextureRect/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ou7o4")
 theme_override_font_sizes/font_size = 25
@@ -84,7 +83,6 @@ layout_mode = 2
 
 [node name="SettingsButton" type="Button" parent="TextureRect/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ou7o4")
 theme_override_font_sizes/font_size = 25
@@ -96,7 +94,6 @@ layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="TextureRect/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ou7o4")
 theme_override_font_sizes/font_size = 25

@@ -24,8 +24,8 @@ GlobalRefs="*res://Scripts/global_refs.gd"
 
 window/size/viewport_width=480
 window/size/viewport_height=270
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/window_width_override=960
+window/size/window_height_override=540
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
@@ -108,4 +108,3 @@ common/physics_ticks_per_second=32
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
