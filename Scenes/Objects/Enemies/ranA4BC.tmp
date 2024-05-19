@@ -1,0 +1,251 @@
+[gd_scene load_steps=24 format=3 uid="uid://dag66grdq6o78"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Enemies/ranged_enemy.gd" id="1_j8dao"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_wagro"]
+[ext_resource type="PackedScene" uid="uid://cag6br1vm13bt" path="res://Scenes/Objects/Enemies/enemy_bullet.tscn" id="2_ihx1q"]
+[ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="3_2hr53"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="3_257cy"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="3_oc303"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="4_atp6u"]
+[ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="4_vhbw0"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_fabrik.gd" id="5_emeub"]
+[ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="5_ybmfm"]
+[ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="6_34ypk"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_look_at.gd" id="6_ao446"]
+[ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="6_qd7mg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="8_fqy8c"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="9_ytss7"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="10_5nkbi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="11_2ecfx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1qg1u"]
+radius = 7.07107
+
+[sub_resource type="Animation" id="Animation_webby"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Body/Jaw1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Body/Jaw2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Body/Gun:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Body:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qp32u"]
+resource_name = "Shoot"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Body/Jaw1:rotation")
+tracks/0/interp = 3
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.309, -1.309, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Body/Jaw2:rotation")
+tracks/1/interp = 3
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.309, 1.309, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Body/Gun:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, 0), Vector2(3, 0), Vector2(0, 0), Vector2(3, 0), Vector2(-2, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Body:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(-5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gg7ia"]
+_data = {
+"RESET": SubResource("Animation_webby"),
+"Shoot": SubResource("Animation_qp32u")
+}
+
+[sub_resource type="Resource" id="Resource_kjcer"]
+script = ExtResource("3_oc303")
+armor = 0.0
+coefficient_of_knockback = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgcdd"]
+radius = 9.0
+
+[node name="RangedEnemy" type="CharacterBody2D" node_paths=PackedStringArray("bullet_place")]
+collision_layer = 2
+script = ExtResource("1_j8dao")
+speed = 40.0
+bullet = ExtResource("2_ihx1q")
+bullet_place = NodePath("VISUAL/Skeleton2D/Body/Gun/BulletSpawn")
+bullet_speed = 150.0
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1qg1u")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="VISUAL" type="Node2D" parent="."]
+position = Vector2(-1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VISUAL"]
+libraries = {
+"": SubResource("AnimationLibrary_gg7ia")
+}
+
+[node name="SPRITES" type="Node2D" parent="VISUAL"]
+position = Vector2(-1, 0)
+
+[node name="FootR" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(7.80855, 9.18142)
+rotation = 1.38546
+texture = ExtResource("3_2hr53")
+centered = false
+region_enabled = true
+region_rect = Rect2(21, 8, 11, 10)
+
+[node name="LegR1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(5.82827, 3.97009)
+rotation = 2.34561
+texture = ExtResource("3_2hr53")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 18, 15, 3)
+
+[node name="LegR2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-7.1859, 8.72851)
+rotation = 0.349621
+texture = ExtResource("3_2hr53")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 22, 15, 5)
+
+[node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-2.02003, -11.0242)
+rotation = -1.38545
+texture = ExtResource("3_2hr53")
+centered = false
+region_enabled = true
+region_rect = Rect2(21, 8, 11, 10)
+
+[node name="LegL1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(2.97007, -1.17173)
+rotation = -2.34561
+texture = ExtResource("3_2hr53")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 18, 15, 3)
+
+[node name="LegL2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-9.24115, -14.3654)
+rotation = -0.349626
+texture = ExtResource("3_2hr53")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 22, 15, 5)
+
+[node name="FootB" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-7.00002, 5.00003)
+rotation = -3.14159
+texture = ExtResource("3_2hr53")
+centered = false
+region_enabled = true
+region_rect = Rect2(21, 8, 11, 10)
+
+[node name="LegB1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-2.31125, 2.81125)
+rotation = -2.24593
+scale = Vector2(1, 1)
+texture = ExtResource("3_2hr53")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 18, 15, 3)
+
+[node name="LegB2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-5.63975, -11.1277)
+rotation = 1.92837
+texture = 
