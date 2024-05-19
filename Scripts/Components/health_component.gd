@@ -39,6 +39,6 @@ func healing_to_max():
 
 
 # обнуление здоровья
-func zeroing_out_health():         
+func kill():         
 	health = 0
 	health_zero.emit() 
