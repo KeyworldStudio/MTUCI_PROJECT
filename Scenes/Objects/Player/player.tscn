@@ -10,12 +10,12 @@
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="6_s7rs4"]
 [ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="7_tdum8"]
 [ext_resource type="Script" path="res://Scripts/Player/turret_creator.gd" id="8_m8gx5"]
-[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="9_63nyn"]
 [ext_resource type="Script" path="res://Scripts/Player/resource_component.gd" id="10_6rnd7"]
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="10_7ncur"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 [ext_resource type="Script" path="res://Scripts/Player/resource_collector.gd" id="11_2o3mk"]
-[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/big_turret.tscn" id="12_nxajq"]
+[ext_resource type="PackedScene" uid="uid://b4tok10eh3ky3" path="res://Scenes/Objects/Turrets/shrapnel_turret.tscn" id="12_nawcp"]
+[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/gatling_turret.tscn" id="12_nxajq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
 radius = 4.0
@@ -34,7 +34,7 @@ height = 14.0
 script = ExtResource("10_7ncur")
 price = 5
 size = 10.0
-scene = ExtResource("9_63nyn")
+scene = ExtResource("12_nawcp")
 
 [sub_resource type="Resource" id="Resource_nhm3g"]
 script = ExtResource("10_7ncur")
