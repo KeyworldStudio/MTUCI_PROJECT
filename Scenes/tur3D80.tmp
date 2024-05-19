@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://wcrb76m41yc2"]
+
+[ext_resource type="Script" path="res://Scenes/turret_hotbar.gd" id="1_igs7q"]
+[ext_resource type="Script" path="res://Scenes/button_turret_hotbar.gd" id="2_kffbj"]
+
+[node name="TurretHotbar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_igs7q")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 248.0
+offset_right = 259.0
+offset_bottom = 288.0
+columns = 10
+
+[node name="Button" type="Button" parent="GridContainer"]
+layout_mode = 2
+script = ExtResource("2_kffbj")
+button_index = 1
+
+[node name="Button2" type="Button" parent="GridContainer"]
+layout_mode = 2
+script = ExtResource("2_kffbj")
+button_index = 2

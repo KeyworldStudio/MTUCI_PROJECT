@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpy5i7s5fr2jd"]
+[gd_scene load_steps=9 format=3 uid="uid://bpy5i7s5fr2jd"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_yylq0"]
 [ext_resource type="Script" path="res://Scripts/game_world.gd" id="2_61ne2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
+[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/UI/TurretHotbar.tscn" id="8_xmx3k"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_yylq0")
@@ -61,8 +62,6 @@ inactive_update_mode = 0
 [node name="PlayerCameraFollowTarget" type="Marker2D" parent="GameWorld/Player"]
 script = ExtResource("7_okdpn")
 
-[node name="MainGUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MainGUI" type="CanvasLayer" parent="."]
+
+[node name="TurretHotbar" parent="MainGUI" instance=ExtResource("8_xmx3k")]
