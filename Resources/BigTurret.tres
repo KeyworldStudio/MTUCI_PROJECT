@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TurretPlacementData" load_steps=3 format=3 uid="uid://bvtqop6njwx0h"]
 
-[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/big_turret.tscn" id="1_15wtq"]
+[ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/gatling_turret.tscn" id="1_15wtq"]
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="1_hh5wc"]
 
 [resource]

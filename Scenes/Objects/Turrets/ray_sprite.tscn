@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://vlu0888gxgj1"]
+
+[ext_resource type="Texture2D" uid="uid://c380s80gjgjry" path="res://Assets/Visual/Sprites/F9oh2Gk.png" id="1_65gkf"]
+
+[node name="RaySprite" type="Sprite2D"]
+position = Vector2(-1.90735e-06, 4.76837e-07)
+scale = Vector2(0.6875, 0.6875)
+texture = ExtResource("1_65gkf")
