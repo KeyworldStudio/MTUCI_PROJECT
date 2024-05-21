@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
-[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/ui/TurretHotbar.tscn" id="8_xmx3k"]
+[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/UI/TurretHotbar.tscn" id="8_xmx3k"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngknl"]
 light_mode = 2
@@ -17,7 +17,7 @@ background_mode = 3
 background_energy_multiplier = 0.0
 glow_enabled = true
 glow_normalized = true
-glow_bloom = 0.45
+glow_bloom = 0.3
 glow_blend_mode = 0
 glow_hdr_threshold = 1.06
 glow_map_strength = 0.0

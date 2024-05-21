@@ -21,7 +21,7 @@ use_parent_material = true
 script = ExtResource("1_aqk3h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.827451, 0, 0.407843, 1)
+modulate = Color(3, 0, 2, 1)
 use_parent_material = true
 texture = ExtResource("1_nm4wp")
 

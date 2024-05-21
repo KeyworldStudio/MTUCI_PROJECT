@@ -59,10 +59,10 @@ tracks/2/path = NodePath("SPRITES/Sack/SackGlow:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4, 2),
-"transitions": PackedFloat32Array(0.225313, 1.03526, 0.0769466),
+"times": PackedFloat32Array(0, 0.4, 1, 2),
+"transitions": PackedFloat32Array(0.225313, 1.03526, 1, 0.0769466),
 "update": 0,
-"values": [Color(2, 2, 2, 1), Color(0.207833, 0.1925, 0.25, 1), Color(4, 1, 1, 1)]
+"values": [Color(2, 2, 2, 1), Color(0.207833, 0.1925, 0.25, 1), Color(1.58156, 0.485019, 0.52169, 1), Color(4, 4, 4, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_opuot"]
@@ -98,7 +98,7 @@ _data = {
 "RESET": SubResource("Animation_opuot")
 }
 
-[sub_resource type="Resource" id="Resource_4gqmu"]
+[sub_resource type="Resource" id="Resource_vq0uk"]
 script = ExtResource("7_jalaf")
 frequency = 2.001
 damping = 0.05
@@ -176,6 +176,15 @@ offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(33, 28, 16, 8)
 
+[node name="LLeg3Glow" type="Sprite2D" parent="VISUAL/SPRITES/LLeg3"]
+self_modulate = Color(1.5, 1.5, 1.5, 1)
+use_parent_material = true
+position = Vector2(0.0152619, 0.435235)
+texture = ExtResource("4_hxwh3")
+centered = false
+region_enabled = true
+region_rect = Rect2(21, 23, 8, 8)
+
 [node name="LLeg4" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(-9.04659, -32.6101)
@@ -190,7 +199,7 @@ region_rect = Rect2(45, 47, 17, 7)
 use_parent_material = true
 position = Vector2(14, 17)
 rotation = -2.31696
-scale = Vector2(1, 1)
+scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("2_dhcj5")
 offset = Vector2(0.5, 0)
 region_enabled = true
@@ -198,9 +207,9 @@ region_rect = Rect2(54, 13, 8, 8)
 
 [node name="FRLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(9.05457, 6.30675)
-rotation = 1.33886
-scale = Vector2(1, 1)
+position = Vector2(9.05623, 6.30459)
+rotation = 1.3391
+scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("2_dhcj5")
 centered = false
 offset = Vector2(0, 0.5)
@@ -209,9 +218,9 @@ region_rect = Rect2(33, 18, 15, 3)
 
 [node name="FRLeg3" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(16.8262, 17.1129)
-rotation = 2.39612
-scale = Vector2(1, 1)
+position = Vector2(16.8261, 17.1143)
+rotation = 2.39662
+scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("2_dhcj5")
 centered = false
 offset = Vector2(0, 0.5)
@@ -220,8 +229,9 @@ region_rect = Rect2(44, 13, 9, 4)
 
 [node name="FRLeg" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(1.13391, 2.30744)
-rotation = 0.474188
+position = Vector2(1.13261, 2.30786)
+rotation = 0.473707
+scale = Vector2(1, 1)
 texture = ExtResource("2_dhcj5")
 centered = false
 region_enabled = true
@@ -247,7 +257,7 @@ region_rect = Rect2(33, 22, 15, 5)
 
 [node name="BRLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(0.921974, 6.21178)
+position = Vector2(0.921975, 6.21178)
 rotation = 1.84079
 texture = ExtResource("2_dhcj5")
 centered = false
@@ -281,6 +291,16 @@ offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(18, 21, 13, 13)
 
+[node name="BodyGlow" type="Sprite2D" parent="VISUAL/SPRITES/Body"]
+self_modulate = Color(1.5, 1.5, 1.5, 1)
+use_parent_material = true
+position = Vector2(5, 0)
+texture = ExtResource("4_hxwh3")
+centered = false
+offset = Vector2(0, 0.5)
+region_enabled = true
+region_rect = Rect2(24, 0, 8, 13)
+
 [node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
 use_parent_material = true
 
@@ -311,7 +331,7 @@ target_node = NodePath("../../SackJiggleTarget")
 enabled = true
 bone_node = NodePath("../../Body/Sack")
 use_easing = true
-easing = SubResource("Resource_4gqmu")
+easing = SubResource("Resource_vq0uk")
 
 [node name="Body" type="Bone2D" parent="VISUAL/Skeleton2D"]
 use_parent_material = true
@@ -382,17 +402,20 @@ remote_path = NodePath("../../../../SPRITES/LLeg")
 [node name="FRLeg" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 use_parent_material = true
 position = Vector2(-1, 5)
-rotation = 0.474188
+rotation = 0.473707
+scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -1, 5)
 
 [node name="FRLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg"]
 position = Vector2(6, -1.50996e-07)
-rotation = 2.43547
+rotation = 2.43619
+scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 6, -1.50996e-07)
 
 [node name="FRLeg3" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg/FRLeg2"]
 position = Vector2(-1.27555e-06, -13)
-rotation = -0.51354
+rotation = -0.513275
+scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -1.27555e-06, -13)
 
 [node name="FRFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg/FRLeg2/FRLeg3"]
@@ -612,6 +635,7 @@ metadata/_edit_group_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="MOTION"]
 avoidance_enabled = true
 radius = 16.0
+neighbor_distance = 64.0
 
 [node name="Timer" type="Timer" parent="MOTION"]
 process_callback = 0

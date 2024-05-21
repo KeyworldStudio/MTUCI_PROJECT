@@ -10,6 +10,7 @@ attack_damage = 2.0
 knockback_force = 200.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jwixj"]
+light_mode = 2
 particles_animation = true
 particles_anim_h_frames = 5
 particles_anim_v_frames = 1
@@ -18,7 +19,7 @@ particles_anim_loop = false
 [sub_resource type="Gradient" id="Gradient_p63qm"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.157718, 0.355705, 0.466443, 0.671141, 1)
-colors = PackedColorArray(0.423529, 0, 0, 1, 1, 0.372549, 0.0352941, 1, 1, 1, 0.352941, 1, 1, 1, 1, 1, 1, 0.540413, 0.0844156, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.423529, 0, 0, 1, 1, 0.04, 0.584, 1, 1, 0.35, 0.935, 1, 1, 0, 0.4, 1, 0.16, 0, 0.0266667, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nqxua"]
 gradient = SubResource("Gradient_p63qm")
@@ -41,7 +42,7 @@ radial_velocity_min = 200.0
 radial_velocity_max = 300.0
 radial_velocity_curve = SubResource("CurveTexture_83iuv")
 gravity = Vector3(0, 0, 0)
-damping_min = 100.0
+damping_min = 500.0
 damping_max = 1000.0
 attractor_interaction_enabled = false
 scale_max = 2.0
@@ -52,7 +53,7 @@ anim_speed_max = 1.1
 collision_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1agby"]
-radius = 96.0
+radius = 80.0
 
 [node name="EnemyExplosion" type="Area2D"]
 use_parent_material = true
@@ -60,21 +61,20 @@ collision_layer = 0
 collision_mask = 20
 script = ExtResource("1_qwfor")
 attack_data = SubResource("Resource_5o2nr")
+radius = 80.0
 
 [node name="ExplosionParticles" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_jwixj")
-use_parent_material = true
 emitting = false
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_rvqm5")
 texture = ExtResource("2_dr1l6")
 lifetime = 0.6
 one_shot = true
-preprocess = 0.05
 explosiveness = 0.84
 randomness = 0.6
 fract_delta = false
-collision_base_size = 0.0
+collision_base_size = 0.05
 draw_order = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

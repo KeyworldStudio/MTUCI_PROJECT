@@ -1,9 +1,10 @@
-[gd_scene load_steps=43 format=3 uid="uid://b4i5vjcxw1ro2"]
+[gd_scene load_steps=44 format=3 uid="uid://b4i5vjcxw1ro2"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_charger.gd" id="1_5p8ul"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_qvipm"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="2_8a3r7"]
 [ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="2_h4lln"]
+[ext_resource type="Texture2D" uid="uid://bmga4s03k0iee" path="res://Assets/Visual/Sheets/EnemyGlow.png" id="3_4xodw"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="3_46l5a"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="3_dnuin"]
 [ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="3_u7cti"]
@@ -47,7 +48,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [-3.13854, -3.13854, 1.5708, 1.5708, 0.0, 0.0, 0.0, 0.0]
+"values": [-3.14159, -3.14159, 1.5708, 1.5708, 0.0, 0.0, 0.0, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -71,7 +72,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [-3.13854, -3.13854, -1.57079, -1.57079, 0.0, 0.0, 0.0, 0.0]
+"values": [-3.14159, -3.14159, -1.57079, -1.57079, 0.0, 0.0, 0.0, 0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -134,6 +135,42 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SPRITES/Head/HeadGlow:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(2, 2, 2, 1), Color(0.5, 0.5, 0.5, 1), Color(0.5, 0.5, 0.5, 1), Color(2, 2, 2, 1), Color(2, 2, 2, 1), Color(0.2, 0.2, 0.2, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SPRITES/LBlade/LBladeGlow:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.3, 0.3, 0.3, 1), Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(2, 2, 2, 1), Color(0.3, 0.3, 0.3, 1), Color(0.301961, 0.301961, 0.301961, 1), Color(2, 2, 2, 1), Color(4, 4, 4, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SPRITES/RBlade/RBladeGlow:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.3, 0.3, 0.3, 1), Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(2, 2, 2, 1), Color(0.3, 0.3, 0.3, 1), Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(4, 4, 4, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vyegi"]
@@ -261,6 +298,42 @@ tracks/9/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SPRITES/LBlade/LBladeGlow:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.1, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(6, 6, 6, 1), Color(6, 6, 6, 1), Color(1, 1, 1, 1), Color(0.301961, 0.301961, 0.301961, 1), Color(0.301961, 0.301961, 0.301961, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SPRITES/RBlade/RBladeGlow:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.1, 1, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(6, 6, 6, 1), Color(6, 6, 6, 1), Color(1, 1, 1, 1), Color(0.301961, 0.301961, 0.301961, 1), Color(0.301961, 0.301961, 0.301961, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("SPRITES/Head/HeadGlow:self_modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.2, 0.2, 0.2, 1), Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_hh7nn"]
 length = 0.001
@@ -286,7 +359,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-3.13854]
+"values": [-3.14159]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -310,7 +383,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-3.13854]
+"values": [-3.14159]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -372,6 +445,42 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SPRITES/Head/HeadGlow:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(2, 2, 2, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SPRITES/LBlade/LBladeGlow:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.3, 0.3, 0.3, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SPRITES/RBlade/RBladeGlow:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.3, 0.3, 0.3, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_joexm"]
 _data = {
@@ -384,8 +493,10 @@ _data = {
 blend_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_1m81v"]
-offsets = PackedFloat32Array(0, 0.0671141, 0.0805369, 0.0973154, 0.365772, 0.785235, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.375, 0.03, 0.03, 0.375, 1, 0.08, 0.08, 1, 2, 1.746, 0.022, 1, 1.308, 0.158, 0.002, 1, 0.242311, 2.24109e-07, 3.00817e-08, 1, 0, 0, 0, 0)
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0671141, 0.0805369, 0.0973154, 0.404412, 0.785235, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.375, 0.03, 0.03, 0.375, 1, 0.08, 0.08, 1, 0.8845, 0.00999999, 1, 1, 1, 0.12, 0.428, 1, 0.242311, 2.24109e-07, 3.00817e-08, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ocbso"]
 gradient = SubResource("Gradient_1m81v")
@@ -511,7 +622,6 @@ metadata/_edit_lock_ = true
 use_parent_material = true
 position = Vector2(9.77752, -10.0126)
 rotation = -0.791737
-scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 offset = Vector2(0.5, 0)
 region_enabled = true
@@ -519,7 +629,7 @@ region_rect = Rect2(52, 22, 11, 11)
 
 [node name="FLLeg" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(0.394237, 6.62954)
+position = Vector2(0.394238, 6.62955)
 rotation = -1.76082
 scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
@@ -532,7 +642,6 @@ region_rect = Rect2(45, 36, 17, 10)
 use_parent_material = true
 position = Vector2(-3.96865, -18.7328)
 rotation = 0.379966
-scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -543,7 +652,6 @@ region_rect = Rect2(45, 47, 17, 7)
 use_parent_material = true
 position = Vector2(-19.0571, -2.81862)
 rotation = 3.07529
-scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 offset = Vector2(0.5, 0)
 region_enabled = true
@@ -553,7 +661,6 @@ region_rect = Rect2(52, 22, 11, 11)
 use_parent_material = true
 position = Vector2(-5.47413, 8.9157)
 rotation = -2.14618
-scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -565,7 +672,6 @@ region_rect = Rect2(45, 36, 17, 10)
 use_parent_material = true
 position = Vector2(-3.93694, -9.40492)
 rotation = 2.48581
-scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -635,7 +741,7 @@ region_rect = Rect2(45, 36, 17, 10)
 [node name="BRLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(-15.9246, 10.2637)
-rotation = 0.870088
+rotation = 0.870087
 scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
@@ -647,12 +753,22 @@ region_rect = Rect2(45, 47, 17, 7)
 
 [node name="Head" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(1, 2)
+position = Vector2(-1, 2)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(14, 43, 10, 7)
+
+[node name="HeadGlow" type="Sprite2D" parent="VISUAL/SPRITES/Head"]
+self_modulate = Color(2, 2, 2, 1)
+use_parent_material = true
+position = Vector2(5, 1)
+texture = ExtResource("3_4xodw")
+centered = false
+offset = Vector2(0, 0.5)
+region_enabled = true
+region_rect = Rect2(16, 23, 5, 5)
 
 [node name="Body" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
@@ -665,8 +781,7 @@ region_rect = Rect2(2, 40, 11, 13)
 
 [node name="LBlade" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(11, 1.99999)
-rotation = -3.13854
+position = Vector2(1.98168, -0.990803)
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("2_h4lln")
 centered = false
@@ -674,16 +789,35 @@ offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(25, 38, 18, 7)
 
+[node name="LBladeGlow" type="Sprite2D" parent="VISUAL/SPRITES/LBlade"]
+self_modulate = Color(0.3, 0.3, 0.3, 1)
+use_parent_material = true
+position = Vector2(7.00609, 1.97861)
+texture = ExtResource("3_4xodw")
+centered = false
+offset = Vector2(0, 0.5)
+region_enabled = true
+region_rect = Rect2(16, 13, 11, 5)
+
 [node name="RBlade" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(10.9939, 18.0091)
-rotation = -3.13854
+position = Vector2(2, 5)
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(25, 48, 18, 7)
+
+[node name="RBladeGlow" type="Sprite2D" parent="VISUAL/SPRITES/RBlade"]
+self_modulate = Color(0.3, 0.3, 0.3, 1)
+use_parent_material = true
+position = Vector2(6.99388, -0.0122017)
+texture = ExtResource("3_4xodw")
+centered = false
+offset = Vector2(0, 0.5)
+region_enabled = true
+region_rect = Rect2(16, 18, 11, 5)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
 
@@ -747,7 +881,7 @@ remote_path = NodePath("../../../../SPRITES/Head")
 
 [node name="LBlade" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(7, -10)
-rotation = -3.13854
+rotation = -3.14159
 scale = Vector2(0.999999, 0.999999)
 rest = Transform2D(-0.999995, -0.003055, 0.003055, -0.999995, 7, -10)
 auto_calculate_length_and_angle = false
@@ -760,7 +894,7 @@ remote_path = NodePath("../../../../SPRITES/LBlade")
 
 [node name="RBlade" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(7, 10)
-rotation = -3.13854
+rotation = -3.14159
 scale = Vector2(0.999999, 0.999999)
 rest = Transform2D(-0.999995, -0.003055, 0.003055, -0.999995, 7, 10)
 auto_calculate_length_and_angle = false
@@ -780,7 +914,6 @@ rest = Transform2D(1, 8.88506e-06, -8.88506e-06, 1, -5, 4)
 [node name="BRLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BRLeg"]
 position = Vector2(0.000123877, 14)
 rotation = 1.89994
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 0.000123877, 14)
 
 [node name="BRFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BRLeg/BRLeg2"]
@@ -843,7 +976,6 @@ remote_path = NodePath("../../../../SPRITES/FRLeg")
 [node name="BLLeg" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(-5, -4)
 rotation = 2.56621
-scale = Vector2(1, 1)
 rest = Transform2D(-1, 4.44253e-06, -4.44253e-06, -1, -5, -4)
 
 [node name="BLLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BLLeg"]
@@ -883,7 +1015,6 @@ rest = Transform2D(-1, -4.44253e-06, 4.44253e-06, -1, 2, -7)
 [node name="FLLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FLLeg"]
 position = Vector2(0.039715, 12.9999)
 rotation = 2.1408
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 0.039715, 12.9999)
 
 [node name="FLFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FLLeg/FLLeg2"]
@@ -1111,7 +1242,9 @@ use_parent_material = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="MOTION"]
 avoidance_enabled = true
-radius = 8.0
+radius = 16.0
+neighbor_distance = 64.0
+avoidance_priority = 0.75
 
 [node name="Timer" type="Timer" parent="MOTION"]
 process_callback = 0

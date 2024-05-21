@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 50.0
 @export var dash_speed: float = 300.0
-@export var pursuit_acceleration: float = 400.0
+@export var pursuit_acceleration: float = 1000.0
 @export var dash_acceleration: float = 2000.0
 @export var rest_acceleration: float = 500.0
 
@@ -20,7 +20,6 @@ var charging: bool = true
 
 func _physics_process(delta):
 	velocity = velocity.move_toward(desired_velocity,acceleration * delta)
-	#velocity = Vector2.RIGHT * 10
 	move_and_slide()
 
 
@@ -53,7 +52,6 @@ func _on_pursuit_state_physics_processing(_delta):
 func _on_pursuit_state_entered():
 	acceleration = pursuit_acceleration
 	change_detector_disabled(false)
-	hurtbox_component.active = false
 
 
 func _on_pursuit_state_exited():
@@ -103,6 +101,7 @@ func _on_rest_state_physics_processing(_delta):
 
 
 func _on_rest_state_entered():
+	hurtbox_component.active = false
 	acceleration = rest_acceleration
 	charging = true
 #endregion
