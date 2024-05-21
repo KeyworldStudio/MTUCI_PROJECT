@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dun4u75418ht4"]
+[gd_scene load_steps=28 format=3 uid="uid://dun4u75418ht4"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_exploder.gd" id="1_l4tfp"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="2_2pben"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="3_4634p"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="3_joam4"]
 [ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="3_lmna0"]
+[ext_resource type="Texture2D" uid="uid://bmga4s03k0iee" path="res://Assets/Visual/Sheets/EnemyGlow.png" id="4_hxwh3"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_fabrik.gd" id="4_jaj83"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="4_sdp7r"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_jiggle.gd" id="5_01efi"]
@@ -37,31 +38,31 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.79025, 1.19165), Vector2(1.13245, 0.934495), Vector2(1.28698, 1.3228), Vector2(1.58253, 1.56279), Vector2(1.8981, 1.80497)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SPRITES/Sack:modulate")
+tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 2),
-"transitions": PackedFloat32Array(1, 0.482968, 0.25),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.160784, 1, 1, 1), Color(1, 0, 0, 1)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("..")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"explode"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SPRITES/Sack/SackGlow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 2),
+"transitions": PackedFloat32Array(0.225313, 1.03526, 0.0769466),
+"update": 0,
+"values": [Color(2, 2, 2, 1), Color(0.207833, 0.1925, 0.25, 1), Color(4, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_opuot"]
@@ -81,14 +82,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SPRITES/Sack:modulate")
+tracks/1/path = NodePath("SPRITES/Sack/SackGlow:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(2, 2, 2, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vf3hb"]
@@ -255,13 +256,21 @@ region_enabled = true
 region_rect = Rect2(33, 28, 16, 8)
 
 [node name="Sack" type="Sprite2D" parent="VISUAL/SPRITES"]
-self_modulate = Color(2, 1, 1.5, 1)
 use_parent_material = true
 position = Vector2(-5, -1.00002)
 texture = ExtResource("2_dhcj5")
 offset = Vector2(0, 0.5)
 region_enabled = true
 region_rect = Rect2(1, 18, 16, 18)
+
+[node name="SackGlow" type="Sprite2D" parent="VISUAL/SPRITES/Sack"]
+self_modulate = Color(2, 2, 2, 1)
+use_parent_material = true
+position = Vector2(1.43051e-06, 1.63317e-05)
+texture = ExtResource("4_hxwh3")
+offset = Vector2(0, 0.5)
+region_enabled = true
+region_rect = Rect2(0, 10, 16, 18)
 
 [node name="Body" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
