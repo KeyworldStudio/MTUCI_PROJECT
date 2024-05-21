@@ -1,47 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpy5i7s5fr2jd"]
+[gd_scene load_steps=9 format=3 uid="uid://bpy5i7s5fr2jd"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_yylq0"]
 [ext_resource type="Script" path="res://Scripts/game_world.gd" id="2_61ne2"]
 [ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/Player/player.tscn" id="2_ayoe2"]
-[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="3_v2f06"]
+[ext_resource type="PackedScene" uid="uid://urhrba570qpp" path="res://Scenes/_Debug/new_enemies_test.tscn" id="3_tve5s"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
 [ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/ui/TurretHotbar.tscn" id="8_xmx3k"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngknl"]
-light_mode = 2
-
-[sub_resource type="Environment" id="Environment_7buv0"]
-background_mode = 3
-background_energy_multiplier = 0.0
-glow_enabled = true
-glow_normalized = true
-glow_bloom = 0.45
-glow_blend_mode = 0
-glow_hdr_threshold = 1.06
-glow_map_strength = 0.0
-
 [node name="MainScene" type="Node"]
 script = ExtResource("1_yylq0")
 
 [node name="GameWorld" type="Node2D" parent="."]
-material = SubResource("CanvasItemMaterial_ngknl")
 position = Vector2(2, 0)
 script = ExtResource("2_61ne2")
-starting_scene = ExtResource("3_v2f06")
+starting_scene = ExtResource("3_tve5s")
 
 [node name="Drops" type="Node2D" parent="GameWorld"]
-use_parent_material = true
 
 [node name="Turrets" type="Node2D" parent="GameWorld"]
-use_parent_material = true
 
 [node name="Enemies" type="Node2D" parent="GameWorld"]
-use_parent_material = true
 
 [node name="Bullets" type="Node2D" parent="GameWorld"]
-use_parent_material = true
 
 [node name="Player" type="Node2D" parent="GameWorld"]
 
@@ -81,9 +63,5 @@ inactive_update_mode = 0
 script = ExtResource("7_okdpn")
 
 [node name="MainGUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="TurretHotbar" parent="MainGUI" instance=ExtResource("8_xmx3k")]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_7buv0")

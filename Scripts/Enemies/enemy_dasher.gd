@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 50.0
-@export var dash_speed: float = 75.0
+@export var dash_speed: float = 300.0
 @export var pursuit_acceleration: float = 400.0
 @export var dash_acceleration: float = 2000.0
 @export var rest_acceleration: float = 500.0
@@ -10,11 +10,12 @@ var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
 var acceleration: float
 var dash_target: Vector2
-
+var charging: bool = true
 @onready var player: = GlobalRefs.player_node
+@onready var anim_player: = $VISUAL/AnimationPlayer as AnimationPlayer
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
 @onready var player_detector: = $MOTION/PlayerDetector as Area2D
-@onready var health_component: = $COMBAT/HealthComponent as HealthComponent
+@onready var hurtbox_component: = $COMBAT/HurtBox as HurtBox
 
 
 func _physics_process(delta):
@@ -52,7 +53,8 @@ func _on_pursuit_state_physics_processing(_delta):
 func _on_pursuit_state_entered():
 	acceleration = pursuit_acceleration
 	change_detector_disabled(false)
-	
+	hurtbox_component.active = false
+
 
 func _on_pursuit_state_exited():
 	change_detector_disabled(true)
@@ -61,26 +63,48 @@ func _on_pursuit_state_exited():
 
 #region Attack state
 func motion_attack() -> void:
-	if !player:
-		return
-	
-	desired_velocity = global_position.direction_to(dash_target) * dash_speed
+	desired_velocity = Vector2.from_angle(rotation) * dash_speed
 
+func motion_charge() -> void:
+	desired_velocity = -Vector2.from_angle(rotation) * dash_speed * 0.1
 
-func _on_attack_state_physics_processing(delta):
-	motion_attack()
+func charge_release()-> void:
+	charging = false
+
+func _on_attack_state_physics_processing(_delta):
+	if charging:
+		dash_target = global_position.direction_to(player.global_position)
+		rotation = lerp_angle(
+				rotation,
+				dash_target.angle(),
+				0.1
+			)
+		motion_charge()
+	else:
+		motion_attack()
 
 
 func _on_attack_state_entered():
+	anim_player.play("Bite")
 	acceleration = dash_acceleration
-	dash_target = player.global_position
-	rotation = global_position.angle_to_point(dash_target)
+	hurtbox_component.active = true
+	#rotation = global_position.angle_to_point(dash_target)
+
 #endregion
 
 
-#region Explode state
-func _on_explode_state_entered():
-	health_component.kill()
+#region Rest state
+func motion_rest() -> void:
+	desired_velocity = Vector2.ZERO
+
+
+func _on_rest_state_physics_processing(_delta):
+	motion_rest()
+
+
+func _on_rest_state_entered():
+	acceleration = rest_acceleration
+	charging = true
 #endregion
 
 
@@ -91,11 +115,11 @@ func makepath() -> void:
 	nav_agent.target_position = player.global_position
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	makepath()
 
 
-func _on_player_detector_body_entered(body):
+func _on_area_2d_body_entered(body) -> void:
 	if body is PlayerController:
 		$StateChart.send_event("player_close")
 

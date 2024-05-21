@@ -1,7 +1,9 @@
+
+class_name WaveManager
 extends Node2D
 
 @export var mana: int = 100
-@export var enemy_data: Array[EnemyPlacementData]
+@export var enemy_data: Array[EnemyPlacementData] = []
 @export var enemy_cap: float = 30
 @export var wave_max_number: int = 8
 @export var wave_time: int = 5
@@ -25,9 +27,6 @@ func sort_price(a, b) -> bool:
 	return false
 
 func _ready() -> void:
-	print_debug(enemy_data.size())
-	print_debug(enemy_data)
-	print_debug(enemy_cap)
 	for i in get_children():
 		spawn_points.append(i)
 	add_child(wave_timer)
@@ -74,7 +73,7 @@ func spawn_an_enemy(chosen_enemy: EnemyPlacementData) -> void:
 func end_of_wave() -> void:
 	if wave_number < wave_max_number:
 		wave_number += 1
-		mana = wave_number * 100
+		mana = wave_number * 50
 		start_new_wave()
 	elif wave_number == wave_max_number and GlobalRefs.enemy_holder.get_child_count() == 0:
 		return

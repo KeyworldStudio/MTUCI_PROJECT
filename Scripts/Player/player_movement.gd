@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var max_speed = 100.0
 @export var friction = 100.0
 @export var dash_speed: float = 500.0
-@export var hitbox: HitboxComponent
+@export var hitbox: HitBox
 @export var dash_cooldown: float = 3
 @export var dash_invuln: float = 0.3
 

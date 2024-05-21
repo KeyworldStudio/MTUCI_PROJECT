@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4myegbnqgje8"]
 
 [ext_resource type="Texture2D" uid="uid://jnbvub0308ls" path="res://Assets/Visual/Sprites/WarningSign.png" id="2_2ec5g"]
-[ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/Enemies/enemy.tscn" id="3_47qxe"]
+[ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/Enemies/enemy_dasher.tscn" id="3_47qxe"]
 [ext_resource type="Script" path="res://Scripts/Components/EnemyManager/enemy_spawnpoint.gd" id="3_o50p2"]
-[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/ranged_enemy.tscn" id="4_2qirb"]
+[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/enemy_ranged.tscn" id="4_2qirb"]
 
 [node name="TestWave1" type="Node2D"]
 

@@ -2,25 +2,25 @@ extends CharacterBody2D
 
 @export var speed: float = 50.0
 @export var pursuit_acceleration: float = 400.0
-@export var attack_acceleration: float = 500.0
-@export var bullet: PackedScene
-@export var bullet_place: Node2D
-@export var bullet_speed: float = 500.0
+@export var attack_acceleration: float = 100.0
+@export var charge_velocity: float = 300.0
+@export var rest_acceleration: float = 500.0
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
 var acceleration: float
-var shoot_dir: float
+var charge_dir: Vector2
+var max_charge_speed: float
+var is_charging: bool = false
 
 @onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
 @onready var player_sightline: = $MOTION/SightLine as RayCast2D
+@onready var hurtbox_component: = $COMBAT/HurtBox as HurtBox
 @onready var anim_player: = $VISUAL/AnimationPlayer as AnimationPlayer
-
 
 func _physics_process(delta):
 	velocity = velocity.move_toward(desired_velocity,acceleration * delta)
-	#velocity = Vector2.RIGHT * 10
 	move_and_slide()
 
 
@@ -51,35 +51,49 @@ func _on_pursuit_state_entered():
 
 #region Attack state
 func motion_attack() -> void:
-	desired_velocity = Vector2.ZERO
+	desired_velocity = charge_dir * charge_velocity * float(!is_charging)
+	max_charge_speed = maxf(velocity.length_squared(), max_charge_speed)
 	rotation = lerp_angle(
 			rotation,
-			shoot_dir,
+			charge_dir.angle(),
 			0.3
 		)
 	
 
+func release_charge():
+	is_charging = false
+	hurtbox_component.active = true
 
-func shoot():
-	var instance = bullet.instantiate()
-	GlobalRefs.bullet_holder.add_child.call_deferred(instance)
-	if bullet_place:
-		var intended_angle:float = bullet_place.global_rotation 
-		instance.global_position = bullet_place.global_position
-		instance.global_rotation = intended_angle
-		instance.initialize_velocity(intended_angle,bullet_speed)
-
-
-func _on_attack_state_physics_processing(_delta):
+func _on_attack_state_physics_processing(delta):
 	motion_attack()
 
 
 func _on_attack_state_entered():
+	is_charging = true
+	max_charge_speed = 0
 	player_sightline.enabled = false
 	acceleration = attack_acceleration
-	shoot_dir = global_position.angle_to_point(player.global_position)
-	#rotation = global_position.angle_to_point(player.global_position)
-	anim_player.play("Shoot")
+	charge_dir = global_position.direction_to(player.global_position)
+	anim_player.play("ChargeEnter")
+#endregion
+
+
+#region Rest state
+func motion_rest() -> void:
+	desired_velocity = Vector2.ZERO
+
+
+func _on_rest_state_physics_processing(delta):
+	motion_rest()
+
+func rest_over():
+		$StateChart.send_event("rest_to_attack")
+
+func _on_rest_state_entered():
+	hurtbox_component.active = false
+	acceleration = rest_acceleration
+	velocity = -(charge_dir * sqrt(max_charge_speed))
+	anim_player.play("ChargeExit")
 #endregion
 
 
@@ -90,7 +104,7 @@ func makepath() -> void:
 	nav_agent.target_position = player.global_position
 
 
-func _on_timer_timeout() -> void:
+func _on_timer_timeout():
 	makepath()
 	player_sightline.global_rotation = 0
 	player_sightline.target_position = player.global_position - global_position
@@ -102,3 +116,9 @@ func _on_timer_timeout() -> void:
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	nav_agent_safe_velocity = safe_velocity
 #endregion
+
+
+func _on_front_collision_detector_body_entered(body):
+	$StateChart.send_event("atk_to_rest")
+
+

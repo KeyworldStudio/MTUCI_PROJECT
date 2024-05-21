@@ -11,8 +11,8 @@ script = ExtResource("5_ih7su")
 attack_damage = 3.0
 knockback_force = 0.0
 
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_xvesw"]
-length = 200.0
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_e0hk2"]
+length = 198.79
 
 [node name="big_turret_gun" type="Node2D"]
 
@@ -60,7 +60,7 @@ attack = SubResource("Resource_2c8xa")
 light_mask = 0
 visibility_layer = 0
 rotation = -1.5708
-shape = SubResource("SeparationRayShape2D_xvesw")
+shape = SubResource("SeparationRayShape2D_e0hk2")
 
 [connection signal="timeout" from="RayCast2D/Timer" to="RayCast2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="RayCast2D/Timer2" to="RayCast2D" method="_on_timer_2_timeout"]

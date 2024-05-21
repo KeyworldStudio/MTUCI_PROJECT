@@ -14,36 +14,32 @@ extends Node2D
 var target_position: Vector2 = Vector2.ZERO
 var is_following: bool = false
 var supported: bool = true
-
+var target_pos_velocity_dir: Vector2 = Vector2.ZERO
 @onready var prev_position: Vector2 = target_position
 
 
 func _physics_process(delta):
 	target_position = update_target_position()
-	var rest_position = target_position
-	var current_linear_speed = 0
-	var current_proportional_speed = proportional_speed/10
-	var current_trigger_distance = rest_trigger_distance
-	if prev_position != target_position:
-		rest_position += prev_position.direction_to(target_position) * trigger_distance
-		current_trigger_distance = trigger_distance
-		current_linear_speed = linear_speed
-		current_proportional_speed = proportional_speed
-	check_dist(rest_position, current_trigger_distance)
+	var rest_position = target_position + prev_position.direction_to(target_position) * trigger_distance
+	
+	#check_dist(rest_position, trigger_distance)
 	if is_following:
 		approach_pos(
 				rest_position, 
-				current_linear_speed, 
-				current_proportional_speed,
+				linear_speed, 
+				proportional_speed,
 				delta
 			)
+	check_dist(rest_position, trigger_distance)
 
-	if global_position.distance_to(target_position) > hard_limit:
+	if global_position.distance_squared_to(target_position) > hard_limit * hard_limit:
 		global_position = target_position - \
 		Vector2.from_angle(
 				global_position.\
 				angle_to_point(target_position)
 			) * hard_limit
+		for i in required_points:
+			is_following = true
 	prev_position = target_position
 
 func check_dist(rest_position: Vector2, trigger_distance: float): 
@@ -53,7 +49,7 @@ func check_dist(rest_position: Vector2, trigger_distance: float):
 			supported = false
 	if supported and global_position.distance_squared_to(target_position) > trigger_distance*trigger_distance:
 		is_following = true
-	elif  global_position.distance_squared_to(rest_position) < rest_distance * rest_distance:
+	elif global_position.distance_squared_to(rest_position) <= rest_distance * rest_distance:
 		is_following = false
 
 func approach_pos(rest_position: Vector2, linear_speed: float, proportional_speed: float, delta: float) -> void:

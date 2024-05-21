@@ -1,0 +1,628 @@
+[gd_scene load_steps=27 format=3 uid="uid://b7gai7bqt5udr"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_1i2tc"]
+[ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="2_bndh7"]
+[ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="2_ktf76"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_4ov4x"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_005sx"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="3_x3wmd"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_two_bone_ik.gd" id="4_3064c"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_ipmnn"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_u3vjf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_og3ay"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="5_pioc2"]
+[ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="5_wuxqs"]
+[ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="6_6wqqm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_fb2mf"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="7_6pcvx"]
+[ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="8_j8clu"]
+[ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="9_8am6s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_covrp"]
+resource_name = "Bite"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Body/LMandible:rotation")
+tracks/0/interp = 3
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 5.75958, 4.97418, 4.97418, 6.54498, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Body/RMandible:rotation")
+tracks/1/interp = 3
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.523598, 1.309, 1.309, -0.261799, 6.28318]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"charge_release"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_me50q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Body/LMandible:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Body/RMandible:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gfm7p"]
+_data = {
+"Bite": SubResource("Animation_covrp"),
+"RESET": SubResource("Animation_me50q")
+}
+
+[sub_resource type="Resource" id="Resource_h0kpn"]
+script = ExtResource("4_ipmnn")
+armor = 0.0
+coefficient_of_knockback = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pp40y"]
+radius = 8.0
+
+[sub_resource type="Resource" id="Resource_pic8g"]
+script = ExtResource("6_6wqqm")
+attack_damage = 1.0
+knockback_force = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ccr8"]
+size = Vector2(7.25, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hm2is"]
+radius = 46.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_1i2tc")
+speed = null
+dash_speed = 200.0
+pursuit_acceleration = null
+dash_acceleration = 4000.0
+rest_acceleration = null
+
+[node name="GeometryCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qu30e")
+
+[node name="VISUAL" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VISUAL"]
+libraries = {
+"": SubResource("AnimationLibrary_gfm7p")
+}
+
+[node name="SPRITES" type="Node2D" parent="VISUAL"]
+position = Vector2(-3, -3)
+
+[node name="LBFoot" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-6, -7)
+rotation = -3.03766
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(54, 13, 8, 8)
+
+[node name="LBLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-3.5135, -6.74067)
+rotation = 0.103933
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(44, 13, 9, 4)
+
+[node name="LBLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-1.26349, -3.49066)
+rotation = -1.49187
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(33, 13, 10, 4)
+
+[node name="RBFoot" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-6, 13)
+rotation = 3.03768
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(54, 13, 8, 8)
+
+[node name="RBLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-3.5135, 12.7407)
+rotation = -0.103915
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(44, 13, 9, 4)
+
+[node name="RBLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-1.26348, 9.49066)
+rotation = 1.49188
+texture = ExtResource("2_bndh7")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(33, 13, 10, 4)
+
+[node name="LFFoot" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(11, -7)
+rotation = -1.82657
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(54, 13, 8, 8)
+
+[node name="LFLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(11.6325, -4.58135)
+rotation = 1.31502
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(44, 13, 9, 4)
+
+[node name="LFLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(9.38251, -1.33133)
+rotation = -0.280782
+texture = ExtResource("2_bndh7")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(33, 13, 10, 4)
+
+[node name="RFFoot" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(11, 13)
+rotation = 1.82659
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(54, 13, 8, 8)
+
+[node name="RFLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(11.6325, 10.5813)
+rotation = -1.315
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(44, 13, 9, 4)
+
+[node name="RFLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(9.38251, 7.33133)
+rotation = 0.28079
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+region_enabled = true
+region_rect = Rect2(33, 13, 10, 4)
+
+[node name="LMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(6, -3)
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(46, 1, 8, 5)
+
+[node name="RMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(5.99997, 3.00001)
+scale = Vector2(1, 1)
+texture = ExtResource("2_bndh7")
+centered = false
+offset = Vector2(0.5, 0.5)
+flip_v = true
+region_enabled = true
+region_rect = Rect2(46, 1, 8, 5)
+
+[node name="Body" type="Sprite2D" parent="VISUAL/SPRITES"]
+position = Vector2(-4, -3)
+texture = ExtResource("2_bndh7")
+centered = false
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(33, 1, 12, 11)
+
+[node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
+
+[node name="SoupStack" type="Node" parent="VISUAL/Skeleton2D"]
+script = ExtResource("3_x3wmd")
+
+[node name="LBIK" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "joint_one_bone_node", "joint_two_bone_node", "chain_tip")]
+script = ExtResource("4_3064c")
+target_node = NodePath("../../../STEPTARGETS/dot_1")
+enabled = true
+joint_one_bone_node = NodePath("../../Body/LBLeg1")
+joint_two_bone_node = NodePath("../../Body/LBLeg1/LBLeg2")
+chain_tip = NodePath("../../Body/LBLeg1/LBLeg2/LBFoot")
+
+[node name="RBIK" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "joint_one_bone_node", "joint_two_bone_node", "chain_tip")]
+script = ExtResource("4_3064c")
+target_node = NodePath("../../../STEPTARGETS/dot_4")
+enabled = true
+flip_bend_direction = true
+joint_one_bone_node = NodePath("../../Body/RBLeg1")
+joint_two_bone_node = NodePath("../../Body/RBLeg1/RBLeg2")
+chain_tip = NodePath("../../Body/RBLeg1/RBLeg2/RBFoot")
+
+[node name="LFIK" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "joint_one_bone_node", "joint_two_bone_node", "chain_tip")]
+script = ExtResource("4_3064c")
+target_node = NodePath("../../../STEPTARGETS/dot_2")
+enabled = true
+joint_one_bone_node = NodePath("../../Body/LFLeg1")
+joint_two_bone_node = NodePath("../../Body/LFLeg1/LFLeg2")
+chain_tip = NodePath("../../Body/LFLeg1/LFLeg2/LFFoot")
+
+[node name="RFIK" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "joint_one_bone_node", "joint_two_bone_node", "chain_tip")]
+script = ExtResource("4_3064c")
+target_node = NodePath("../../../STEPTARGETS/dot_3")
+enabled = true
+flip_bend_direction = true
+joint_one_bone_node = NodePath("../../Body/RFLeg1")
+joint_two_bone_node = NodePath("../../Body/RFLeg1/RFLeg2")
+chain_tip = NodePath("../../Body/RFLeg1/RFLeg2/RFFoot")
+
+[node name="Body" type="Bone2D" parent="VISUAL/Skeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="BodyRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(-7, -6)
+remote_path = NodePath("../../../SPRITES/Body")
+
+[node name="LBLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(-4.5, -3.5)
+rotation = -1.49187
+scale = Vector2(1, 1)
+rest = Transform2D(0.0788428, -0.996887, 0.996887, 0.0788428, -4.5, -3.5)
+
+[node name="LBLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LBLeg1"]
+position = Vector2(5.99999, -2.27133e-05)
+rotation = 1.5958
+rest = Transform2D(-0.0250056, 0.999687, -0.999687, -0.0250056, 5.99999, -2.27133e-05)
+
+[node name="LBFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LBLeg1/LBLeg2"]
+position = Vector2(-5.00001, 4.45047e-05)
+rotation = -3.14159
+rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -5.00001, 4.45047e-05)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 0.0
+
+[node name="LBFootRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LBLeg1/LBLeg2/LBFoot"]
+remote_path = NodePath("../../../../../../SPRITES/LBFoot")
+
+[node name="LBLeg2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LBLeg1/LBLeg2"]
+position = Vector2(-2.50002, 1.52588e-05)
+remote_path = NodePath("../../../../../SPRITES/LBLeg2")
+
+[node name="LBLeg1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LBLeg1"]
+position = Vector2(3, -1.33276e-05)
+remote_path = NodePath("../../../../SPRITES/LBLeg1")
+
+[node name="RBLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(-4.5, 3.5)
+rotation = 1.49188
+rest = Transform2D(0.0788352, 0.996888, -0.996888, 0.0788352, -4.5, 3.5)
+
+[node name="RBLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RBLeg1"]
+position = Vector2(5.99999, -2.27133e-05)
+rotation = -1.59579
+rest = Transform2D(-0.0249953, -0.999688, 0.999688, -0.0249953, 5.99999, -2.27133e-05)
+
+[node name="RBFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RBLeg1/RBLeg2"]
+position = Vector2(-5.00001, 4.45047e-05)
+rotation = -3.14159
+rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -5.00001, 4.45047e-05)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 0.0
+
+[node name="RBFootRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RBLeg1/RBLeg2/RBFoot"]
+remote_path = NodePath("../../../../../../SPRITES/RBFoot")
+
+[node name="RBLeg2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RBLeg1/RBLeg2"]
+position = Vector2(-2.50002, 1.52588e-05)
+remote_path = NodePath("../../../../../SPRITES/RBLeg2")
+
+[node name="RBLeg1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RBLeg1"]
+position = Vector2(3, -1.33276e-05)
+remote_path = NodePath("../../../../SPRITES/RBLeg1")
+
+[node name="LFLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(3.5, -3.5)
+rotation = -0.280782
+rest = Transform2D(0.960839, -0.277107, 0.277107, 0.960839, 3.5, -3.5)
+
+[node name="LFLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LFLeg1"]
+position = Vector2(5.99999, -2.27133e-05)
+rotation = 1.5958
+rest = Transform2D(-0.0250056, 0.999687, -0.999687, -0.0250056, 5.99999, -2.27133e-05)
+
+[node name="LFFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LFLeg1/LFLeg2"]
+position = Vector2(-5.00001, 4.45047e-05)
+rotation = -3.14159
+rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -5.00001, 4.45047e-05)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 0.0
+
+[node name="LFFootRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LFLeg1/LFLeg2/LFFoot"]
+remote_path = NodePath("../../../../../../SPRITES/LFFoot")
+
+[node name="LFLeg2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LFLeg1/LFLeg2"]
+position = Vector2(-2.50002, 1.52588e-05)
+remote_path = NodePath("../../../../../SPRITES/LFLeg2")
+
+[node name="LFLeg1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LFLeg1"]
+position = Vector2(3, -1.33276e-05)
+remote_path = NodePath("../../../../SPRITES/LFLeg1")
+
+[node name="RFLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(3.5, 3.5)
+rotation = 0.28079
+scale = Vector2(1, 1)
+rest = Transform2D(0.960837, 0.277115, -0.277115, 0.960837, 3.5, 3.5)
+
+[node name="RFLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RFLeg1"]
+position = Vector2(5.99999, -2.27133e-05)
+rotation = -1.59579
+rest = Transform2D(-0.0249955, -0.999688, 0.999688, -0.0249955, 5.99999, -2.27133e-05)
+
+[node name="RFFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RFLeg1/RFLeg2"]
+position = Vector2(-5.00001, 4.45047e-05)
+rotation = -3.14159
+rest = Transform2D(-1, -2.53518e-06, 2.53518e-06, -1, -5.00001, 4.45047e-05)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 0.0
+
+[node name="RFFootRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RFLeg1/RFLeg2/RFFoot"]
+remote_path = NodePath("../../../../../../SPRITES/RFFoot")
+
+[node name="RFLeg2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RFLeg1/RFLeg2"]
+position = Vector2(-2.50002, 1.52588e-05)
+remote_path = NodePath("../../../../../SPRITES/RFLeg2")
+
+[node name="RFLeg1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RFLeg1"]
+position = Vector2(3, -1.33276e-05)
+remote_path = NodePath("../../../../SPRITES/RFLeg1")
+
+[node name="LMandible" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(4, -3)
+scale = Vector2(1, 1)
+rest = Transform2D(1, 0, 0, 1, 4, -3)
+auto_calculate_length_and_angle = false
+length = 6.0
+bone_angle = 0.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LMandible"]
+position = Vector2(-1, -3)
+remote_path = NodePath("../../../../SPRITES/LMandible")
+
+[node name="RMandible" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
+position = Vector2(4, 3)
+scale = Vector2(1, 1)
+rest = Transform2D(1, 0, 0, 1, 4, 3)
+auto_calculate_length_and_angle = false
+length = 6.0
+bone_angle = 0.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/RMandible"]
+position = Vector2(-1, -3)
+remote_path = NodePath("../../../../SPRITES/RMandible")
+
+[node name="Marker2D" type="RayCast2D" parent="VISUAL"]
+target_position = Vector2(-9, -10)
+
+[node name="Marker2D2" type="RayCast2D" parent="VISUAL"]
+target_position = Vector2(8, -10)
+
+[node name="Marker2D3" type="RayCast2D" parent="VISUAL"]
+target_position = Vector2(8, 10)
+
+[node name="Marker2D4" type="RayCast2D" parent="VISUAL"]
+target_position = Vector2(-9, 10)
+
+[node name="STEPTARGETS" type="Node" parent="VISUAL"]
+
+[node name="dot_1" type="Node2D" parent="VISUAL/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+position = Vector2(-9, -10)
+script = ExtResource("5_wuxqs")
+target = NodePath("../../Marker2D")
+trigger_distance = 5.0
+hard_limit = 7.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
+proportional_speed = 0.3
+required_points = [NodePath("../dot_2"), NodePath("../dot_4")]
+
+[node name="dot_2" type="Node2D" parent="VISUAL/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+position = Vector2(8, -10)
+script = ExtResource("5_wuxqs")
+target = NodePath("../../Marker2D2")
+trigger_distance = 5.0
+hard_limit = 7.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
+proportional_speed = 0.3
+required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
+
+[node name="dot_3" type="Node2D" parent="VISUAL/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+position = Vector2(8, 10)
+script = ExtResource("5_wuxqs")
+target = NodePath("../../Marker2D3")
+trigger_distance = 5.0
+hard_limit = 7.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
+proportional_speed = 0.3
+required_points = [NodePath("../dot_2"), NodePath("../dot_4")]
+
+[node name="dot_4" type="Node2D" parent="VISUAL/STEPTARGETS" node_paths=PackedStringArray("target", "required_points")]
+position = Vector2(-9, 10)
+script = ExtResource("5_wuxqs")
+target = NodePath("../../Marker2D4")
+trigger_distance = 5.0
+hard_limit = 7.0
+rest_trigger_distance = 2.0
+linear_speed = 80.0
+proportional_speed = 0.3
+required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
+
+[node name="COMBAT" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="HitboxComponent" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_4ov4x")
+health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
+resists = SubResource("Resource_h0kpn")
+timer = NodePath("InvincibilityTimer")
+
+[node name="InvincibilityTimer" type="Timer" parent="COMBAT/HitboxComponent"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="COMBAT/HitboxComponent"]
+shape = SubResource("CircleShape2D_pp40y")
+debug_color = Color(0.964706, 0, 0.498039, 0.419608)
+
+[node name="HurtBox" type="Area2D" parent="COMBAT"]
+position = Vector2(7, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_pioc2")
+attack = SubResource("Resource_pic8g")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="COMBAT/HurtBox"]
+position = Vector2(0.375, 0)
+shape = SubResource("RectangleShape2D_4ccr8")
+debug_color = Color(0.956863, 0, 0.529412, 0.419608)
+
+[node name="HealthComponent" type="Node" parent="COMBAT"]
+script = ExtResource("7_6pcvx")
+max_health = 3.0
+
+[node name="KnockbackComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("target")]
+script = ExtResource("8_j8clu")
+target = NodePath("../..")
+
+[node name="EnemyDeathComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component", "target", "drop_spawner")]
+script = ExtResource("9_8am6s")
+health_component = NodePath("../HealthComponent")
+target = NodePath("../..")
+drop_spawner = NodePath("../DropSpawner")
+
+[node name="DropSpawner" type="Node2D" parent="COMBAT"]
+script = ExtResource("2_ktf76")
+min_drops = 2
+max_drops = 4
+drop_velocity = 512
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_005sx")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("4_u3vjf")
+initial_state = NodePath("Pursuit")
+
+[node name="Pursuit" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Attack" type="Node" parent="StateChart/Root/Pursuit"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Attack")
+event = &"player_close"
+
+[node name="Attack" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Rest" type="Node" parent="StateChart/Root/Attack"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Rest")
+delay_seconds = 0.5
+
+[node name="Rest" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_og3ay")
+
+[node name="To Pursuit" type="Node" parent="StateChart/Root/Rest"]
+script = ExtResource("6_fb2mf")
+to = NodePath("../../Pursuit")
+delay_seconds = 1.0
+
+[node name="MOTION" type="Node2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="MOTION"]
+avoidance_enabled = true
+radius = 16.0
+
+[node name="Timer" type="Timer" parent="MOTION"]
+process_callback = 0
+autostart = true
+
+[node name="PlayerDetector" type="Area2D" parent="MOTION"]
+collision_layer = 0
+collision_mask = 2
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="MOTION/PlayerDetector"]
+shape = SubResource("CircleShape2D_hm2is")
+debug_color = Color(0.647059, 0.701961, 0, 0.101961)
+
+[connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Rest" to="." method="_on_rest_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Rest" to="." method="_on_rest_state_physics_processing"]
+[connection signal="velocity_computed" from="MOTION/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="MOTION/Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="MOTION/PlayerDetector" to="." method="_on_area_2d_body_entered"]

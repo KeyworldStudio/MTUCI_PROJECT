@@ -17,13 +17,16 @@ size = Vector2(7, 4)
 size = Vector2(7, 4)
 
 [node name="EnemyBullet" type="Node2D"]
+use_parent_material = true
 script = ExtResource("1_aqk3h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.827451, 0, 0.407843, 1)
+use_parent_material = true
 texture = ExtResource("1_nm4wp")
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("knockback_origin")]
+use_parent_material = true
 collision_layer = 0
 collision_mask = 20
 script = ExtResource("2_mjuj8")
@@ -31,17 +34,21 @@ attack = SubResource("Resource_r4vae")
 knockback_origin = NodePath("../Marker2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+use_parent_material = true
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_g4iw8")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Area2D" type="Area2D" parent="."]
+use_parent_material = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+use_parent_material = true
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_ye3lf")
 
 [node name="Marker2D" type="Marker2D" parent="."]
+use_parent_material = true
 position = Vector2(-37, 0)
 
 [connection signal="hit_is_applied" from="HurtBox" to="." method="_on_hurt_box_hit_is_applied"]

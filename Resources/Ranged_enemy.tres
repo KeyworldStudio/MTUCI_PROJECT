@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="EnemyPlacementData" load_steps=3 format=3 uid="uid://nu4vuar05kmm"]
 
-[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/ranged_enemy.tscn" id="1_bevg3"]
+[ext_resource type="PackedScene" uid="uid://dag66grdq6o78" path="res://Scenes/Objects/Enemies/enemy_ranged.tscn" id="1_asggq"]
 [ext_resource type="Script" path="res://enemy_placement_data.gd" id="2_rg70l"]
 
 [resource]
 script = ExtResource("2_rg70l")
-price = 15
+price = 10
 starting_wave = 0
-scene = ExtResource("1_bevg3")
+scene = ExtResource("1_asggq")

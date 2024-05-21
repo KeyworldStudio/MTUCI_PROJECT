@@ -8,6 +8,7 @@ resource_local_to_scene = true
 radius = 5.0
 
 [node name="ScrapCollider" type="RigidBody2D"]
+use_parent_material = true
 collision_layer = 32
 gravity_scale = 0.0
 lock_rotation = true
@@ -15,7 +16,9 @@ linear_damp = 10.0
 script = ExtResource("1_3sopg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("1_adla4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+use_parent_material = true
 shape = SubResource("CircleShape2D_fqitd")

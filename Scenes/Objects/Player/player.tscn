@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=26 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
@@ -14,8 +14,8 @@
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="10_7ncur"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
 [ext_resource type="Script" path="res://Scripts/Player/resource_collector.gd" id="11_2o3mk"]
-[ext_resource type="PackedScene" uid="uid://b4tok10eh3ky3" path="res://Scenes/Objects/Turrets/shrapnel_turret.tscn" id="12_nawcp"]
 [ext_resource type="PackedScene" uid="uid://bednccijx876g" path="res://Scenes/Objects/Turrets/gatling_turret.tscn" id="12_nxajq"]
+[ext_resource type="PackedScene" uid="uid://b01ang7hvulbj" path="res://Scenes/Objects/Turrets/turret.tscn" id="12_soe3a"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
 radius = 4.0
@@ -34,7 +34,7 @@ height = 14.0
 script = ExtResource("10_7ncur")
 price = 5
 size = 10.0
-scene = ExtResource("12_nawcp")
+scene = ExtResource("12_soe3a")
 turret_id = ""
 
 [sub_resource type="Resource" id="Resource_nhm3g"]
@@ -48,6 +48,15 @@ turret_id = ""
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv12w"]
 radius = 33.0151
+
+[sub_resource type="Gradient" id="Gradient_gi8v2"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tryng"]
+gradient = SubResource("Gradient_gi8v2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 2
@@ -220,6 +229,12 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 script = ExtResource("10_uc35w")
 metadata/_edit_use_anchors_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+blend_mode = 2
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_tryng")
+texture_scale = 5.9
 
 [connection signal="health_changed" from="COMBAT/HealthComponent" to="Label" method="_on_health_component_damaged"]
 [connection signal="died" from="COMBAT/DeathComponent" to="." method="_on_death_component_died"]

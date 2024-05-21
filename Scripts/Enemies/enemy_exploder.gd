@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
 @export var speed: float = 50.0
-@export var dash_speed: float = 100.0
+@export var dash_speed: float = 25.0
 @export var pursuit_acceleration: float = 400.0
 @export var dash_acceleration: float = 2000.0
 @export var rest_acceleration: float = 500.0
+@export var explosion_scene: PackedScene
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
@@ -14,6 +15,8 @@ var dash_target: Vector2
 @onready var player: = GlobalRefs.player_node
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
 @onready var player_detector: = $MOTION/PlayerDetector as Area2D
+@onready var health_component: = $COMBAT/HealthComponent as HealthComponent
+@onready var anim_player: = $VISUAL/AnimationPlayer as AnimationPlayer
 
 
 func _physics_process(delta):
@@ -51,43 +54,33 @@ func _on_pursuit_state_physics_processing(_delta):
 func _on_pursuit_state_entered():
 	acceleration = pursuit_acceleration
 	change_detector_disabled(false)
-
+	
 
 func _on_pursuit_state_exited():
 	change_detector_disabled(true)
 #endregion
 
 
-#region Attack state
-func motion_attack() -> void:
-	if !player:
-		return
-	
-	desired_velocity = global_position.direction_to(dash_target) * dash_speed
+#region Explode state
+func motion_attack() -> void:	
+	var dir = global_position.direction_to(player.global_position)
+	var intended_velocity = dir * dash_speed
+	desired_velocity = intended_velocity
 
 
-func _on_attack_state_physics_processing(_delta):
+func _on_explode_state_physics_processing(delta):
 	motion_attack()
 
 
-func _on_attack_state_entered():
+func _on_explode_state_entered():
 	acceleration = dash_acceleration
-	dash_target = player.global_position
-	rotation = global_position.angle_to_point(dash_target)
-#endregion
+	anim_player.play("Explode")
 
-
-#region Rest state
-func motion_rest() -> void:
-	desired_velocity = Vector2.ZERO
-
-
-func _on_rest_state_physics_processing(_delta):
-	motion_rest()
-
-
-func _on_rest_state_entered():
-	acceleration = rest_acceleration
+func explode():
+	var explosion_instance = explosion_scene.instantiate()
+	GlobalRefs.bullet_holder.add_child(explosion_instance)
+	explosion_instance.global_position = global_position
+	health_component.kill()
 #endregion
 
 
@@ -98,11 +91,11 @@ func makepath() -> void:
 	nav_agent.target_position = player.global_position
 
 
-func _on_timer_timeout() -> void:
+func _on_timer_timeout():
 	makepath()
 
 
-func _on_area_2d_body_entered(body) -> void:
+func _on_player_detector_body_entered(body):
 	if body is PlayerController:
 		$StateChart.send_event("player_close")
 
@@ -110,3 +103,6 @@ func _on_area_2d_body_entered(body) -> void:
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	nav_agent_safe_velocity = safe_velocity
 #endregion
+
+
+

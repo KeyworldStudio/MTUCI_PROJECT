@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1mdx5ajj21ei"]
 
-[ext_resource type="PackedScene" uid="uid://ye8aaypkslut" path="res://Scenes/Objects/player.tscn" id="1_b7gq3"]
-[ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/enemy.tscn" id="2_1ojkq"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/player.tscn" id="1_b7gq3"]
+[ext_resource type="PackedScene" uid="uid://b7gai7bqt5udr" path="res://Scenes/Objects/Enemies/enemy_dasher.tscn" id="2_1ojkq"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="3_31m6c"]
 
 [node name="StateMachineScene" type="Node2D"]

@@ -1,4 +1,4 @@
-class_name HitboxComponent
+class_name HitBox
 extends Area2D
 
 signal hit_received
