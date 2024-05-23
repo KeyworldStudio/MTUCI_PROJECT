@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var attack_acceleration: float = 100.0
 @export var charge_velocity: float = 300.0
 @export var rest_acceleration: float = 500.0
+@export var normal_resists: Resists
+@export var charge_resists: Resists
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
@@ -17,7 +19,11 @@ var is_charging: bool = false
 @onready var nav_agent: = $MOTION/NavigationAgent2D as NavigationAgent2D
 @onready var player_sightline: = $MOTION/SightLine as RayCast2D
 @onready var hurtbox_component: = $COMBAT/HurtBox as HurtBox
+@onready var hitbox_component: = $COMBAT/HitBox as HitBox
 @onready var anim_player: = $VISUAL/AnimationPlayer as AnimationPlayer
+
+func _ready() -> void:
+	hitbox_component.resists = normal_resists
 
 func _physics_process(delta):
 	velocity = velocity.move_toward(desired_velocity,acceleration * delta)
@@ -63,6 +69,7 @@ func motion_attack() -> void:
 func release_charge():
 	is_charging = false
 	hurtbox_component.active = true
+	hitbox_component.resists = charge_resists
 
 func _on_attack_state_physics_processing(delta):
 	motion_attack()
@@ -91,6 +98,7 @@ func rest_over():
 
 func _on_rest_state_entered():
 	hurtbox_component.active = false
+	hitbox_component.resists = normal_resists
 	acceleration = rest_acceleration
 	velocity = -(charge_dir * sqrt(max_charge_speed))
 	anim_player.play("ChargeExit")

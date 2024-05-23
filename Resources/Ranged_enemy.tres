@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("2_rg70l")
-price = 10
+price = 999
 starting_wave = 0
 scene = ExtResource("1_asggq")

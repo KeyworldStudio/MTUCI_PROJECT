@@ -13,7 +13,7 @@ var can_dash: bool = true
 
 @onready var dash_cooldown_timer: Timer = Timer.new()
 @onready var dash_invuln_timer: Timer = Timer.new()
-
+@onready var anim_player: = $VISUALS/AnimationPlayer
 
 func _ready():
 	add_child(dash_cooldown_timer)
@@ -36,6 +36,8 @@ func _physics_process(delta):
 		dash_invuln_timer.start(dash_invuln)
 	move_and_slide()
 	look_at(get_global_mouse_position())
+	
+	anim_player.speed_scale = velocity.length()/max_speed
 
 
 func _on_dash_cooldown_timeout():

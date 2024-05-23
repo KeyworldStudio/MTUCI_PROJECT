@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dag66grdq6o78"]
+[gd_scene load_steps=29 format=3 uid="uid://dag66grdq6o78"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_ranged.gd" id="1_6vlhb"]
 [ext_resource type="PackedScene" uid="uid://cag6br1vm13bt" path="res://Scenes/Objects/Enemies/enemy_bullet.tscn" id="2_ygtta"]
@@ -85,6 +85,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(0.341176, 0.341176, 0.341176, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SPRITES/Gun/GPUParticles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_qp32u"]
 resource_name = "Shoot"
@@ -132,7 +144,7 @@ tracks/3/path = NodePath("..")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.2),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -163,12 +175,34 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(0.341176, 0.341176, 0.341176, 1), Color(3, 2, 2, 1), Color(12, 7, 7, 1), Color(1, 1, 1, 1), Color(0.341176, 0.341176, 0.341176, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SPRITES/Gun/GPUParticles2D:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gg7ia"]
 _data = {
 "RESET": SubResource("Animation_webby"),
 "Shoot": SubResource("Animation_qp32u")
 }
+
+[sub_resource type="Gradient" id="Gradient_edvs3"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0443548, 0.33871, 0.354839, 0.459677, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 0, 0.0166664, 1, 0.491076, 0.00100074, 0.0606154, 0.367385, 0.275596, 0.000226554, 0.04051, 0.0887658, 0.212338, 7.53547e-06, 0.0318254, 0.00321471, 0.21, 0, 0.0314999, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f02fm"]
+gradient = SubResource("Gradient_edvs3")
+use_hdr = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rk8p0"]
 particle_flag_align_y = true
@@ -178,6 +212,8 @@ initial_velocity_max = 200.0
 gravity = Vector3(0, 0, 0)
 damping_min = 200.0
 damping_max = 200.0
+color = Color(3, 3, 3, 1)
+color_ramp = SubResource("GradientTexture1D_f02fm")
 
 [sub_resource type="Resource" id="Resource_kjcer"]
 script = ExtResource("13_6jj3s")
@@ -216,9 +252,9 @@ position = Vector2(-1, 0)
 
 [node name="FootR" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(8.21708, 9.4262)
-rotation = 1.44644
-scale = Vector2(1, 1)
+position = Vector2(10.02, 11.0242)
+rotation = 1.75615
+scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
 centered = false
 region_enabled = true
@@ -226,9 +262,8 @@ region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegR1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(6.82065, 4.20956)
-rotation = 2.43034
-scale = Vector2(1, 1)
+position = Vector2(11.5724, 5.17588)
+rotation = 2.78494
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -237,9 +272,9 @@ region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegR2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-6.56778, 7.85622)
-rotation = 0.429773
-scale = Vector2(1, 1)
+position = Vector2(-1.77525, 3.97313)
+rotation = 0.89632
+scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -248,8 +283,8 @@ region_rect = Rect2(33, 22, 15, 5)
 
 [node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-1.70555, -10.6665)
-rotation = -1.44644
+position = Vector2(0.191406, -9.18134)
+rotation = -1.75614
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
 centered = false
@@ -258,9 +293,8 @@ region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegL1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(4.20954, -1.17935)
-rotation = -2.43034
-scale = Vector2(1, 1)
+position = Vector2(10.1759, -1.42758)
+rotation = -2.78494
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -269,8 +303,8 @@ region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegL2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-9.06775, -13.3105)
-rotation = -0.429778
+position = Vector2(-6.4614, -7.71999)
+rotation = -0.896326
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
 centered = false
@@ -282,7 +316,7 @@ region_rect = Rect2(33, 22, 15, 5)
 use_parent_material = true
 position = Vector2(-7, 5)
 rotation = -3.14159
-scale = Vector2(0.999999, 0.999999)
+scale = Vector2(1, 1)
 texture = ExtResource("3_22m7x")
 centered = false
 region_enabled = true
@@ -290,9 +324,8 @@ region_rect = Rect2(21, 8, 11, 10)
 
 [node name="LegB1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-1.20954, 2.82065)
-rotation = -2.28204
-scale = Vector2(1, 1)
+position = Vector2(4.47675, 2.78796)
+rotation = -2.52556
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -301,8 +334,8 @@ region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegB2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-4.85616, -10.5678)
-rotation = 2.00057
+position = Vector2(-1.55226, -6.85196)
+rotation = 2.37545
 scale = Vector2(1, 1)
 texture = ExtResource("3_22m7x")
 centered = false
@@ -312,7 +345,7 @@ region_rect = Rect2(33, 22, 15, 5)
 
 [node name="Gun" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(2.5, -3)
+position = Vector2(4, -3)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -330,17 +363,18 @@ region_enabled = true
 region_rect = Rect2(6, 0, 4, 5)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="VISUAL/SPRITES/Gun"]
+use_parent_material = true
 position = Vector2(7.5, 3)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_rk8p0")
 texture = ExtResource("5_fwdtw")
 lifetime = 0.5
+one_shot = true
 explosiveness = 0.86
 
 [node name="Jaw1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(0.136294, -3.03526)
-rotation = -1.309
+position = Vector2(9, -6)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -349,8 +383,7 @@ region_rect = Rect2(11, 1, 9, 7)
 
 [node name="Jaw2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(7.86371, 0.964736)
-rotation = 1.309
+position = Vector2(9, -2)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -359,7 +392,7 @@ region_rect = Rect2(11, 9, 9, 7)
 
 [node name="Body" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-3, -6)
+position = Vector2(2, -6)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -367,7 +400,7 @@ region_enabled = true
 region_rect = Rect2(1, 1, 9, 11)
 
 [node name="BodyGlow" type="Sprite2D" parent="VISUAL/SPRITES/Body"]
-modulate = Color(1.1, 1, 1, 1)
+modulate = Color(2, 1, 1, 1)
 use_parent_material = true
 position = Vector2(1, 1)
 texture = ExtResource("4_rlegu")
@@ -474,8 +507,7 @@ position = Vector2(7, 0)
 [node name="LegB1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 use_parent_material = true
 position = Vector2(-3, 0)
-rotation = 0.859551
-scale = Vector2(1, 1)
+rotation = 0.616034
 rest = Transform2D(1, 0, 0, 1, -3, 0)
 
 [node name="LegB1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegB1"]
@@ -487,7 +519,7 @@ remote_path = NodePath("../../../../SPRITES/LegB1")
 [node name="LegB2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegB1"]
 use_parent_material = true
 position = Vector2(-12, 0)
-rotation = -2.00057
+rotation = -1.38218
 scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
@@ -500,7 +532,7 @@ remote_path = NodePath("../../../../../SPRITES/LegB2")
 [node name="FootB" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegB1/LegB2"]
 use_parent_material = true
 position = Vector2(-10, 0)
-rotation = 1.14102
+rotation = 0.766146
 scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
@@ -516,8 +548,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootB")
 [node name="LegL1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 use_parent_material = true
 position = Vector2(2, -4)
-rotation = 0.711246
-scale = Vector2(1, 1)
+rotation = 0.35665
 rest = Transform2D(2.22127e-06, 1, -1, 2.22127e-06, 2, -4)
 
 [node name="LegL1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegL1"]
@@ -529,8 +560,8 @@ remote_path = NodePath("../../../../SPRITES/LegL1")
 [node name="LegL2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegL1"]
 use_parent_material = true
 position = Vector2(-12, 0)
-rotation = 2.00057
-scale = Vector2(1, 1)
+rotation = 1.88862
+scale = Vector2(0.999999, 0.999999)
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
 [node name="LegL2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegL1/LegL2"]
@@ -542,8 +573,7 @@ remote_path = NodePath("../../../../../SPRITES/LegL2")
 [node name="FootL" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegL1/LegL2"]
 use_parent_material = true
 position = Vector2(-10, 0)
-rotation = -1.01667
-scale = Vector2(1, 1)
+rotation = -0.859822
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -558,8 +588,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootL")
 [node name="LegR1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 use_parent_material = true
 position = Vector2(2, 4)
-rotation = -0.711246
-scale = Vector2(1, 1)
+rotation = -0.35665
 rest = Transform2D(-6.6638e-06, -1, 1, -6.6638e-06, 2, 4)
 
 [node name="LegR1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegR1"]
@@ -571,7 +600,8 @@ remote_path = NodePath("../../../../SPRITES/LegR1")
 [node name="LegR2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegR1"]
 use_parent_material = true
 position = Vector2(-12, 0)
-rotation = -2.00057
+rotation = -1.88862
+scale = Vector2(0.999999, 0.999999)
 rest = Transform2D(1, 0, 0, 1, -12, 0)
 
 [node name="LegR2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegR1/LegR2"]
@@ -583,8 +613,7 @@ remote_path = NodePath("../../../../../SPRITES/LegR2")
 [node name="FootR" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LegR1/LegR2"]
 use_parent_material = true
 position = Vector2(-10, 0)
-rotation = 1.01667
-scale = Vector2(1, 1)
+rotation = 0.859822
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0

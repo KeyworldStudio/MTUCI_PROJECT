@@ -1,19 +1,17 @@
-[gd_scene load_steps=39 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=30 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
-[ext_resource type="Texture2D" uid="uid://c82f2g1w0pb0g" path="res://Assets/Visual/Sheets/PlayerSheet.png" id="3_qyrk3"]
+[ext_resource type="Texture2D" uid="uid://bb46prroml37q" path="res://Assets/Visual/Sprites/TestTopdownPlayer.png" id="2_f7wsf"]
+[ext_resource type="Texture2D" uid="uid://dq0uu7ed2ilm5" path="res://Assets/Visual/Sheets/PlayerSheet.png" id="3_qyrk3"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="3_v32i7"]
+[ext_resource type="Script" path="res://Scripts/Player/advanced_leg_stepper.gd" id="4_e0ahq"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="4_fbra3"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="4_stkm4"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_e3uyi"]
-[ext_resource type="Script" path="res://Scripts/physics_stay_at.gd" id="5_h1ldt"]
-[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Easing/soup_second_order_easing_no_g.gd" id="6_5hktl"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_stay_at.gd" id="5_kxq2t"]
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="6_s7rs4"]
-[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_constraint.gd" id="7_1pw38"]
-[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_jiggle.gd" id="7_j2uqd"]
 [ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="7_tdum8"]
 [ext_resource type="Script" path="res://Scripts/Player/turret_creator.gd" id="8_m8gx5"]
-[ext_resource type="Script" path="res://Scripts/Player/head_target.gd" id="9_mgv5a"]
 [ext_resource type="Script" path="res://Scripts/Player/resource_component.gd" id="10_6rnd7"]
 [ext_resource type="Script" path="res://Scripts/Turrets/turret_placement_data.gd" id="10_7ncur"]
 [ext_resource type="Script" path="res://Scripts/_Debug/health_displayer.gd" id="10_uc35w"]
@@ -24,116 +22,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
 radius = 4.0
 height = 14.0
-
-[sub_resource type="Animation" id="Animation_bkyr5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton2D/Torso/Crotch/LegL:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -2)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Skeleton2D/Torso/Crotch/LegR:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 2)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Skeleton2D/Torso:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_sggwl"]
-resource_name = "Walk"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton2D/Torso/Crotch/LegL:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-2, -2), Vector2(4, -2)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Skeleton2D/Torso/Crotch/LegR:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(4, 2), Vector2(-2, 2)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Skeleton2D/Torso:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.261799, 0.261799]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0eui3"]
-_data = {
-"RESET": SubResource("Animation_bkyr5"),
-"Walk": SubResource("Animation_sggwl")
-}
-
-[sub_resource type="Resource" id="Resource_af4be"]
-script = ExtResource("6_5hktl")
-frequency = 2.001
-damping = 0.5
-reaction = -2.0
-
-[sub_resource type="Resource" id="Resource_oi17h"]
-script = ExtResource("6_5hktl")
-frequency = 2.001
-damping = 0.6
-reaction = 8.0
-
-[sub_resource type="Resource" id="Resource_kly02"]
-script = ExtResource("6_5hktl")
-frequency = 2.001
-damping = 1.0
-reaction = 0.0
-
-[sub_resource type="Resource" id="Resource_3no18"]
-script = ExtResource("6_5hktl")
-frequency = 2.001
-damping = 1.0
-reaction = 0.0
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("4_fbra3")
@@ -184,32 +72,20 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
-use_parent_material = true
 collision_layer = 2
 script = ExtResource("1_i8rwf")
 hitbox = NodePath("COMBAT/HitboxComponent")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-use_parent_material = true
 shape = SubResource("CapsuleShape2D_nro1a")
 
 [node name="VISUALS" type="Node2D" parent="."]
-use_parent_material = true
 position = Vector2(-1, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VISUALS"]
-libraries = {
-"": SubResource("AnimationLibrary_0eui3")
-}
-autoplay = "Walk"
-
 [node name="SPRITES" type="Node2D" parent="VISUALS"]
-use_parent_material = true
 
 [node name="FootL" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
-position = Vector2(-4, -5)
-scale = Vector2(1, 1)
+position = Vector2(-3, -5)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -217,9 +93,7 @@ region_enabled = true
 region_rect = Rect2(1, 5, 8, 4)
 
 [node name="FootR" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
-position = Vector2(-4, -9.53674e-07)
-scale = Vector2(1, 1)
+position = Vector2(-3, 0)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -227,9 +101,7 @@ region_enabled = true
 region_rect = Rect2(1, 10, 8, 4)
 
 [node name="Crotch" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
 position = Vector2(-2, -4)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -237,9 +109,7 @@ region_enabled = true
 region_rect = Rect2(10, 6, 5, 7)
 
 [node name="ArmL" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
-position = Vector2(-2, -8)
-scale = Vector2(1, 1)
+position = Vector2(-3, -8)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -247,9 +117,7 @@ region_enabled = true
 region_rect = Rect2(23, 1, 8, 4)
 
 [node name="ArmR" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
-position = Vector2(-2, 3)
-scale = Vector2(1, 1)
+position = Vector2(-3, 3)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -257,9 +125,7 @@ region_enabled = true
 region_rect = Rect2(23, 14, 8, 4)
 
 [node name="Torso" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
 position = Vector2(-3, -8)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -267,107 +133,55 @@ region_enabled = true
 region_rect = Rect2(16, 2, 6, 15)
 
 [node name="Head" type="Sprite2D" parent="VISUALS/SPRITES"]
-use_parent_material = true
 position = Vector2(-3, -4)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
 region_enabled = true
 region_rect = Rect2(23, 6, 6, 7)
 
-[node name="HeadGlow" type="Sprite2D" parent="VISUALS/SPRITES/Head"]
-self_modulate = Color(1, 3, 3, 1)
-use_parent_material = true
-position = Vector2(4, 2)
-rotation = 0.0178304
-scale = Vector2(1, 1)
-texture = ExtResource("3_qyrk3")
-centered = false
-offset = Vector2(0.5, 0.5)
-region_enabled = true
-region_rect = Rect2(27, 8, 1, 3)
+[node name="Sprite2D" type="Sprite2D" parent="VISUALS"]
+visible = false
+texture = ExtResource("2_f7wsf")
+region_rect = Rect2(290, 86, 15, 14)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="VISUALS"]
-use_parent_material = true
 
 [node name="SoupStack" type="Node" parent="VISUALS/Skeleton2D"]
 script = ExtResource("4_stkm4")
 
-[node name="CrotchStayAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
-script = ExtResource("5_h1ldt")
-target_node = NodePath("../../Torso/CrotchTarget")
+[node name="LegLStayAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
+script = ExtResource("5_kxq2t")
+target_node = NodePath("../../../SEGMENTS/LegL")
 enabled = true
-bone_node = NodePath("../../Torso/Crotch")
-use_easing = true
-easing = SubResource("Resource_af4be")
+bone_node = NodePath("../../Torso/Crotch/LegL")
 
-[node name="HeadStayAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
-script = ExtResource("5_h1ldt")
-target_node = NodePath("../../Torso/HeadTarget")
+[node name="LegLStayAt2" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
+script = ExtResource("5_kxq2t")
+target_node = NodePath("../../../SEGMENTS/LegR")
 enabled = true
-bone_node = NodePath("../../Torso/Head")
-use_easing = true
-easing = SubResource("Resource_oi17h")
-
-[node name="HeadJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
-script = ExtResource("7_j2uqd")
-target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
-enabled = true
-bone_node = NodePath("../../Torso/Head")
-use_easing = true
-easing = SubResource("Resource_kly02")
-
-[node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
-script = ExtResource("7_j2uqd")
-target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
-enabled = true
-bone_node = NodePath("../../Torso/Crotch")
-use_easing = true
-easing = SubResource("Resource_3no18")
+bone_node = NodePath("../../Torso/Crotch/LegR")
 
 [node name="Torso" type="Bone2D" parent="VISUALS/Skeleton2D"]
-use_parent_material = true
 position = Vector2(1, 0)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 1, 0)
 
 [node name="Head" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
-use_parent_material = true
 position = Vector2(-1, 0)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -1, 0)
 auto_calculate_length_and_angle = false
 length = 4.0
 bone_angle = 0.0
 
 [node name="HeadRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/Head"]
-use_parent_material = true
 position = Vector2(-3, -4)
 remote_path = NodePath("../../../../SPRITES/Head")
 
-[node name="SoupConstraint" type="Node" parent="VISUALS/Skeleton2D/Torso/Head"]
-script = ExtResource("7_1pw38")
-enabled = true
-rotation_limit_range_degrees = 60.0
-draw_rotation_limit_gizmo = false
-limit_position = true
-position_limit_offset = Vector2(-1, 0)
-position_limit_range = Vector2(2, 2)
-position_constraint_shape = 1
-draw_position_limit_gizmo = false
-
 [node name="Crotch" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
-use_parent_material = true
 position = Vector2(-1, 0)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -1, 0)
-auto_calculate_length_and_angle = false
-length = 2.0
-bone_angle = 0.0
 
 [node name="LegL" type="Bone2D" parent="VISUALS/Skeleton2D/Torso/Crotch"]
-use_parent_material = true
 position = Vector2(0, -2)
 rest = Transform2D(1, 0, 0, 1, 0, -2)
 auto_calculate_length_and_angle = false
@@ -375,12 +189,10 @@ length = 4.0
 bone_angle = 0.0
 
 [node name="LegLRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/Crotch/LegL"]
-use_parent_material = true
-position = Vector2(-4, -3)
+position = Vector2(-3, -3)
 remote_path = NodePath("../../../../../SPRITES/FootL")
 
 [node name="LegR" type="Bone2D" parent="VISUALS/Skeleton2D/Torso/Crotch"]
-use_parent_material = true
 position = Vector2(0, 2)
 rest = Transform2D(1, 0, 0, 1, 0, 2)
 auto_calculate_length_and_angle = false
@@ -388,25 +200,14 @@ length = 4.0
 bone_angle = 0.0
 
 [node name="LegRRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/Crotch/LegR"]
-position = Vector2(-4, -2)
+position = Vector2(-3, -2)
 remote_path = NodePath("../../../../../SPRITES/FootR")
 
 [node name="CrotchRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/Crotch"]
-use_parent_material = true
 position = Vector2(-2, -4)
 remote_path = NodePath("../../../../SPRITES/Crotch")
 
-[node name="SoupConstraint" type="Node" parent="VISUALS/Skeleton2D/Torso/Crotch"]
-script = ExtResource("7_1pw38")
-enabled = true
-rotation_limit_range_degrees = 60.0
-draw_rotation_limit_gizmo = false
-limit_position = true
-position_limit_offset = Vector2(-4, 0)
-position_limit_range = Vector2(4, 2)
-
 [node name="ArmL" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
-use_parent_material = true
 position = Vector2(-1, -5)
 rest = Transform2D(1, 0, 0, 1, -1, -5)
 auto_calculate_length_and_angle = false
@@ -414,11 +215,10 @@ length = 4.0
 bone_angle = 0.0
 
 [node name="ArmLRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/ArmL"]
-position = Vector2(-2, -3)
+position = Vector2(-3, -3)
 remote_path = NodePath("../../../../SPRITES/ArmL")
 
 [node name="ArmR" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
-use_parent_material = true
 position = Vector2(-1, 5)
 rest = Transform2D(1, 0, 0, 1, -1, 5)
 auto_calculate_length_and_angle = false
@@ -426,37 +226,37 @@ length = 4.0
 bone_angle = 0.0
 
 [node name="ArmRRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso/ArmR"]
-position = Vector2(-2, -2)
+position = Vector2(-3, -2)
 remote_path = NodePath("../../../../SPRITES/ArmR")
 
 [node name="TorsoRT" type="RemoteTransform2D" parent="VISUALS/Skeleton2D/Torso"]
-use_parent_material = true
 position = Vector2(-4, -8)
 remote_path = NodePath("../../../SPRITES/Torso")
 
-[node name="CrotchTarget" type="Marker2D" parent="VISUALS/Skeleton2D/Torso" node_paths=PackedStringArray("ref_frame")]
-use_parent_material = true
-position = Vector2(-3, 0)
-script = ExtResource("9_mgv5a")
-ref_frame = NodePath("../../../..")
-min_displacement = 3.0
+[node name="TLL" type="Marker2D" parent="VISUALS"]
+position = Vector2(0, -2)
 
-[node name="CrotchJiggle" type="Marker2D" parent="VISUALS/Skeleton2D/Torso/CrotchTarget"]
-use_parent_material = true
-position = Vector2(53, 0)
+[node name="TLR" type="Marker2D" parent="VISUALS"]
+position = Vector2(0, 2)
 
-[node name="HeadTarget" type="Marker2D" parent="VISUALS/Skeleton2D/Torso" node_paths=PackedStringArray("ref_frame")]
-use_parent_material = true
-script = ExtResource("9_mgv5a")
-ref_frame = NodePath("../../../..")
-min_displacement = 2.0
+[node name="SEGMENTS" type="Node" parent="VISUALS"]
 
-[node name="HeadJiggle" type="Marker2D" parent="VISUALS/Skeleton2D/Torso/HeadTarget"]
-use_parent_material = true
-position = Vector2(52, 0)
+[node name="LegL" type="Node2D" parent="VISUALS/SEGMENTS" node_paths=PackedStringArray("target", "required_points")]
+process_mode = 3
+position = Vector2(-1, -2)
+script = ExtResource("4_e0ahq")
+target = NodePath("../../TLL")
+required_points = [NodePath("../LegR")]
+angle_threshold = 30.0
+
+[node name="LegR" type="Node2D" parent="VISUALS/SEGMENTS" node_paths=PackedStringArray("target", "required_points")]
+position = Vector2(-1, 2)
+script = ExtResource("4_e0ahq")
+target = NodePath("../../TLR")
+required_points = [NodePath("../LegL")]
+angle_threshold = 30.0
 
 [node name="COMBAT" type="Node2D" parent="."]
-use_parent_material = true
 
 [node name="HitboxComponent" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "timer")]
 position = Vector2(0, 7)
@@ -496,7 +296,6 @@ starting_scrap = 20
 health_component = NodePath("../HealthComponent")
 
 [node name="TurretCreator" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
-use_parent_material = true
 position = Vector2(18, 0)
 collision_layer = 0
 collision_mask = 3
@@ -509,7 +308,6 @@ shape = SubResource("CircleShape2D_vl8fu")
 debug_color = Color(0, 0.6, 0, 0.164706)
 
 [node name="ResourceCollector" type="Area2D" parent="." node_paths=PackedStringArray("resource_component")]
-use_parent_material = true
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("11_2o3mk")
@@ -533,7 +331,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 material = SubResource("ShaderMaterial_kf7cm")
-use_parent_material = true
 energy = 0.6
 blend_mode = 2
 shadow_enabled = true

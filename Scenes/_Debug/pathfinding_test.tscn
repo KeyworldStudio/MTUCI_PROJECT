@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=15 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_eawms"]
 [ext_resource type="TileSet" uid="uid://r66y185oj36x" path="res://Assets/Visual/Tilesets/TestTileSet.tres" id="2_sbtgi"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_lj2xq"]
 script = ExtResource("7_n0oiv")
-price = 10
+price = 999
 starting_wave = 0
 scene = ExtResource("6_ykx3v")
 
@@ -20,6 +20,26 @@ script = ExtResource("7_n0oiv")
 price = 10
 starting_wave = 0
 scene = ExtResource("8_f5r5g")
+
+[sub_resource type="Shader" id="Shader_jsha0"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tesag"]
+shader = SubResource("Shader_jsha0")
+
+[sub_resource type="Gradient" id="Gradient_jjalf"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0mpio"]
+gradient = SubResource("Gradient_jjalf")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="PathfindingTest" type="Node2D" node_paths=PackedStringArray("top_left_limit", "bottom_right_limit")]
 use_parent_material = true
@@ -50,7 +70,7 @@ position = Vector2(641, 368)
 [node name="WaveManager" type="Node2D" parent="."]
 script = ExtResource("3_xxjun")
 enemy_data = Array[ExtResource("7_n0oiv")]([ExtResource("4_puf5h"), ExtResource("5_elgof"), SubResource("Resource_lj2xq"), SubResource("Resource_qk270")])
-wave_time = 20
+wave_time = 200
 
 [node name="Node2D" type="Node2D" parent="WaveManager"]
 position = Vector2(65, 66)
@@ -72,3 +92,14 @@ position = Vector2(193, 102)
 
 [node name="Node2D7" type="Node2D" parent="WaveManager"]
 position = Vector2(61, 314)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_tesag")
+position = Vector2(204, 113)
+scale = Vector2(1.1, 1.1)
+editor_only = true
+energy = 0.6
+blend_mode = 2
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0mpio")
+texture_scale = 6.0

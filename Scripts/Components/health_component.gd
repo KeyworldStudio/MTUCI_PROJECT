@@ -21,7 +21,7 @@ func _ready():
 func damage(attack: Attack, resists: Resists): 
 	if health<=0:
 		return  
-	health -= max(attack.attack_damage - resists.armor, 0)
+	health -= attack.attack_damage * resists.damage_multiplier
 	damaged.emit(health)
 	if health <= 0:
 		health_zero.emit()        

@@ -98,7 +98,7 @@ _data = {
 "RESET": SubResource("Animation_opuot")
 }
 
-[sub_resource type="Resource" id="Resource_vq0uk"]
+[sub_resource type="Resource" id="Resource_mqpvc"]
 script = ExtResource("7_jalaf")
 frequency = 2.001
 damping = 0.05
@@ -231,7 +231,6 @@ region_rect = Rect2(44, 13, 9, 4)
 use_parent_material = true
 position = Vector2(1.13261, 2.30786)
 rotation = 0.473707
-scale = Vector2(1, 1)
 texture = ExtResource("2_dhcj5")
 centered = false
 region_enabled = true
@@ -331,7 +330,7 @@ target_node = NodePath("../../SackJiggleTarget")
 enabled = true
 bone_node = NodePath("../../Body/Sack")
 use_easing = true
-easing = SubResource("Resource_vq0uk")
+easing = SubResource("Resource_mqpvc")
 
 [node name="Body" type="Bone2D" parent="VISUAL/Skeleton2D"]
 use_parent_material = true
@@ -403,19 +402,16 @@ remote_path = NodePath("../../../../SPRITES/LLeg")
 use_parent_material = true
 position = Vector2(-1, 5)
 rotation = 0.473707
-scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -1, 5)
 
 [node name="FRLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg"]
 position = Vector2(6, -1.50996e-07)
 rotation = 2.43619
-scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 6, -1.50996e-07)
 
 [node name="FRLeg3" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg/FRLeg2"]
 position = Vector2(-1.27555e-06, -13)
 rotation = -0.513275
-scale = Vector2(1, 1)
 rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, -1.27555e-06, -13)
 
 [node name="FRFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FRLeg/FRLeg2/FRLeg3"]
