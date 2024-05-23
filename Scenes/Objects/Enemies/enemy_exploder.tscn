@@ -98,7 +98,7 @@ _data = {
 "RESET": SubResource("Animation_opuot")
 }
 
-[sub_resource type="Resource" id="Resource_mqpvc"]
+[sub_resource type="Resource" id="Resource_vrxe5"]
 script = ExtResource("7_jalaf")
 frequency = 2.001
 damping = 0.05
@@ -330,7 +330,7 @@ target_node = NodePath("../../SackJiggleTarget")
 enabled = true
 bone_node = NodePath("../../Body/Sack")
 use_easing = true
-easing = SubResource("Resource_mqpvc")
+easing = SubResource("Resource_vrxe5")
 
 [node name="Body" type="Bone2D" parent="VISUAL/Skeleton2D"]
 use_parent_material = true

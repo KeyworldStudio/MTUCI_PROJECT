@@ -219,7 +219,6 @@ region_rect = Rect2(33, 13, 10, 4)
 use_parent_material = true
 position = Vector2(-6, 13)
 rotation = 3.03768
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -228,7 +227,6 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(-3.5135, 12.7407)
 rotation = -0.103915
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -271,7 +269,6 @@ region_rect = Rect2(33, 13, 10, 4)
 use_parent_material = true
 position = Vector2(11, 13)
 rotation = 1.82659
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -280,7 +277,6 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(11.6325, 10.5813)
 rotation = -1.315
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -289,7 +285,6 @@ region_rect = Rect2(44, 13, 9, 4)
 use_parent_material = true
 position = Vector2(9.38251, 7.33133)
 rotation = 0.28079
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(33, 13, 10, 4)
@@ -409,6 +404,7 @@ remote_path = NodePath("../../../SPRITES/Body")
 [node name="LBLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(-4.5, -3.5)
 rotation = -1.49187
+scale = Vector2(1, 1)
 rest = Transform2D(0.0788428, -0.996887, 0.996887, 0.0788428, -4.5, -3.5)
 
 [node name="LBLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LBLeg1"]
@@ -499,7 +495,6 @@ remote_path = NodePath("../../../../SPRITES/LFLeg1")
 [node name="RFLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(3.5, 3.5)
 rotation = 0.28079
-scale = Vector2(1, 1)
 rest = Transform2D(0.960837, 0.277115, -0.277115, 0.960837, 3.5, 3.5)
 
 [node name="RFLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RFLeg1"]

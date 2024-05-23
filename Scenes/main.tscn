@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
-[ext_resource type="PackedScene" uid="uid://evucxqh073bt" path="res://Scenes/ui/TurretHotbar.tscn" id="8_xmx3k"]
+[ext_resource type="Script" path="res://Scripts/brightness_slider.gd" id="8_md0hk"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngknl"]
 light_mode = 2
@@ -17,9 +17,12 @@ background_mode = 3
 background_energy_multiplier = 0.0
 glow_enabled = true
 glow_normalized = true
+glow_bloom = 0.5
 glow_blend_mode = 0
-glow_hdr_threshold = 1.06
+glow_hdr_threshold = 1.5
+glow_hdr_scale = 1.0
 glow_map_strength = 0.0
+adjustment_enabled = true
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_yylq0")
@@ -80,10 +83,29 @@ inactive_update_mode = 0
 [node name="PlayerCameraFollowTarget" type="Marker2D" parent="GameWorld/Player"]
 script = ExtResource("7_okdpn")
 
-[node name="MainGUI" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="TurretHotbar" parent="MainGUI" instance=ExtResource("8_xmx3k")]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GameWorld"]
 environment = SubResource("Environment_7buv0")
+
+[node name="MainGUI" type="CanvasLayer" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="MainGUI"]
+
+[node name="HSlider" type="HSlider" parent="MainGUI/CanvasGroup" node_paths=PackedStringArray("world_env")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 121.5
+offset_top = 254.0
+offset_right = 358.5
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 0
+min_value = 0.125
+max_value = 16.0
+step = 0.125
+value = 1.0
+tick_count = 16
+script = ExtResource("8_md0hk")
+world_env = NodePath("../../../GameWorld/WorldEnvironment")

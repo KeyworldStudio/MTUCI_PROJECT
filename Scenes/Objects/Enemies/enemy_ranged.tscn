@@ -264,6 +264,7 @@ region_rect = Rect2(21, 8, 11, 10)
 use_parent_material = true
 position = Vector2(11.5724, 5.17588)
 rotation = 2.78494
+scale = Vector2(1, 1)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -283,7 +284,7 @@ region_rect = Rect2(33, 22, 15, 5)
 
 [node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(0.191406, -9.18134)
+position = Vector2(0.191407, -9.18134)
 rotation = -1.75614
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
@@ -295,6 +296,7 @@ region_rect = Rect2(21, 8, 11, 10)
 use_parent_material = true
 position = Vector2(10.1759, -1.42758)
 rotation = -2.78494
+scale = Vector2(1, 1)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -549,6 +551,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootB")
 use_parent_material = true
 position = Vector2(2, -4)
 rotation = 0.35665
+scale = Vector2(1, 1)
 rest = Transform2D(2.22127e-06, 1, -1, 2.22127e-06, 2, -4)
 
 [node name="LegL1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegL1"]
@@ -589,6 +592,7 @@ remote_path = NodePath("../../../../../../SPRITES/FootL")
 use_parent_material = true
 position = Vector2(2, 4)
 rotation = -0.35665
+scale = Vector2(1, 1)
 rest = Transform2D(-6.6638e-06, -1, 1, -6.6638e-06, 2, 4)
 
 [node name="LegR1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Body/LegR1"]
