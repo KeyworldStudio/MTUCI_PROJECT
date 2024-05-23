@@ -115,7 +115,7 @@ _data = {
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 0.5
-reaction = -2.0
+reaction = -4.0
 
 [sub_resource type="Resource" id="Resource_oi17h"]
 script = ExtResource("6_5hktl")
@@ -123,13 +123,13 @@ frequency = 2.001
 damping = 0.6
 reaction = 8.0
 
-[sub_resource type="Resource" id="Resource_kly02"]
+[sub_resource type="Resource" id="Resource_buyog"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_3no18"]
+[sub_resource type="Resource" id="Resource_8eoap"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
@@ -208,8 +208,7 @@ use_parent_material = true
 
 [node name="FootL" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
-position = Vector2(-4, -5)
-scale = Vector2(1, 1)
+position = Vector2(-5.001, -5)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -218,8 +217,7 @@ region_rect = Rect2(1, 5, 8, 4)
 
 [node name="FootR" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
-position = Vector2(-4, -9.53674e-07)
-scale = Vector2(1, 1)
+position = Vector2(-5.001, 0)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -227,9 +225,9 @@ region_enabled = true
 region_rect = Rect2(1, 10, 8, 4)
 
 [node name="Crotch" type="Sprite2D" parent="VISUALS/SPRITES"]
+self_modulate = Color(0.47, 0.47, 0.47, 1)
 use_parent_material = true
-position = Vector2(-2, -4)
-scale = Vector2(1, 1)
+position = Vector2(-3.001, -4)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -239,7 +237,6 @@ region_rect = Rect2(10, 6, 5, 7)
 [node name="ArmL" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
 position = Vector2(-2, -8)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -249,7 +246,6 @@ region_rect = Rect2(23, 1, 8, 4)
 [node name="ArmR" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
 position = Vector2(-2, 3)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -259,7 +255,6 @@ region_rect = Rect2(23, 14, 8, 4)
 [node name="Torso" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
 position = Vector2(-3, -8)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -269,7 +264,6 @@ region_rect = Rect2(16, 2, 6, 15)
 [node name="Head" type="Sprite2D" parent="VISUALS/SPRITES"]
 use_parent_material = true
 position = Vector2(-3, -4)
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -281,7 +275,6 @@ self_modulate = Color(1, 3, 3, 1)
 use_parent_material = true
 position = Vector2(4, 2)
 rotation = 0.0178304
-scale = Vector2(1, 1)
 texture = ExtResource("3_qyrk3")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -316,7 +309,7 @@ target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Head")
 use_easing = true
-easing = SubResource("Resource_kly02")
+easing = SubResource("Resource_buyog")
 
 [node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_j2uqd")
@@ -324,18 +317,16 @@ target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Crotch")
 use_easing = true
-easing = SubResource("Resource_3no18")
+easing = SubResource("Resource_8eoap")
 
 [node name="Torso" type="Bone2D" parent="VISUALS/Skeleton2D"]
 use_parent_material = true
 position = Vector2(1, 0)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 1, 0)
 
 [node name="Head" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
 use_parent_material = true
 position = Vector2(-1, 0)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -1, 0)
 auto_calculate_length_and_angle = false
 length = 4.0
@@ -359,8 +350,7 @@ draw_position_limit_gizmo = false
 
 [node name="Crotch" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
 use_parent_material = true
-position = Vector2(-1, 0)
-scale = Vector2(1, 1)
+position = Vector2(-2.001, 0)
 rest = Transform2D(1, 0, 0, 1, -1, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -402,8 +392,9 @@ enabled = true
 rotation_limit_range_degrees = 60.0
 draw_rotation_limit_gizmo = false
 limit_position = true
-position_limit_offset = Vector2(-4, 0)
+position_limit_offset = Vector2(-2, 0)
 position_limit_range = Vector2(4, 2)
+position_constraint_shape = 1
 
 [node name="ArmL" type="Bone2D" parent="VISUALS/Skeleton2D/Torso"]
 use_parent_material = true
