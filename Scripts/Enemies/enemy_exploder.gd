@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var dash_acceleration: float = 2000.0
 @export var rest_acceleration: float = 500.0
 @export var explosion_scene: PackedScene
+@export var explosion_place: Node2D
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
@@ -47,7 +48,7 @@ func _on_pursuit_state_physics_processing(_delta):
 			global_position.angle_to_point(
 					nav_agent.get_next_path_position()
 				),
-			0.2
+			0.05
 		)
 
 
@@ -79,7 +80,10 @@ func _on_explode_state_entered():
 func explode():
 	var explosion_instance = explosion_scene.instantiate()
 	GlobalRefs.bullet_holder.add_child(explosion_instance)
-	explosion_instance.global_position = global_position
+	if explosion_place:
+		explosion_instance.global_position = explosion_place.global_position
+	else:
+		explosion_instance.global_position = global_position
 	health_component.kill()
 #endregion
 

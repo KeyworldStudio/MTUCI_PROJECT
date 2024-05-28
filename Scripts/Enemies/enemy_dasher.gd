@@ -86,7 +86,6 @@ func _on_attack_state_entered():
 	anim_player.play("Bite")
 	acceleration = dash_acceleration
 	hurtbox_component.active = true
-	#rotation = global_position.angle_to_point(dash_target)
 
 #endregion
 

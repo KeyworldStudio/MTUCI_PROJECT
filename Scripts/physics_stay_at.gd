@@ -1,6 +1,8 @@
 extends SoupStayAt
 
 
+func _ready() -> void:
+	fix_easing()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -31,3 +33,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	pass
+
+func fix_easing():
+	if !(easing and bone_node and target_node):
+		return
+	easing.initialize_variables(target_node.global_position)

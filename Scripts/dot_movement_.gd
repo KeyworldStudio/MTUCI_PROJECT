@@ -1,6 +1,8 @@
 class_name StepTarget
 extends Node2D
 
+signal step_landed
+
 @export var target: RayCast2D
 @export var foot_size: float = 3
 @export var trigger_distance: float = 25
@@ -15,8 +17,12 @@ var target_position: Vector2 = Vector2.ZERO
 var is_following: bool = false
 var supported: bool = true
 var target_pos_velocity_dir: Vector2 = Vector2.ZERO
-@onready var prev_position: Vector2 = target_position
+var prev_position: Vector2
 
+func _ready():
+	target_position = update_target_position()
+	global_position = target_position
+	prev_position = target_position
 
 func _physics_process(delta):
 	target_position = update_target_position()
@@ -49,8 +55,9 @@ func check_dist(rest_position: Vector2, trigger_distance: float):
 			supported = false
 	if supported and global_position.distance_squared_to(target_position) > trigger_distance*trigger_distance:
 		is_following = true
-	elif global_position.distance_squared_to(rest_position) <= rest_distance * rest_distance:
+	elif global_position.distance_squared_to(rest_position) <= rest_distance * rest_distance and is_following:
 		is_following = false
+		step_landed.emit()
 
 func approach_pos(rest_position: Vector2, linear_speed: float, proportional_speed: float, delta: float) -> void:
 	global_position = global_position\

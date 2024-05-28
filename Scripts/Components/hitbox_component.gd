@@ -59,5 +59,4 @@ func damage(attack: Attack):
 		timer.start()
 		invulnerability = true
 		beginning_of_invulnerability.emit()
-
 	hit_received.emit()

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://uticllwmi5su"]
 
 [ext_resource type="Script" path="res://Scenes/UI/main_menu.gd" id="1_67o6m"]
-[ext_resource type="Texture2D" uid="uid://b2nbpd2ry6xih" path="res://Scenes/UI/1614270702_49-p-chernii-pikselnii-fon-72.png" id="2_85vkc"]
-[ext_resource type="FontFile" uid="uid://b535gvpcmi2ak" path="res://Scenes/UI/MaredivRegular.ttf" id="3_ou7o4"]
-[ext_resource type="PackedScene" uid="uid://cy3k5lq88ogh1" path="res://Scenes/UI/settings_menu.tscn" id="4_yslb2"]
-[ext_resource type="AudioStream" uid="uid://gce45qsy6tsh" path="res://Assets/sound/Nitro.mp3" id="5_7ituk"]
+[ext_resource type="Texture2D" uid="uid://b2nbpd2ry6xih" path="res://Scenes/ui/1614270702_49-p-chernii-pikselnii-fon-72.png" id="2_85vkc"]
+[ext_resource type="FontFile" uid="uid://b535gvpcmi2ak" path="res://Scenes/ui/MaredivRegular.ttf" id="3_ou7o4"]
+[ext_resource type="PackedScene" uid="uid://cy3k5lq88ogh1" path="res://Scenes/ui/settings_menu.tscn" id="4_yslb2"]
+[ext_resource type="AudioStream" uid="uid://gce45qsy6tsh" path="res://Assets/Sound/Nitro.mp3" id="5_7ituk"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

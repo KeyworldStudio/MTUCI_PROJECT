@@ -1,0 +1,1559 @@
+[gd_scene load_steps=37 format=3 uid="uid://caw8fg2ky6p4u"]
+
+[ext_resource type="Texture2D" uid="uid://c82f2g1w0pb0g" path="res://Assets/Visual/Sheets/PlayerSheet.png" id="1_njsu2"]
+[ext_resource type="Script" path="res://Scripts/Turrets/turret_autocannon.gd" id="1_ri6px"]
+[ext_resource type="PackedScene" uid="uid://c6xeiu7kfp0xh" path="res://Scenes/Objects/Turrets/bullet_explosive.tscn" id="2_36u71"]
+[ext_resource type="AudioStream" uid="uid://kfdcpm2abfrq" path="res://Assets/Sound/TurretGUN.wav" id="3_kng15"]
+[ext_resource type="Texture2D" uid="uid://bu6k78fdrajx6" path="res://Assets/Visual/Sheets/PlayerSheetGlow.png" id="4_7ardx"]
+[ext_resource type="AudioStream" uid="uid://dml2u00357nay" path="res://Assets/Sound/ChargerDeploy1.wav" id="4_jcql2"]
+[ext_resource type="AudioStream" uid="uid://b81wditdywiud" path="res://Assets/Sound/ChargerDeploy2.wav" id="5_jux4b"]
+[ext_resource type="Texture2D" uid="uid://mq1tfdsrwgu7" path="res://Assets/Visual/Particles/sParticleDrop.png" id="5_vg2ud"]
+[ext_resource type="AudioStream" uid="uid://bvgf775rlawge" path="res://addons/kenney impact sounds/impact_plate_heavy_001.ogg" id="6_7wksr"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="6_e0gda"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="7_4u1ss"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="7_31jrw"]
+[ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="8_qg7u1"]
+[ext_resource type="AudioStream" uid="uid://m6yidv6no3hq" path="res://addons/kenney sci-fi sounds/explosion_crunch_000.ogg" id="8_v0d2e"]
+[ext_resource type="Script" path="res://Scripts/Components/death_component.gd" id="9_73lds"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_02tvh"]
+radius = 16.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7rmjh"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_16ir4"]
+animation = &"Setup"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pdj5h"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_boryo"]
+animation = &"ShootLeft"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_27pby"]
+filters = ["Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3:position", "Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2:position", "Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel:position", "Skeleton2D/Base/TowerBase/LGunBase:position"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vwluy"]
+animation = &"ShootRight"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_18dij"]
+filters = ["Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3:position", "Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2:position", "Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel:position", "Skeleton2D/Base/TowerBase/RGunBase:position"]
+mix_mode = 1
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_edgog"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_5hy6h"]
+sync = true
+input_0/name = "Setup"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "Shoot"
+input_1/auto_advance = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_falgf"]
+nodes/Reset/node = SubResource("AnimationNodeAnimation_7rmjh")
+nodes/Reset/position = Vector2(-140, 20)
+nodes/Setup/node = SubResource("AnimationNodeAnimation_16ir4")
+nodes/Setup/position = Vector2(200, 20)
+nodes/SetupSpeed/node = SubResource("AnimationNodeTimeScale_pdj5h")
+nodes/SetupSpeed/position = Vector2(340, 20)
+nodes/ShootLeft/node = SubResource("AnimationNodeAnimation_boryo")
+nodes/ShootLeft/position = Vector2(-140, 140)
+nodes/ShootLeftOS/node = SubResource("AnimationNodeOneShot_27pby")
+nodes/ShootLeftOS/position = Vector2(20, 20)
+nodes/ShootRight/node = SubResource("AnimationNodeAnimation_vwluy")
+nodes/ShootRight/position = Vector2(20, 300)
+nodes/ShootRightOS/node = SubResource("AnimationNodeOneShot_18dij")
+nodes/ShootRightOS/position = Vector2(180, 200)
+nodes/ShootingSpeed/node = SubResource("AnimationNodeTimeScale_edgog")
+nodes/ShootingSpeed/position = Vector2(320, 160)
+nodes/Transition/node = SubResource("AnimationNodeTransition_5hy6h")
+nodes/Transition/position = Vector2(480, 20)
+nodes/output/position = Vector2(620, 20)
+node_connections = [&"SetupSpeed", 0, &"Setup", &"ShootLeftOS", 0, &"Reset", &"ShootLeftOS", 1, &"ShootLeft", &"ShootRightOS", 0, &"ShootLeftOS", &"ShootRightOS", 1, &"ShootRight", &"ShootingSpeed", 0, &"ShootRightOS", &"Transition", 0, &"SetupSpeed", &"Transition", 1, &"ShootingSpeed", &"output", 0, &"Transition"]
+
+[sub_resource type="Animation" id="Animation_64mbi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Base/Leg1:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Base/Leg1:rotation")
+tracks/1/interp = 3
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.785398]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Base/Leg2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Base/Leg2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.35619]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Base/Leg3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Base/Leg3:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.35619]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/Base/Leg4:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Skeleton2D/Base/Leg4:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.785398]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7.00002, 4.33922e-05)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Skeleton2D/Base/TowerBase/TowerPlateF:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Base/TowerBase/TowerPlateB:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.00004, -4.99999)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3.00001, -2.99999)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.0504e-05, -9)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.999956, 5.00001)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.99998, -3.00002)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.0504e-05, -9)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -4.76837e-07)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3/LGunParticles:emitting")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3/RGunParticles:emitting")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("../SetupAudio:playing")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("../SetupAudio:pitch_scale")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.75]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("../SetupAudio2:playing")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_l4uqq"]
+resource_name = "Setup"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Base/Leg1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, -7), Vector2(6, -7), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Base/Leg1:rotation")
+tracks/1/interp = 3
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.4, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [2.09439, 2.09439, 0.785397, 0.785397]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Base/Leg2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, -7), Vector2(6, -7), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Base/Leg2:rotation")
+tracks/3/interp = 3
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.35619, 2.35619]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Base/Leg3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-7.99991, 10.0001), Vector2(-7.99991, 10.0001), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Base/Leg3:rotation")
+tracks/5/interp = 3
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.4, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.0472, -1.0472, -2.3562, -2.3562]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/Base/Leg4:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-7.99991, 10.0001), Vector2(-7.99991, 10.0001), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Skeleton2D/Base/Leg4:rotation")
+tracks/7/interp = 3
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.785398, -0.785398]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.6, 2.8, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -5.25473e-05), Vector2(1, -5.25473e-05), Vector2(7.00002, 4.33922e-05), Vector2(7.00002, 4.33922e-05)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Skeleton2D/Base/TowerBase/TowerPlateF:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.8, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, 1.77701e-05), Vector2(-2, 1.77701e-05), Vector2(3, 0), Vector2(3, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Base/TowerBase/TowerPlateB:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.8, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2, -1.77701e-05), Vector2(2, -1.77701e-05), Vector2(-3, 0), Vector2(-3, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1.8, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 9.53674e-06), Vector2(-1, 9.53674e-06), Vector2(-1, -5), Vector2(-1, -5)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunCharge:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-5, -0.999987), Vector2(-5, -0.999987)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 2, 2.2, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.99998, 6.00001), Vector2(-2.99998, 6.00001), Vector2(-2.99998, -3.00002), Vector2(-2.99998, -3.00002)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 3.2, 3.4, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-5.09027e-06, -2), Vector2(-5.09027e-06, -2), Vector2(2.0504e-05, -9), Vector2(2.0504e-05, -9)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 2, 2.2, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 9.05991e-06), Vector2(-1, 9.05991e-06), Vector2(-1, 5), Vector2(-1, 5)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunCharge:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-4.99999, -1.00003), Vector2(-4.99999, -1.00003)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 2.2, 2.4, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-3.00003, 5.99998), Vector2(-3.00003, 5.99998), Vector2(-2.99998, -3.00002), Vector2(-2.99998, -3.00002)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 3, 3.2, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.03514e-05, -2), Vector2(1.03514e-05, -2), Vector2(2.0504e-05, -9), Vector2(2.0504e-05, -9)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3:position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 2.6, 2.8, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 2.56062e-05), Vector2(1, 2.56062e-05), Vector2(7, -4.76837e-07), Vector2(7, -4.76837e-07)]
+}
+tracks/20/type = "method"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("..")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish_setup"
+}]
+}
+tracks/21/type = "method"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("..")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("../SetupAudio:playing")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.3, 0.9, 1.8, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("../SetupAudio:pitch_scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.5, 1.0]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("../SetupAudio2:playing")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(1.6, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("../SetupAudio2:volume_db")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_n2fl3"]
+resource_name = "ShootLeft"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -4.76819e-07), Vector2(5, -4.76819e-07), Vector2(7.00002, 4.33922e-05), Vector2(7.00002, 4.33922e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-3.00001, 1.99998), Vector2(-3.00001, 1.99998), Vector2(-3.00001, -2.99999), Vector2(-3.00001, -2.99999)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4.41949e-05, -7), Vector2(4.41949e-05, -7), Vector2(2.0504e-05, -9), Vector2(2.0504e-05, -9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-4, -5), Vector2(-4, -5), Vector2(-1.00004, -4.99999), Vector2(-1.00004, -4.99999)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot_l"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3/LGunParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../ShootAudio:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../SetupAudio2:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.2, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../SetupAudio2:volume_db")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(10, 1),
+"update": 0,
+"values": [1.0, -20.0]
+}
+
+[sub_resource type="Animation" id="Animation_je1fe"]
+resource_name = "ShootRight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-4, 5), Vector2(-4, 5), Vector2(-0.999956, 5.00001), Vector2(-0.999956, 5.00001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.99999, 2.00001), Vector2(-2.99999, 2.00001), Vector2(-2.99998, -3.00002), Vector2(-2.99998, -3.00002)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.51849e-05, -7), Vector2(-2.51849e-05, -7), Vector2(-3.24249e-05, -9), Vector2(-3.24249e-05, -9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -4.93526e-05), Vector2(5, -4.93526e-05), Vector2(7, -6.91414e-05), Vector2(7, -6.91414e-05)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot_r"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3/RGunParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../ShootAudio:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../SetupAudio2:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.2, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../SetupAudio2:volume_db")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(10, 1),
+"update": 0,
+"values": [1.0, -20.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c3vuk"]
+_data = {
+"RESET": SubResource("Animation_64mbi"),
+"Setup": SubResource("Animation_l4uqq"),
+"ShootLeft": SubResource("Animation_n2fl3"),
+"ShootRight": SubResource("Animation_je1fe")
+}
+
+[sub_resource type="Gradient" id="Gradient_0yubg"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.129032, 0.568548, 1)
+colors = PackedColorArray(0, 0, 1, 0, 1, 3, 3, 1, -0.987127, 0.676255, 1.37487, 0.189377, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mjmbr"]
+gradient = SubResource("Gradient_0yubg")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xqny4"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 10.0
+initial_velocity_min = 350.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 200.0
+color = Color(1, 3, 3, 1)
+color_ramp = SubResource("GradientTexture1D_mjmbr")
+
+[sub_resource type="Resource" id="Resource_rqdq4"]
+script = ExtResource("8_qg7u1")
+armor = 2.0
+coefficient_of_knockback = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_67kp4"]
+radius = 14.0
+
+[node name="AutocannonTurret" type="CharacterBody2D" node_paths=PackedStringArray("l_bullet_place", "r_bullet_place", "l_charge_indicator", "l_charge_min", "l_charge_max", "r_charge_indicator", "r_charge_min", "r_charge_max")]
+use_parent_material = true
+position = Vector2(-4, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ri6px")
+bullet_scene = ExtResource("2_36u71")
+l_bullet_place = NodePath("VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3/LBulletPlace")
+r_bullet_place = NodePath("VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3/RBulletPlace")
+l_charge_indicator = NodePath("VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunCharge")
+l_charge_min = NodePath("VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LChargeMax/LChargeMin")
+l_charge_max = NodePath("VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LChargeMax")
+r_charge_indicator = NodePath("VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunCharge")
+r_charge_min = NodePath("VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RChargeMax/RChargeMin")
+r_charge_max = NodePath("VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RChargeMax")
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kng15")
+volume_db = 5.0
+pitch_scale = 0.75
+max_distance = 256.0
+attenuation = 4.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="SetupAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jcql2")
+pitch_scale = 0.75
+max_distance = 256.0
+attenuation = 3.0
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="SetupAudio2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_jux4b")
+pitch_scale = 0.9
+max_distance = 256.0
+attenuation = 3.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="OnHitAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_7wksr")
+max_distance = 512.0
+attenuation = 4.0
+max_polyphony = 2
+bus = &"SFX"
+script = ExtResource("7_4u1ss")
+
+[node name="OnDeathAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_v0d2e")
+max_distance = 256.0
+attenuation = 2.0
+bus = &"SFX"
+script = ExtResource("7_4u1ss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+use_parent_material = true
+shape = SubResource("CircleShape2D_02tvh")
+metadata/_edit_lock_ = true
+
+[node name="VISUAL" type="Node2D" parent="."]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="AnimationTree" type="AnimationTree" parent="VISUAL"]
+deterministic = false
+tree_root = SubResource("AnimationNodeBlendTree_falgf")
+anim_player = NodePath("../AnimationPlayer")
+parameters/SetupSpeed/scale = 1.0
+parameters/ShootLeftOS/active = false
+parameters/ShootLeftOS/internal_active = false
+parameters/ShootLeftOS/request = 0
+parameters/ShootRightOS/active = false
+parameters/ShootRightOS/internal_active = false
+parameters/ShootRightOS/request = 0
+parameters/ShootingSpeed/scale = 2.0
+parameters/Transition/current_state = "Setup"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VISUAL"]
+libraries = {
+"": SubResource("AnimationLibrary_c3vuk")
+}
+
+[node name="SPRITES" type="Node2D" parent="VISUAL"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="BASE" type="Node2D" parent="VISUAL/SPRITES"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="Base1" type="Sprite2D" parent="VISUAL/SPRITES/BASE"]
+use_parent_material = true
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(1, 25, 16, 16)
+
+[node name="Base2" type="Sprite2D" parent="VISUAL/SPRITES/BASE"]
+use_parent_material = true
+rotation = 1.57079
+scale = Vector2(0.999999, 0.999999)
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(1, 25, 16, 16)
+
+[node name="Base3" type="Sprite2D" parent="VISUAL/SPRITES/BASE"]
+use_parent_material = true
+rotation = 3.14159
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(1, 25, 16, 16)
+
+[node name="Base4" type="Sprite2D" parent="VISUAL/SPRITES/BASE"]
+use_parent_material = true
+rotation = -1.57079
+scale = Vector2(1, 1)
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(1, 25, 16, 16)
+
+[node name="TOWER" type="Node2D" parent="VISUAL/SPRITES"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="RGUN" type="Node2D" parent="VISUAL/SPRITES/TOWER"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="RGunCharge" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(-9.99996, 13)
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(61, 24, 10, 6)
+
+[node name="RGunChargeGlow" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN/RGunCharge"]
+self_modulate = Color(1, 3, 3, 1)
+use_parent_material = true
+position = Vector2(2.99996, 3.99995)
+scale = Vector2(1, -1)
+texture = ExtResource("4_7ardx")
+centered = false
+region_enabled = true
+region_rect = Rect2(18, 1, 7, 2)
+
+[node name="RGunConnect" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(2, 10)
+rotation = -1.5708
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(49, 1, 5, 6)
+
+[node name="RBarrel3" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(18, 11)
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(62, 1, 7, 6)
+
+[node name="RBarrel3Glow" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN/RBarrel3"]
+self_modulate = Color(1, 3, 3, 1)
+use_parent_material = true
+position = Vector2(4.00004, 4.99995)
+scale = Vector2(1, -1)
+texture = ExtResource("4_7ardx")
+centered = false
+region_enabled = true
+region_rect = Rect2(15, 1, 2, 4)
+
+[node name="RBarrel2" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(10, 12)
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(40, 24, 9, 8)
+
+[node name="RBarrel" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(1.00001, 13)
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(28, 23, 11, 10)
+
+[node name="RGunBase" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/RGUN"]
+use_parent_material = true
+position = Vector2(-7.99989, 14.0001)
+scale = Vector2(1, -1)
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+region_enabled = true
+region_rect = Rect2(1, 42, 13, 7)
+
+[node name="LGUN" type="Node2D" parent="VISUAL/SPRITES/TOWER"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="LGunCharge" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(-10, -13)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(61, 24, 10, 6)
+
+[node name="LGunChargeGlow" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN/LGunCharge"]
+self_modulate = Color(1, 3, 3, 1)
+use_parent_material = true
+position = Vector2(2.99996, 3.99995)
+scale = Vector2(1, -1)
+texture = ExtResource("4_7ardx")
+centered = false
+region_enabled = true
+region_rect = Rect2(18, 1, 7, 2)
+
+[node name="LGunConnect" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(2, -10)
+rotation = 1.57079
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(49, 1, 5, 6)
+
+[node name="LBarrel3" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(18, -11)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(62, 1, 7, 6)
+
+[node name="LBarrel3Glow" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN/LBarrel3"]
+self_modulate = Color(1, 3, 3, 1)
+use_parent_material = true
+position = Vector2(3.99998, 4.99999)
+scale = Vector2(1, -1)
+texture = ExtResource("4_7ardx")
+centered = false
+region_enabled = true
+region_rect = Rect2(15, 1, 2, 4)
+
+[node name="LBarrel2" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(10, -12)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(40, 24, 9, 8)
+
+[node name="LBarrel" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(1.00002, -13)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(28, 23, 11, 10)
+
+[node name="LGunBase" type="Sprite2D" parent="VISUAL/SPRITES/TOWER/LGUN"]
+use_parent_material = true
+position = Vector2(-8, -14)
+rotation = -1.53224e-05
+texture = ExtResource("1_njsu2")
+centered = false
+flip_h = true
+region_enabled = true
+region_rect = Rect2(1, 42, 13, 7)
+
+[node name="TowerBase" type="Sprite2D" parent="VISUAL/SPRITES/TOWER"]
+use_parent_material = true
+position = Vector2(-4, -5)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(32, 12, 8, 10)
+
+[node name="TowerPlateF" type="Sprite2D" parent="VISUAL/SPRITES/TOWER"]
+use_parent_material = true
+position = Vector2(1, -5)
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(18, 30, 9, 10)
+
+[node name="TowerPlateB" type="Sprite2D" parent="VISUAL/SPRITES/TOWER"]
+use_parent_material = true
+position = Vector2(-0.999997, 5)
+rotation = 3.14159
+texture = ExtResource("1_njsu2")
+centered = false
+region_enabled = true
+region_rect = Rect2(18, 30, 9, 10)
+
+[node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
+use_parent_material = true
+metadata/_edit_lock_ = true
+
+[node name="Base" type="Bone2D" parent="VISUAL/Skeleton2D"]
+use_parent_material = true
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Leg1" type="Bone2D" parent="VISUAL/Skeleton2D/Base"]
+use_parent_material = true
+rotation = 0.785398
+rest = Transform2D(0.707108, 0.707106, -0.707106, 0.707108, 0, 0)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Leg1RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/Leg1"]
+rotation = -0.785397
+remote_path = NodePath("../../../../SPRITES/BASE/Base1")
+
+[node name="Leg2" type="Bone2D" parent="VISUAL/Skeleton2D/Base"]
+use_parent_material = true
+rotation = 2.35619
+scale = Vector2(0.999999, 0.999999)
+rest = Transform2D(-0.70711, 0.707102, -0.707102, -0.70711, 9.53674e-07, -9.53674e-07)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Leg2RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/Leg2"]
+rotation = -0.785397
+remote_path = NodePath("../../../../SPRITES/BASE/Base2")
+
+[node name="Leg3" type="Bone2D" parent="VISUAL/Skeleton2D/Base"]
+use_parent_material = true
+rotation = -2.35619
+rest = Transform2D(-0.707111, -0.707103, 0.707103, -0.707111, 0, 0)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Leg3RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/Leg3"]
+rotation = -0.785397
+remote_path = NodePath("../../../../SPRITES/BASE/Base3")
+
+[node name="Leg4" type="Bone2D" parent="VISUAL/Skeleton2D/Base"]
+use_parent_material = true
+rotation = -0.785398
+scale = Vector2(1, 1)
+rest = Transform2D(0.707107, -0.707106, 0.707106, 0.707107, 0, 0)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Leg4RT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/Leg4"]
+rotation = -0.785397
+remote_path = NodePath("../../../../SPRITES/BASE/Base4")
+
+[node name="TowerBase" type="Bone2D" parent="VISUAL/Skeleton2D/Base"]
+use_parent_material = true
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="TowerPlateF" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase"]
+use_parent_material = true
+position = Vector2(3, 0)
+rest = Transform2D(1, 0, 0, 1, 3, 0)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = 0.0
+
+[node name="TowerPlateFRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/TowerPlateF"]
+position = Vector2(-2, -5)
+remote_path = NodePath("../../../../../SPRITES/TOWER/TowerPlateF")
+
+[node name="TowerPlateB" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase"]
+use_parent_material = true
+position = Vector2(-3, 0)
+rotation = 3.14159
+rest = Transform2D(-1, 2.53518e-06, -2.53518e-06, -1, -3, 0)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = 0.0
+
+[node name="TowerPlateBRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/TowerPlateB"]
+position = Vector2(-1.99999, -5.00001)
+remote_path = NodePath("../../../../../SPRITES/TOWER/TowerPlateB")
+
+[node name="LGunBase" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase"]
+use_parent_material = true
+position = Vector2(-1.00004, -4.99999)
+rotation = 1.57079
+rest = Transform2D(6.27438e-06, 1, -1, 6.27438e-06, -1, -5)
+
+[node name="LChargeMax" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase"]
+position = Vector2(-5, -1.00007)
+rotation = 1.57081
+scale = Vector2(1, -1)
+
+[node name="LChargeMin" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LChargeMax"]
+position = Vector2(8.00004, 6.42064e-05)
+
+[node name="LGunCharge" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase"]
+use_parent_material = true
+position = Vector2(-5, -0.999987)
+rotation = -1.5708
+rest = Transform2D(-3.61999e-06, -1, 1, -3.61999e-06, -5, -0.999987)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = 180.0
+
+[node name="LGunCharge" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunCharge"]
+position = Vector2(-9.99995, -3.00013)
+remote_path = NodePath("../../../../../../SPRITES/TOWER/LGUN/LGunCharge")
+
+[node name="LGunBarrel" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase"]
+use_parent_material = true
+position = Vector2(-3.00001, -2.99999)
+rest = Transform2D(1, 0, 0, 1, -2.99998, -3.00002)
+
+[node name="LGunBarrel2" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel"]
+use_parent_material = true
+position = Vector2(2.0504e-05, -9)
+rotation = -1.57079
+rest = Transform2D(6.27438e-06, -1, 1, 6.27438e-06, 2.0504e-05, -9)
+
+[node name="LGunBarrel3" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2"]
+use_parent_material = true
+position = Vector2(7.00002, 4.33922e-05)
+rotation = 1.57079
+rest = Transform2D(6.27438e-06, 1, -1, 6.27438e-06, 7.00002, 4.33922e-05)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = -89.9999
+
+[node name="LBulletPlace" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3"]
+position = Vector2(2.95639e-05, -5.99998)
+rotation = -1.57079
+
+[node name="LGunBarrel3" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3"]
+position = Vector2(-3, -1.88231e-05)
+rotation = -1.57079
+remote_path = NodePath("../../../../../../../../SPRITES/TOWER/LGUN/LBarrel3")
+
+[node name="LGunParticles" type="GPUParticles2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2/LGunBarrel3"]
+use_parent_material = true
+position = Vector2(2.38419e-05, -4.99998)
+rotation = -1.57079
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xqny4")
+texture = ExtResource("5_vg2ud")
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.8
+fract_delta = false
+
+[node name="LGunBarrel2" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel/LGunBarrel2"]
+use_parent_material = true
+position = Vector2(-0.999985, -3.99996)
+remote_path = NodePath("../../../../../../../SPRITES/TOWER/LGUN/LBarrel2")
+
+[node name="LGunBarrel" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase/LGunBarrel"]
+use_parent_material = true
+position = Vector2(-5, 0.999954)
+rotation = -1.57079
+remote_path = NodePath("../../../../../../SPRITES/TOWER/LGUN/LBarrel")
+
+[node name="LGunBase" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase"]
+use_parent_material = true
+position = Vector2(-9.00004, 6.99994)
+rotation = 4.71238
+remote_path = NodePath("../../../../../SPRITES/TOWER/LGUN/LGunBase")
+
+[node name="LGunConnector" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/LGunBase"]
+use_parent_material = true
+position = Vector2(-4.99998, -3.00003)
+remote_path = NodePath("../../../../../SPRITES/TOWER/LGUN/LGunConnect")
+
+[node name="RGunBase" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase"]
+use_parent_material = true
+position = Vector2(-0.999956, 5.00001)
+rotation = -1.5708
+scale = Vector2(1, -1)
+rest = Transform2D(-3.61999e-06, -1, -1, 3.61999e-06, -1, 5)
+
+[node name="RChargeMax" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase"]
+position = Vector2(-4.99999, -0.999938)
+rotation = 1.57079
+
+[node name="RChargeMin" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RChargeMax"]
+position = Vector2(8, 1.93834e-05)
+
+[node name="RGunCharge" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase"]
+use_parent_material = true
+position = Vector2(-4.99999, -1.00003)
+rotation = 1.57079
+rest = Transform2D(6.27438e-06, 1, -1, 6.27438e-06, -4.99999, -1.00003)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = 180.0
+
+[node name="RGunCharge" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunCharge"]
+position = Vector2(10, 2.99999)
+rotation = -3.14159
+remote_path = NodePath("../../../../../../SPRITES/TOWER/RGUN/RGunCharge")
+
+[node name="RGunBarrel" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase"]
+use_parent_material = true
+position = Vector2(-2.99998, -3.00002)
+rest = Transform2D(1, 0, 0, 1, -2.99998, -3.00002)
+
+[node name="RGunBarrel2" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel"]
+use_parent_material = true
+position = Vector2(2.0504e-05, -9)
+rotation = -1.57079
+rest = Transform2D(6.27438e-06, -1, 1, 6.27438e-06, 2.0504e-05, -9)
+
+[node name="RGunBarrel3" type="Bone2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2"]
+use_parent_material = true
+position = Vector2(7, -4.76837e-07)
+rotation = 1.57079
+rest = Transform2D(6.27438e-06, 1, -1, 6.27438e-06, 7, -4.76837e-07)
+auto_calculate_length_and_angle = false
+length = 8.0
+bone_angle = -89.9999
+
+[node name="RBulletPlace" type="Marker2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3"]
+position = Vector2(-0.000174522, -5.99997)
+rotation = -1.57079
+
+[node name="RGunBarrel3" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3"]
+use_parent_material = true
+position = Vector2(-3.00014, 3.5656e-05)
+rotation = -1.57079
+remote_path = NodePath("../../../../../../../../SPRITES/TOWER/RGUN/RBarrel3")
+
+[node name="RGunParticles" type="GPUParticles2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2/RGunBarrel3"]
+use_parent_material = true
+position = Vector2(2.38419e-05, -4.99998)
+rotation = -1.57079
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xqny4")
+texture = ExtResource("5_vg2ud")
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.59
+fract_delta = false
+
+[node name="RGunBarrel2" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel/RGunBarrel2"]
+use_parent_material = true
+position = Vector2(-1.00006, -4.00006)
+remote_path = NodePath("../../../../../../../SPRITES/TOWER/RGUN/RBarrel2")
+
+[node name="RGunBarrel" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase/RGunBarrel"]
+use_parent_material = true
+position = Vector2(-5.00002, 1.00004)
+rotation = -1.57079
+remote_path = NodePath("../../../../../../SPRITES/TOWER/RGUN/RBarrel")
+
+[node name="RGunBase" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase"]
+use_parent_material = true
+position = Vector2(-9.00005, 6.99992)
+rotation = -1.57079
+remote_path = NodePath("../../../../../SPRITES/TOWER/RGUN/RGunBase")
+
+[node name="RGunConnector" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase/RGunBase"]
+use_parent_material = true
+position = Vector2(-5.00001, -2.99998)
+remote_path = NodePath("../../../../../SPRITES/TOWER/RGUN/RGunConnect")
+
+[node name="TowerBaseRT" type="RemoteTransform2D" parent="VISUAL/Skeleton2D/Base/TowerBase"]
+use_parent_material = true
+position = Vector2(-4, -5)
+remote_path = NodePath("../../../../SPRITES/TOWER/TowerBase")
+
+[node name="COMBAT" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="HealthComponent" type="Node" parent="COMBAT"]
+script = ExtResource("6_e0gda")
+max_health = 6.0
+
+[node name="HitBox" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "timer")]
+position = Vector2(3, 0)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("7_31jrw")
+health_component = NodePath("../HealthComponent")
+resists = SubResource("Resource_rqdq4")
+timer = NodePath("Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="COMBAT/HitBox"]
+shape = SubResource("CircleShape2D_67kp4")
+
+[node name="Timer" type="Timer" parent="COMBAT/HitBox"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="DeathComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component", "target")]
+script = ExtResource("9_73lds")
+health_component = NodePath("../HealthComponent")
+target = NodePath("../..")
+
+[connection signal="hit_received" from="COMBAT/HitBox" to="OnHitAudio" method="start"]
+[connection signal="died" from="COMBAT/DeathComponent" to="OnDeathAudio" method="start"]

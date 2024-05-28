@@ -1,0 +1,169 @@
+[gd_scene load_steps=21 format=3 uid="uid://c6xeiu7kfp0xh"]
+
+[ext_resource type="Script" path="res://Scripts/Components/bullet.gd" id="1_bh6j0"]
+[ext_resource type="PackedScene" uid="uid://c1oj103c8vciq" path="res://Scenes/Objects/Turrets/bullet_explosive_explosion.tscn" id="2_2lsd4"]
+[ext_resource type="Texture2D" uid="uid://yg8mihatx5yc" path="res://Assets/Visual/Sheets/ProjectileSheet.png" id="2_3oouw"]
+[ext_resource type="Script" path="res://Scripts/simple_trail_2d.gd" id="3_0a6ld"]
+[ext_resource type="Texture2D" uid="uid://mq1tfdsrwgu7" path="res://Assets/Visual/Particles/sParticleDrop.png" id="4_erhcf"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_particles.gd" id="5_7lfcp"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="6_rhqr1"]
+[ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="7_8upa3"]
+[ext_resource type="AudioStream" uid="uid://bms6mdnmudp5h" path="res://addons/kenney impact sounds/footstep_carpet_000.ogg" id="9_vw262"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="10_pa8mq"]
+
+[sub_resource type="Curve" id="Curve_so8qo"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_grbm7"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.0144928, 0.865942, 1)
+colors = PackedColorArray(0, 0, 1, 0, 0, 0.5, 3, 1, 0, 0.5, 3, 1)
+
+[sub_resource type="Gradient" id="Gradient_2rjbq"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.135211, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 6, 6, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8ol2u"]
+gradient = SubResource("Gradient_2rjbq")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_827py"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0261097, 1.59497), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.14966, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ebchp"]
+curve = SubResource("Curve_827py")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0l24g"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.5
+direction = Vector3(-1, 0, 0)
+spread = 80.0
+initial_velocity_min = 80.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ebchp")
+color = Color(0, 0.5, 5, 1)
+color_ramp = SubResource("GradientTexture1D_8ol2u")
+
+[sub_resource type="Resource" id="Resource_8aken"]
+script = ExtResource("7_8upa3")
+attack_damage = 3.0
+knockback_force = 300.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nbsg8"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvuro"]
+radius = 5.0
+
+[node name="ExplosiveBullet" type="Node2D" node_paths=PackedStringArray("impact_particles", "payload_spawn_point")]
+use_parent_material = true
+script = ExtResource("1_bh6j0")
+speed = 300.0
+impact_particles = NodePath("VISUAL/ImpactVFX")
+on_impact_payload = ExtResource("2_2lsd4")
+payload_spawn_point = NodePath("Marker2D2")
+
+[node name="VISUAL" type="Node2D" parent="."]
+use_parent_material = true
+
+[node name="Sprite2D" type="Sprite2D" parent="VISUAL"]
+modulate = Color(0, 0.5, 3, 1)
+use_parent_material = true
+position = Vector2(-10, -6)
+texture = ExtResource("2_3oouw")
+centered = false
+region_enabled = true
+region_rect = Rect2(33, 19, 16, 12)
+
+[node name="Sprite2D2" type="Sprite2D" parent="VISUAL"]
+modulate = Color(0, 0.5, 3, 1)
+use_parent_material = true
+position = Vector2(-3, 6)
+rotation = 3.14159
+texture = ExtResource("2_3oouw")
+centered = false
+region_enabled = true
+region_rect = Rect2(51, 19, 7, 12)
+
+[node name="Core" type="Sprite2D" parent="VISUAL"]
+modulate = Color(0, 2, 3, 1)
+use_parent_material = true
+texture = ExtResource("2_3oouw")
+region_enabled = true
+region_rect = Rect2(1, 13, 4, 4)
+
+[node name="TrailOrigin" type="Marker2D" parent="VISUAL"]
+use_parent_material = true
+position = Vector2(-4, 0)
+
+[node name="SimpleTrail2D" type="Line2D" parent="VISUAL/TrailOrigin"]
+use_parent_material = true
+position = Vector2(1, 0)
+width = 12.0
+width_curve = SubResource("Curve_so8qo")
+gradient = SubResource("Gradient_grbm7")
+script = ExtResource("3_0a6ld")
+length = 12
+
+[node name="ImpactVFX" type="GPUParticles2D" parent="VISUAL"]
+use_parent_material = true
+position = Vector2(2, 0)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_0l24g")
+texture = ExtResource("4_erhcf")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+script = ExtResource("5_7lfcp")
+
+[node name="Marker2D2" type="RayCast2D" parent="."]
+position = Vector2(-26, 0)
+rotation = -1.5708
+target_position = Vector2(-1.1365e-06, 26)
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("knockback_origin")]
+use_parent_material = true
+collision_layer = 0
+collision_mask = 28
+script = ExtResource("6_rhqr1")
+attack = SubResource("Resource_8aken")
+knockback_origin = NodePath("../Marker2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+use_parent_material = true
+shape = SubResource("CircleShape2D_nbsg8")
+
+[node name="Collision Detector" type="Area2D" parent="."]
+use_parent_material = true
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Detector"]
+use_parent_material = true
+shape = SubResource("CircleShape2D_jvuro")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+use_parent_material = true
+position = Vector2(-37, 0)
+
+[node name="OnHitAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_vw262")
+pitch_scale = 0.5
+max_distance = 512.0
+attenuation = 4.0
+bus = &"SFX"
+script = ExtResource("10_pa8mq")
+
+[connection signal="impact_hit" from="." to="OnHitAudio" method="start"]
+[connection signal="hit_is_applied" from="HurtBox" to="." method="_on_hurt_box_hit_is_applied"]
+[connection signal="body_entered" from="Collision Detector" to="." method="_on_area_2d_body_entered"]

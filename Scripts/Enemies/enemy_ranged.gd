@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var attack_acceleration: float = 500.0
 @export var bullet: PackedScene
 @export var bullet_place: Node2D
-@export var bullet_speed: float = 500.0
 
 var nav_agent_safe_velocity: Vector2
 var desired_velocity: Vector2 
@@ -66,7 +65,7 @@ func shoot():
 		var intended_angle:float = bullet_place.global_rotation 
 		instance.global_position = bullet_place.global_position
 		instance.global_rotation = intended_angle
-		instance.initialize_velocity(intended_angle,bullet_speed)
+		instance.initialize_velocity(intended_angle)
 
 
 func _on_attack_state_physics_processing(_delta):
@@ -77,7 +76,6 @@ func _on_attack_state_entered():
 	player_sightline.enabled = false
 	acceleration = attack_acceleration
 	shoot_dir = global_position.angle_to_point(player.global_position)
-	#rotation = global_position.angle_to_point(player.global_position)
 	anim_player.play("Shoot")
 #endregion
 

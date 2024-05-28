@@ -1,23 +1,31 @@
-[gd_scene load_steps=28 format=3 uid="uid://b7gai7bqt5udr"]
+[gd_scene load_steps=37 format=3 uid="uid://b7gai7bqt5udr"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_dasher.gd" id="1_0ylr7"]
 [ext_resource type="Texture2D" uid="uid://dc1daxhsfw0t7" path="res://Assets/Visual/Sheets/EnemySheet.png" id="2_cuodg"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="3_7yj77"]
 [ext_resource type="Texture2D" uid="uid://bmga4s03k0iee" path="res://Assets/Visual/Sheets/EnemyGlow.png" id="3_8ljrn"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_two_bone_ik.gd" id="4_5cjrq"]
+[ext_resource type="AudioStream" uid="uid://cgk7n3n8mp8cp" path="res://Assets/Sound/mixkit-hitting-metal-armor-2775.wav" id="4_u8c3v"]
+[ext_resource type="AudioStream" uid="uid://yey7gdgfxwhg" path="res://Assets/Sound/sndTeleporterCharge.wav" id="5_mf4nx"]
 [ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="5_wr4kw"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="6_8mkw5"]
+[ext_resource type="AudioStream" uid="uid://dtm1hwospk3mv" path="res://Assets/Sound/sndTeleporter.wav" id="6_13804"]
+[ext_resource type="AudioStream" uid="uid://cgext4774qt0d" path="res://addons/kenney sci-fi sounds/explosion_crunch_004.ogg" id="7_01yh8"]
 [ext_resource type="Script" path="res://Scripts/Components/resists.gd" id="7_fs2py"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="8_uuvkg"]
 [ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="9_ofvtg"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="10_0xn75"]
+[ext_resource type="Script" path="res://Scripts/physics_stay_at.gd" id="10_xik2s"]
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="11_3j6lp"]
+[ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Easing/soup_second_order_easing_no_g.gd" id="11_x7jqb"]
 [ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="12_j5qve"]
 [ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="13_k6st2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="14_88jxo"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="15_4os42"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="16_hscyi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="17_mcrwm"]
+[ext_resource type="AudioStream" uid="uid://ciuj8yiv25pm6" path="res://Assets/Sound/metal-object-dropping-00.wav" id="19_o833n"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="20_vdib3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qu30e"]
 radius = 6.0
@@ -87,6 +95,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(3, 3, 3, 1), Color(0.3, 0.3, 0.3, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AUDIO/OnAggro:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../AUDIO/OnAttack:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_me50q"]
 length = 0.001
@@ -145,6 +177,12 @@ _data = {
 "RESET": SubResource("Animation_me50q")
 }
 
+[sub_resource type="Resource" id="Resource_sv6lh"]
+script = ExtResource("11_x7jqb")
+frequency = 2.001
+damping = 0.4
+reaction = 0.2
+
 [sub_resource type="Resource" id="Resource_h0kpn"]
 script = ExtResource("7_fs2py")
 armor = 0.0
@@ -172,10 +210,49 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_0ylr7")
 dash_acceleration = 4000.0
 rest_acceleration = 5000.0
+metadata/_edit_lock_ = true
 
 [node name="GeometryCollider" type="CollisionShape2D" parent="."]
 use_parent_material = true
 shape = SubResource("CircleShape2D_qu30e")
+
+[node name="AUDIO" type="Node2D" parent="."]
+
+[node name="OnHit" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("19_o833n")
+max_distance = 256.0
+attenuation = 2.0
+bus = &"SFX"
+script = ExtResource("20_vdib3")
+
+[node name="OnStep" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("4_u8c3v")
+volume_db = -20.0
+pitch_scale = 4.0
+max_distance = 512.0
+attenuation = 4.0
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="OnAggro" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("5_mf4nx")
+pitch_scale = 3.0
+max_distance = 512.0
+bus = &"SFX"
+
+[node name="OnAttack" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("6_13804")
+pitch_scale = 3.0
+max_distance = 512.0
+bus = &"SFX"
+
+[node name="OnDeath" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("7_01yh8")
+pitch_scale = 4.0
+max_distance = 512.0
+attenuation = 2.0
+bus = &"SFX"
+script = ExtResource("20_vdib3")
 
 [node name="VISUAL" type="Node2D" parent="."]
 use_parent_material = true
@@ -190,6 +267,7 @@ libraries = {
 [node name="SPRITES" type="Node2D" parent="VISUAL"]
 use_parent_material = true
 position = Vector2(-3, -3)
+metadata/_edit_lock_ = true
 
 [node name="LBFoot" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
@@ -203,14 +281,16 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(-3.5135, -6.74067)
 rotation = 0.103933
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
 
 [node name="LBLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-1.26348, -3.49066)
+position = Vector2(-1.26349, -3.49066)
 rotation = -1.49187
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(33, 13, 10, 4)
@@ -219,6 +299,7 @@ region_rect = Rect2(33, 13, 10, 4)
 use_parent_material = true
 position = Vector2(-6, 13)
 rotation = 3.03768
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -227,6 +308,7 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(-3.5135, 12.7407)
 rotation = -0.103915
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -244,6 +326,7 @@ region_rect = Rect2(33, 13, 10, 4)
 use_parent_material = true
 position = Vector2(11, -7)
 rotation = -1.82657
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -252,13 +335,14 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(11.6325, -4.58135)
 rotation = 1.31502
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
 
 [node name="LFLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(9.38251, -1.33134)
+position = Vector2(9.38251, -1.33133)
 rotation = -0.280782
 texture = ExtResource("2_cuodg")
 flip_v = true
@@ -269,6 +353,7 @@ region_rect = Rect2(33, 13, 10, 4)
 use_parent_material = true
 position = Vector2(11, 13)
 rotation = 1.82659
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(54, 13, 8, 8)
@@ -277,6 +362,7 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(11.6325, 10.5813)
 rotation = -1.315
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
@@ -285,13 +371,15 @@ region_rect = Rect2(44, 13, 9, 4)
 use_parent_material = true
 position = Vector2(9.38251, 7.33133)
 rotation = 0.28079
+scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(33, 13, 10, 4)
 
 [node name="LMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(6, -3)
+position = Vector2(3.84341, 0.189495)
+rotation = -1.30901
 texture = ExtResource("2_cuodg")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -309,7 +397,8 @@ region_rect = Rect2(16, 0, 8, 5)
 
 [node name="RMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(6, 3)
+position = Vector2(9.63896, 4.25763)
+rotation = 1.309
 texture = ExtResource("2_cuodg")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -356,9 +445,18 @@ region_rect = Rect2(10, 0, 6, 4)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
 use_parent_material = true
+metadata/_edit_lock_ = true
 
 [node name="SoupStack" type="Node" parent="VISUAL/Skeleton2D"]
 script = ExtResource("3_7yj77")
+
+[node name="SoupStayAt" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
+script = ExtResource("10_xik2s")
+target_node = NodePath("../..")
+enabled = true
+bone_node = NodePath("../../Body")
+use_easing = true
+easing = SubResource("Resource_sv6lh")
 
 [node name="LBIK" type="Node" parent="VISUAL/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "joint_one_bone_node", "joint_two_bone_node", "chain_tip")]
 script = ExtResource("4_5cjrq")
@@ -495,6 +593,7 @@ remote_path = NodePath("../../../../SPRITES/LFLeg1")
 [node name="RFLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(3.5, 3.5)
 rotation = 0.28079
+scale = Vector2(1, 1)
 rest = Transform2D(0.960837, 0.277115, -0.277115, 0.960837, 3.5, 3.5)
 
 [node name="RFLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/RFLeg1"]
@@ -607,6 +706,7 @@ proportional_speed = 0.4
 required_points = [NodePath("../dot_1"), NodePath("../dot_3")]
 
 [node name="COMBAT" type="Node2D" parent="."]
+visible = false
 use_parent_material = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -636,7 +736,7 @@ debug_color = Color(0.964706, 0, 0.498039, 0.419608)
 use_parent_material = true
 position = Vector2(7, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("8_uuvkg")
 attack = SubResource("Resource_pic8g")
 knockback_origin = NodePath("../..")
@@ -700,6 +800,7 @@ to = NodePath("../../Pursuit")
 delay_seconds = 1.0
 
 [node name="MOTION" type="Node2D" parent="."]
+visible = false
 use_parent_material = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -727,6 +828,10 @@ use_parent_material = true
 shape = SubResource("CircleShape2D_hm2is")
 debug_color = Color(0.647059, 0.701961, 0, 0.101961)
 
+[connection signal="step_landed" from="VISUAL/STEPTARGETS/dot_1" to="AUDIO/OnStep" method="play"]
+[connection signal="step_landed" from="VISUAL/STEPTARGETS/dot_2" to="AUDIO/OnStep" method="play"]
+[connection signal="hit_received" from="COMBAT/HitboxComponent" to="AUDIO/OnHit" method="start"]
+[connection signal="died" from="COMBAT/EnemyDeathComponent" to="AUDIO/OnDeath" method="start"]
 [connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]

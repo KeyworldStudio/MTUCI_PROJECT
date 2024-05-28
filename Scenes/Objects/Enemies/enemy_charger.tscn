@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b4i5vjcxw1ro2"]
+[gd_scene load_steps=53 format=3 uid="uid://b4i5vjcxw1ro2"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_charger.gd" id="1_5p8ul"]
 [ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_qvipm"]
@@ -7,14 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://bmga4s03k0iee" path="res://Assets/Visual/Sheets/EnemyGlow.png" id="3_4xodw"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="3_46l5a"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/soup_stack.gd" id="3_dnuin"]
+[ext_resource type="AudioStream" uid="uid://ciuj8yiv25pm6" path="res://Assets/Sound/metal-object-dropping-00.wav" id="3_hj5l5"]
 [ext_resource type="Script" path="res://Scripts/dot_movement_.gd" id="3_u7cti"]
 [ext_resource type="Script" path="res://addons/Souperior 2D Skeleton Modifications/Animatinators/Modifications/soup_two_bone_ik.gd" id="4_7l0km"]
 [ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="4_ool1e"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="4_yvi1u"]
+[ext_resource type="AudioStream" uid="uid://c2c1kq37kxbtq" path="res://addons/kenney sci-fi sounds/low_frequency_explosion_000.ogg" id="5_3sgsw"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_vh5re"]
 [ext_resource type="Script" path="res://Scripts/Components/knockback_component.gd" id="6_176dn"]
 [ext_resource type="Texture2D" uid="uid://mq1tfdsrwgu7" path="res://Assets/Visual/Particles/sParticleDrop.png" id="6_awbaw"]
+[ext_resource type="AudioStream" uid="uid://cgk7n3n8mp8cp" path="res://Assets/Sound/mixkit-hitting-metal-armor-2775.wav" id="6_wrrd5"]
 [ext_resource type="Script" path="res://Scripts/Components/enemy_death_component.gd" id="7_0p6hw"]
 [ext_resource type="Texture2D" uid="uid://df4qegm1mpx7p" path="res://Assets/Visual/Particles/lighttex_circle3.png" id="7_cdedi"]
+[ext_resource type="AudioStream" uid="uid://dml2u00357nay" path="res://Assets/Sound/ChargerDeploy1.wav" id="7_gdh2d"]
+[ext_resource type="AudioStream" uid="uid://b81wditdywiud" path="res://Assets/Sound/ChargerDeploy2.wav" id="7_sg1b1"]
+[ext_resource type="AudioStream" uid="uid://d21svwoad0qxf" path="res://addons/kenney impact sounds/impact_mining_004.ogg" id="8_788bb"]
 [ext_resource type="Script" path="res://Scripts/Components/drop_spawner.gd" id="8_b2gc4"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_ost3e"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_0jit8"]
@@ -182,6 +189,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [Color(0.3, 0.3, 0.3, 1), Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(2, 2, 2, 1), Color(0.3, 0.3, 0.3, 1), Color(0.3, 0.3, 0.3, 1), Color(2, 2, 2, 1), Color(4, 4, 4, 1)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../AUDIO/OnAggro:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vyegi"]
 resource_name = "ChargeExit"
@@ -344,6 +363,42 @@ tracks/12/keys = {
 "update": 0,
 "values": [Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.2, 0.2, 0.2, 1), Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../AUDIO/OnRecover:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../AUDIO/OnRecover:pitch_scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.2, 1.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../AUDIO/OnImpact:playing")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_hh7nn"]
 length = 0.001
@@ -491,6 +546,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [Color(0.3, 0.3, 0.3, 1)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../AUDIO/OnRecover:pitch_scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_joexm"]
 _data = {
@@ -606,10 +673,54 @@ script = ExtResource("1_5p8ul")
 attack_acceleration = 200.0
 normal_resists = SubResource("Resource_xsqjj")
 charge_resists = SubResource("Resource_ixtk1")
+metadata/_edit_lock_ = true
 
-[node name="KnockbackOrigin" type="Marker2D" parent="."]
-use_parent_material = true
-position = Vector2(-93, 0)
+[node name="AUDIO" type="Node2D" parent="."]
+
+[node name="OnHit" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("3_hj5l5")
+pitch_scale = 0.75
+max_distance = 512.0
+attenuation = 2.0
+bus = &"SFX"
+script = ExtResource("4_yvi1u")
+
+[node name="OnDeath" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("5_3sgsw")
+pitch_scale = 2.0
+max_distance = 512.0
+attenuation = 2.0
+bus = &"SFX"
+script = ExtResource("4_yvi1u")
+
+[node name="OnStepHeavy" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("6_wrrd5")
+volume_db = -15.0
+pitch_scale = 0.75
+max_distance = 512.0
+attenuation = 8.0
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="OnAggro" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("7_gdh2d")
+max_distance = 512.0
+attenuation = 4.0
+bus = &"SFX"
+
+[node name="OnImpact" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("8_788bb")
+volume_db = 5.0
+pitch_scale = 0.5
+max_distance = 512.0
+attenuation = 2.0
+bus = &"SFX"
+
+[node name="OnRecover" type="AudioStreamPlayer2D" parent="AUDIO"]
+stream = ExtResource("7_sg1b1")
+max_distance = 512.0
+attenuation = 4.0
+bus = &"SFX"
 
 [node name="GeometryCollider" type="CollisionShape2D" parent="."]
 use_parent_material = true
@@ -617,6 +728,7 @@ shape = SubResource("CircleShape2D_w2axu")
 
 [node name="VISUAL" type="Node2D" parent="."]
 use_parent_material = true
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="VISUAL"]
 libraries = {
@@ -715,7 +827,7 @@ region_rect = Rect2(45, 36, 17, 10)
 
 [node name="FRLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(12.4129, 24.5403)
+position = Vector2(12.4128, 24.5403)
 rotation = 2.88407
 scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
@@ -752,7 +864,7 @@ region_rect = Rect2(45, 36, 17, 10)
 [node name="BRLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(-15.9246, 10.2637)
-rotation = 0.870088
+rotation = 0.870087
 scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
@@ -764,7 +876,7 @@ region_rect = Rect2(45, 47, 17, 7)
 
 [node name="Head" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(1, 2)
+position = Vector2(5, 2)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
@@ -792,8 +904,8 @@ region_rect = Rect2(2, 40, 11, 13)
 
 [node name="LBlade" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(11, 2.00001)
-rotation = -3.14159
+position = Vector2(11, 1.99999)
+rotation = 3.14159
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
@@ -813,7 +925,7 @@ region_rect = Rect2(16, 13, 11, 5)
 [node name="RBlade" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(11, 18)
-rotation = -3.14159
+rotation = 3.14159
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
@@ -831,6 +943,7 @@ region_enabled = true
 region_rect = Rect2(16, 18, 11, 5)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="VISUAL"]
+metadata/_edit_lock_ = true
 
 [node name="SoupStack" type="Node" parent="VISUAL/Skeleton2D"]
 script = ExtResource("3_dnuin")
@@ -1054,18 +1167,22 @@ position = Vector2(-6, -7)
 remote_path = NodePath("../../../SPRITES/Body")
 
 [node name="Marker2D" type="RayCast2D" parent="VISUAL"]
+visible = false
 position = Vector2(-4, 0)
 target_position = Vector2(-19, -8)
 
 [node name="Marker2D2" type="RayCast2D" parent="VISUAL"]
+visible = false
 position = Vector2(-4, 0)
 target_position = Vector2(9, -16)
 
 [node name="Marker2D3" type="RayCast2D" parent="VISUAL"]
+visible = false
 position = Vector2(-4, 0)
 target_position = Vector2(9, 16)
 
 [node name="Marker2D4" type="RayCast2D" parent="VISUAL"]
+visible = false
 position = Vector2(-4, 0)
 target_position = Vector2(-19, 8)
 
@@ -1154,6 +1271,7 @@ randomness = 1.0
 [node name="COMBAT" type="Node2D" parent="."]
 visible = false
 use_parent_material = true
+metadata/_edit_lock_ = true
 
 [node name="HitBox" type="Area2D" parent="COMBAT" node_paths=PackedStringArray("health_component", "knockback_component", "knockback_target", "timer")]
 use_parent_material = true
@@ -1181,10 +1299,10 @@ debug_color = Color(0.964706, 0, 0.498039, 0.419608)
 use_parent_material = true
 position = Vector2(6, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("3_46l5a")
 attack = SubResource("Resource_l6r3i")
-knockback_origin = NodePath("../../KnockbackOrigin")
+knockback_origin = NodePath("../KnockbackOrigin")
 active = false
 
 [node name="HurtboxCollider" type="CollisionShape2D" parent="COMBAT/HurtBox"]
@@ -1214,6 +1332,10 @@ script = ExtResource("8_b2gc4")
 min_drops = 2
 max_drops = 4
 drop_velocity = 512
+
+[node name="KnockbackOrigin" type="Marker2D" parent="COMBAT"]
+use_parent_material = true
+position = Vector2(-93, 0)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("9_ost3e")
@@ -1247,7 +1369,9 @@ to = NodePath("../../Pursuit")
 event = &"rest_to_attack"
 
 [node name="MOTION" type="Node2D" parent="."]
+visible = false
 use_parent_material = true
+metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="MOTION"]
 avoidance_enabled = true
@@ -1274,7 +1398,11 @@ use_parent_material = true
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_bsxj1")
 
+[connection signal="step_landed" from="VISUAL/STEPTARGETS/dot_1" to="AUDIO/OnStepHeavy" method="play"]
+[connection signal="step_landed" from="VISUAL/STEPTARGETS/dot_2" to="AUDIO/OnStepHeavy" method="play"]
+[connection signal="hit_received" from="COMBAT/HitBox" to="AUDIO/OnHit" method="start"]
 [connection signal="hit_is_applied" from="COMBAT/HurtBox" to="." method="_on_hurt_box_hit_is_applied"]
+[connection signal="died" from="COMBAT/EnemyDeathComponent" to="AUDIO/OnDeath" method="start"]
 [connection signal="state_entered" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Pursuit" to="." method="_on_pursuit_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Attack" to="." method="_on_attack_state_entered"]

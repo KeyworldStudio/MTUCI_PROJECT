@@ -7,8 +7,10 @@ extends Node2D
 
 func _ready():
 	var playercam = GlobalRefs.player_camera_controller
-	playercam.set_limit(SIDE_LEFT,top_left_limit.global_position.x)
-	playercam.set_limit(SIDE_TOP,top_left_limit.global_position.y)
+	if top_left_limit:
+		playercam.set_limit(SIDE_LEFT,top_left_limit.global_position.x)
+		playercam.set_limit(SIDE_TOP,top_left_limit.global_position.y)
 	
-	playercam.set_limit(SIDE_RIGHT,bottom_right_limit.global_position.x)
-	playercam.set_limit(SIDE_BOTTOM,bottom_right_limit.global_position.y)
+	if bottom_right_limit:
+		playercam.set_limit(SIDE_RIGHT,bottom_right_limit.global_position.x)
+		playercam.set_limit(SIDE_BOTTOM,bottom_right_limit.global_position.y)

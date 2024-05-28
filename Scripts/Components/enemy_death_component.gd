@@ -1,6 +1,7 @@
 class_name EnemyDeathComponent
 extends Node
 
+signal died
 
 @export var health_component: HealthComponent: 
 	set(new_value):
@@ -16,4 +17,5 @@ func death():
 	if drop_spawner:
 		drop_spawner.spawn_drops()                                  
 	target.queue_free()
+	died.emit()
 	EnemyDeathSignalBus.enemy_died.emit(manager_linked)

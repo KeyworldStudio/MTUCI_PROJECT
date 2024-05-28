@@ -71,7 +71,7 @@ func release_charge():
 	hurtbox_component.active = true
 	hitbox_component.resists = charge_resists
 
-func _on_attack_state_physics_processing(delta):
+func _on_attack_state_physics_processing(_delta):
 	motion_attack()
 
 
@@ -126,7 +126,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 #endregion
 
 
-func _on_front_collision_detector_body_entered(body):
+func _on_front_collision_detector_body_entered(_body):
 	$StateChart.send_event("atk_to_rest")
 
 

@@ -1,9 +1,58 @@
-[gd_scene load_steps=8 format=3 uid="uid://cag6br1vm13bt"]
+[gd_scene load_steps=20 format=3 uid="uid://cag6br1vm13bt"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/enemy_bullet.gd" id="1_aqk3h"]
-[ext_resource type="Texture2D" uid="uid://bfwwhv0mbjkxf" path="res://Assets/Visual/Sprites/test_bullet.png" id="1_nm4wp"]
+[ext_resource type="Script" path="res://Scripts/Components/bullet.gd" id="1_2dj40"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="2_mjuj8"]
+[ext_resource type="Texture2D" uid="uid://yg8mihatx5yc" path="res://Assets/Visual/Sheets/ProjectileSheet.png" id="2_vr2yo"]
 [ext_resource type="Script" path="res://Scripts/Components/attack.gd" id="3_pnpha"]
+[ext_resource type="Texture2D" uid="uid://mq1tfdsrwgu7" path="res://Assets/Visual/Particles/sParticleDrop.png" id="4_mvjej"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_particles.gd" id="5_4rkmo"]
+[ext_resource type="Script" path="res://Scripts/simple_trail_2d.gd" id="5_q52ys"]
+[ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="8_0fr2h"]
+[ext_resource type="AudioStream" uid="uid://bmdmerdjr8ihy" path="res://addons/kenney sci-fi sounds/laser_small_004.ogg" id="8_k5lhy"]
+
+[sub_resource type="Curve" id="Curve_4kbeu"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_py1lt"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.0144928, 0.865942, 1)
+colors = PackedColorArray(1, 0, 0, 0, 3, 0, 0.5, 1, 3, 0, 0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_jxm4j"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.135211, 1)
+colors = PackedColorArray(0, 0, 0, 0, 4, 1, 2, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u31mt"]
+gradient = SubResource("Gradient_jxm4j")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_0oupt"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0261097, 1.59497), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.14966, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ce0ei"]
+curve = SubResource("Curve_0oupt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v1lsy"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.5
+direction = Vector3(-1, 0, 0)
+spread = 80.0
+initial_velocity_min = 80.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ce0ei")
+color = Color(3, 0, 0.5, 1)
+color_ramp = SubResource("GradientTexture1D_u31mt")
 
 [sub_resource type="Resource" id="Resource_r4vae"]
 script = ExtResource("3_pnpha")
@@ -16,14 +65,54 @@ size = Vector2(7, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ye3lf"]
 size = Vector2(7, 4)
 
-[node name="EnemyBullet" type="Node2D"]
+[node name="EnemyBullet" type="Node2D" node_paths=PackedStringArray("impact_particles")]
 use_parent_material = true
-script = ExtResource("1_aqk3h")
+script = ExtResource("1_2dj40")
+impact_particles = NodePath("VISUALS/ImpactVFX")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(3, 0, 0, 1)
+[node name="VISUALS" type="Node2D" parent="."]
 use_parent_material = true
-texture = ExtResource("1_nm4wp")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="VISUALS"]
+modulate = Color(3, 0, 0.5, 1)
+use_parent_material = true
+position = Vector2(-8, -3)
+texture = ExtResource("2_vr2yo")
+centered = false
+region_enabled = true
+region_rect = Rect2(40, 1, 11, 6)
+
+[node name="Core" type="Sprite2D" parent="VISUALS"]
+modulate = Color(6, 1, 2, 1)
+use_parent_material = true
+texture = ExtResource("2_vr2yo")
+region_enabled = true
+region_rect = Rect2(2, 2, 2, 2)
+
+[node name="TrailOrigin" type="Marker2D" parent="VISUALS"]
+use_parent_material = true
+position = Vector2(-4, 0)
+
+[node name="SimpleTrail2D" type="Line2D" parent="VISUALS/TrailOrigin"]
+use_parent_material = true
+position = Vector2(1, 0)
+width = 6.0
+width_curve = SubResource("Curve_4kbeu")
+gradient = SubResource("Gradient_py1lt")
+script = ExtResource("5_q52ys")
+length = 6
+
+[node name="ImpactVFX" type="GPUParticles2D" parent="VISUALS"]
+use_parent_material = true
+position = Vector2(2, 0)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_v1lsy")
+texture = ExtResource("4_mvjej")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+script = ExtResource("5_4rkmo")
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("knockback_origin")]
 use_parent_material = true
@@ -41,6 +130,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Area2D" type="Area2D" parent="."]
 use_parent_material = true
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 use_parent_material = true
@@ -51,5 +141,13 @@ shape = SubResource("RectangleShape2D_ye3lf")
 use_parent_material = true
 position = Vector2(-37, 0)
 
+[node name="OnImpact" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_k5lhy")
+pitch_scale = 0.33
+max_distance = 128.0
+attenuation = 4.0
+script = ExtResource("8_0fr2h")
+
+[connection signal="impact_hit" from="." to="OnImpact" method="start"]
 [connection signal="hit_is_applied" from="HurtBox" to="." method="_on_hurt_box_hit_is_applied"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

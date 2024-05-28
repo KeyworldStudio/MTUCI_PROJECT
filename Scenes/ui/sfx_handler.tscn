@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dekf14gjhqkyh"]
 
-[ext_resource type="AudioStream" uid="uid://7hqukpeqf46e" path="res://Assets/sound/pop2.wav" id="1_o0nhm"]
+[ext_resource type="AudioStream" uid="uid://7hqukpeqf46e" path="res://Assets/Sound/pop2.wav" id="1_o0nhm"]
 
 [node name="SFX_handler" type="Node2D"]
 
