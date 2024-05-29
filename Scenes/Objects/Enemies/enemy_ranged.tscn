@@ -382,7 +382,7 @@ region_rect = Rect2(33, 18, 15, 3)
 
 [node name="LegR2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-7.56778, 7.85623)
+position = Vector2(-7.56778, 7.85622)
 rotation = 0.429773
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
@@ -393,7 +393,7 @@ region_rect = Rect2(33, 22, 15, 5)
 
 [node name="FootL" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-2.70555, -10.6665)
+position = Vector2(-2.70556, -10.6665)
 rotation = -1.44644
 scale = Vector2(0.999999, 0.999999)
 texture = ExtResource("3_22m7x")
@@ -485,7 +485,6 @@ explosiveness = 0.86
 [node name="Jaw1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(3, -6)
-scale = Vector2(1, 1)
 texture = ExtResource("3_22m7x")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -582,7 +581,6 @@ remote_path = NodePath("../../../SPRITES/Body")
 [node name="Jaw1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 use_parent_material = true
 position = Vector2(2, -2)
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 2, -2)
 auto_calculate_length_and_angle = false
 length = 8.0
@@ -652,7 +650,6 @@ remote_path = NodePath("../../../../../SPRITES/LegB2")
 use_parent_material = true
 position = Vector2(-10, 0)
 rotation = 1.14102
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
@@ -693,7 +690,6 @@ remote_path = NodePath("../../../../../SPRITES/LegL2")
 use_parent_material = true
 position = Vector2(-10, 0)
 rotation = -1.01667
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, -10, 0)
 auto_calculate_length_and_angle = false
 length = 2.0
