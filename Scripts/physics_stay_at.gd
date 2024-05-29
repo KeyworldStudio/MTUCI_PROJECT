@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 			and _parent_enable_check() 
 		):
 		return
-	
+
 	var result_position: Vector2 = target_node.global_position
 	if easing and use_easing:
 		easing.update(delta,target_node.global_position)
@@ -34,7 +34,3 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	pass
 
-func fix_easing():
-	if !(easing and bone_node and target_node):
-		return
-	easing.initialize_variables(target_node.global_position)

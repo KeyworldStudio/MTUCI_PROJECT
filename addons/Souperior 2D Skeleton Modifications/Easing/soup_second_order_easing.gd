@@ -52,10 +52,14 @@ func compute_constants(f: float, z: float, r: float) -> void:
 	k1 = z / (PI * f)
 	k2 = 1.0 / ((TAU * f)*(TAU * f))
 	k3 = r * z / (TAU * f)
+
+
 func initialize_variables(i0: Vector2) -> void:
 	ip = i0
 	state = i0
 	sd = Vector2.ZERO
+
+
 func update(delta: float, i: Vector2) -> void:
 	var id: Vector2 = (i-ip) / delta # Input velocity estimation
 	ip = i

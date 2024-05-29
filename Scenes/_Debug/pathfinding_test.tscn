@@ -12,13 +12,13 @@
 
 [sub_resource type="Resource" id="Resource_lj2xq"]
 script = ExtResource("7_n0oiv")
-price = 30
+price = 20
 starting_wave = 0
 scene = ExtResource("6_ykx3v")
 
 [sub_resource type="Resource" id="Resource_qk270"]
 script = ExtResource("7_n0oiv")
-price = 30
+price = 20
 starting_wave = 0
 scene = ExtResource("8_f5r5g")
 
@@ -63,9 +63,11 @@ position = Vector2(848, 608)
 
 [node name="WaveManager" type="Node2D" parent="."]
 script = ExtResource("3_xxjun")
-mana = 300
 enemy_data = Array[ExtResource("7_n0oiv")]([ExtResource("4_puf5h"), ExtResource("5_elgof"), SubResource("Resource_lj2xq"), SubResource("Resource_qk270")])
 wave_time = 900
+
+[node name="Node2D4" type="Node2D" parent="WaveManager"]
+position = Vector2(154, 472)
 
 [node name="Node2D" type="Node2D" parent="WaveManager"]
 position = Vector2(79, 89)
@@ -75,9 +77,6 @@ position = Vector2(278, 107)
 
 [node name="Node2D3" type="Node2D" parent="WaveManager"]
 position = Vector2(590, 94)
-
-[node name="Node2D4" type="Node2D" parent="WaveManager"]
-position = Vector2(154, 472)
 
 [node name="Node2D5" type="Node2D" parent="WaveManager"]
 position = Vector2(782, 547)
@@ -101,5 +100,5 @@ texture = SubResource("GradientTexture2D_0mpio")
 texture_scale = 6.0
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(-2, 303)
+position = Vector2(276, 483)
 script = ExtResource("9_yeaht")

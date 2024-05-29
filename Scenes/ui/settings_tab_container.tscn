@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://olq4ksfem6fi"]
 
-[ext_resource type="FontFile" uid="uid://b535gvpcmi2ak" path="res://Scenes/ui/MaredivRegular.ttf" id="1_du2qp"]
-[ext_resource type="PackedScene" uid="uid://fsrx5pw1a0gn" path="res://Scenes/ui/audio_slider_settings.tscn" id="2_jt7wt"]
+[ext_resource type="FontFile" uid="uid://b535gvpcmi2ak" path="res://Scenes/UI/MaredivRegular.ttf" id="1_du2qp"]
+[ext_resource type="PackedScene" uid="uid://fsrx5pw1a0gn" path="res://Scenes/UI/audio_slider_settings.tscn" id="2_jt7wt"]
 [ext_resource type="Script" path="res://Scenes/ui/ButtonTestSFX.gd" id="2_x0cq0"]
 [ext_resource type="AudioStream" uid="uid://7hqukpeqf46e" path="res://Assets/Sound/pop2.wav" id="3_5u52y"]
 

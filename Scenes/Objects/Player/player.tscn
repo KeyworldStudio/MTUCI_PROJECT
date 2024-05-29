@@ -147,13 +147,13 @@ frequency = 2.001
 damping = 0.6
 reaction = 8.0
 
-[sub_resource type="Resource" id="Resource_yfhqe"]
+[sub_resource type="Resource" id="Resource_lbcl6"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_034qm"]
+[sub_resource type="Resource" id="Resource_2mblq"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
@@ -407,7 +407,7 @@ target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Head")
 use_easing = true
-easing = SubResource("Resource_yfhqe")
+easing = SubResource("Resource_lbcl6")
 
 [node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_j2uqd")
@@ -415,7 +415,7 @@ target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Crotch")
 use_easing = true
-easing = SubResource("Resource_034qm")
+easing = SubResource("Resource_2mblq")
 
 [node name="ArmLLookAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_lfrkt")
