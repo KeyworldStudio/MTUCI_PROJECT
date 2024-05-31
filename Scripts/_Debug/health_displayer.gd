@@ -1,7 +1,7 @@
 extends Label
 
-var health: float
-var scrap: int
+@onready var health: float
+@onready var scrap: int = 10
 
 func _on_health_component_damaged(new_value):
 	health = new_value

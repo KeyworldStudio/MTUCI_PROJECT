@@ -136,7 +136,7 @@ frequency = 2.001
 damping = 0.2
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_sjkl6"]
+[sub_resource type="Resource" id="Resource_6jmku"]
 script = ExtResource("7_jalaf")
 frequency = 2.001
 damping = 0.05
@@ -355,7 +355,6 @@ region_rect = Rect2(33, 22, 15, 5)
 use_parent_material = true
 position = Vector2(-5.67642, 14.4998)
 rotation = -2.59236
-scale = Vector2(1, 1)
 texture = ExtResource("2_dhcj5")
 centered = false
 offset = Vector2(0, 0.5)
@@ -488,7 +487,7 @@ target_node = NodePath("../../SackJiggleTarget")
 enabled = true
 bone_node = NodePath("../../Body/Sack")
 use_easing = true
-easing = SubResource("Resource_sjkl6")
+easing = SubResource("Resource_6jmku")
 
 [node name="Body" type="Bone2D" parent="VISUAL/Skeleton2D"]
 use_parent_material = true

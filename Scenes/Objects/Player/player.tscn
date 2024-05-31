@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=46 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="AudioStream" uid="uid://b3ffk3webmylm" path="res://addons/kenney sci-fi sounds/impact_metal_000.ogg" id="2_mf6g7"]
@@ -147,13 +147,13 @@ frequency = 2.001
 damping = 0.6
 reaction = 8.0
 
-[sub_resource type="Resource" id="Resource_ywtri"]
+[sub_resource type="Resource" id="Resource_ipjmm"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_07o54"]
+[sub_resource type="Resource" id="Resource_jcoxb"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
@@ -190,22 +190,16 @@ height = 14.0
 
 [sub_resource type="Resource" id="Resource_00ma5"]
 script = ExtResource("16_56avs")
-price = 0
+price = 5
 size = 7.0
 scene = ExtResource("16_x5117")
 turret_id = ""
 
 [sub_resource type="Resource" id="Resource_ih7uf"]
 script = ExtResource("16_56avs")
-price = 0
+price = 20
 size = 24.0
 scene = ExtResource("19_gtjsg")
-turret_id = ""
-
-[sub_resource type="Resource" id="Resource_ig0vh"]
-script = ExtResource("16_56avs")
-price = 0
-size = 32.0
 turret_id = ""
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
@@ -407,7 +401,7 @@ target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Head")
 use_easing = true
-easing = SubResource("Resource_ywtri")
+easing = SubResource("Resource_ipjmm")
 
 [node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_j2uqd")
@@ -415,7 +409,7 @@ target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Crotch")
 use_easing = true
-easing = SubResource("Resource_07o54")
+easing = SubResource("Resource_jcoxb")
 
 [node name="ArmLLookAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_lfrkt")
@@ -635,7 +629,6 @@ target = NodePath("../..")
 
 [node name="ResourceComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("health_component")]
 script = ExtResource("10_6rnd7")
-starting_scrap = 20
 health_component = NodePath("../HealthComponent")
 
 [node name="TurretCreator" type="Area2D" parent="." node_paths=PackedStringArray("resource_component", "placement_collider", "placement_indicator")]
@@ -644,7 +637,7 @@ position = Vector2(18, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_m8gx5")
-turrets = Array[ExtResource("16_56avs")]([SubResource("Resource_00ma5"), SubResource("Resource_ih7uf"), SubResource("Resource_ig0vh")])
+turrets = Array[ExtResource("16_56avs")]([SubResource("Resource_00ma5"), SubResource("Resource_ih7uf")])
 resource_component = NodePath("../COMBAT/ResourceComponent")
 placement_collider = NodePath("CollisionShape2D")
 placement_indicator = NodePath("Sprite2D")
@@ -670,14 +663,23 @@ shape = SubResource("CircleShape2D_hv12w")
 debug_color = Color(0.423529, 0.458824, 1, 0.0392157)
 
 [node name="Label" type="Label" parent="."]
-top_level = true
-offset_left = 23.0
-offset_top = 16.0
-offset_right = 63.0
-offset_bottom = 39.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -35.0
+offset_right = 24.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.57079
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("10_uc35w")
 metadata/_edit_use_anchors_ = true
 

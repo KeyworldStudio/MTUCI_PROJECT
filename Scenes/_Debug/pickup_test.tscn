@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cs3mho0qq34mi"]
+[gd_scene load_steps=23 format=3 uid="uid://la8s4lywhkc0"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_5wk1h"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_oyhla"]
