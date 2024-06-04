@@ -9,6 +9,7 @@ extends Area2D
 		placement_indicator = value
 		indicator_tex_size = placement_indicator.texture.get_size()
 		placement_indicator.modulate = indicator_disabled_color
+@export var aim_indicator: Node2D
 @export var indicator_disabled_color: Color = Color.TRANSPARENT
 @export var indicator_allowed_color: Color = Color.GREEN
 @export var indicator_blocked_color: Color = Color.RED
@@ -30,6 +31,7 @@ func _on_area_2d_body_exited(_body):
 
 func size_change():
 	position.x = turrets[current].size + 10
+	aim_indicator.position.x = turrets[current].size
 	placement_collider.shape.radius = turrets[current].size
 	placement_indicator.scale.x = 2 * turrets[current].size / indicator_tex_size.x
 	placement_indicator.scale.y = 2 * turrets[current].size / indicator_tex_size.y
@@ -57,12 +59,17 @@ func turret_creation():
 
 func indicator_color_set()->void:
 	if !Input.is_action_pressed('place_turret'):
+		aim_indicator.hide()
 		placement_indicator.modulate = indicator_disabled_color
 		return
+	aim_indicator.show()
 	if objects_in_scope <= 0:
+		aim_indicator.modulate = indicator_allowed_color
 		placement_indicator.modulate = indicator_allowed_color
 		return
+	aim_indicator.modulate = indicator_blocked_color
 	placement_indicator.modulate = indicator_blocked_color
+	
 
 func _physics_process(_delta):
 	if len(turrets)>0:

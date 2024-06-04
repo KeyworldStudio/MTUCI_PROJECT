@@ -1,0 +1,230 @@
+[gd_scene load_steps=6 format=3 uid="uid://3sb423rahong"]
+
+[ext_resource type="Script" path="res://Scripts/settings_menu.gd" id="1_7pnao"]
+[ext_resource type="AudioStream" uid="uid://7hqukpeqf46e" path="res://Assets/Sound/pop2.wav" id="2_t5hsd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ksywe"]
+font_size = 24
+shadow_color = Color(0.310218, 0.253728, 0.263197, 1)
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2cnl"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 20.0
+bg_color = Color(0.109804, 0.0627451, 0.113725, 0)
+skew = Vector2(0.3, 0)
+border_width_left = 32
+border_width_top = 15
+border_width_right = 32
+border_width_bottom = 18
+border_color = Color(0.397686, 0.254767, 0.405061, 1)
+border_blend = true
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+shadow_color = Color(0, 0, 0, 0.847059)
+shadow_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_sejof"]
+shadow_color = Color(0.310218, 0.253728, 0.263197, 1)
+shadow_offset = Vector2(0, 2)
+
+[node name="SettingsMenu" type="VBoxContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_right = 190.0
+offset_bottom = 181.0
+grow_horizontal = 2
+script = ExtResource("1_7pnao")
+
+[node name="RichTextLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_ksywe")
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+
+[node name="Audio" type="PanelContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2cnl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 2
+
+[node name="MasterSlider" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MASTER" type="Label" parent="TabContainer/Audio/VBoxContainer/MasterSlider"]
+layout_mode = 2
+text = "MASTER
+"
+label_settings = SubResource("LabelSettings_sejof")
+horizontal_alignment = 2
+
+[node name="Master" type="HSlider" parent="TabContainer/Audio/VBoxContainer/MasterSlider"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+tick_count = 21
+ticks_on_borders = true
+
+[node name="Control" type="Control" parent="TabContainer/Audio/VBoxContainer/MasterSlider"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="MusicSlider" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MUSIC" type="Label" parent="TabContainer/Audio/VBoxContainer/MusicSlider"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_sejof")
+horizontal_alignment = 2
+
+[node name="Music" type="HSlider" parent="TabContainer/Audio/VBoxContainer/MusicSlider"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+tick_count = 21
+ticks_on_borders = true
+
+[node name="MFXTest" type="AudioStreamPlayer" parent="TabContainer/Audio/VBoxContainer/MusicSlider/Music"]
+stream = ExtResource("2_t5hsd")
+pitch_scale = 2.0
+bus = &"Music"
+
+[node name="Control" type="Control" parent="TabContainer/Audio/VBoxContainer/MusicSlider"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+
+[node name="SoundSlider" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="SOUND" type="Label" parent="TabContainer/Audio/VBoxContainer/SoundSlider"]
+layout_mode = 2
+text = "sound
+"
+label_settings = SubResource("LabelSettings_sejof")
+horizontal_alignment = 2
+
+[node name="Sound" type="HSlider" parent="TabContainer/Audio/VBoxContainer/SoundSlider"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+tick_count = 21
+ticks_on_borders = true
+
+[node name="SFXTest" type="AudioStreamPlayer" parent="TabContainer/Audio/VBoxContainer/SoundSlider/Sound"]
+stream = ExtResource("2_t5hsd")
+pitch_scale = 3.0
+bus = &"SFX"
+
+[node name="Control" type="Control" parent="TabContainer/Audio/VBoxContainer/SoundSlider"]
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MuteMusic" type="CheckBox" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mute Music"
+
+[node name="MuteSound" type="CheckBox" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mute Sound
+"
+
+[node name="ResetAudio" type="Button" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "RESET AUDIO"
+
+[node name="VIDEO" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2cnl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VIDEO"]
+layout_mode = 2
+
+[node name="BrightnessSlider" type="HBoxContainer" parent="TabContainer/VIDEO/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="TabContainer/VIDEO/VBoxContainer/BrightnessSlider"]
+custom_minimum_size = Vector2(11, 0)
+layout_mode = 2
+
+[node name="BRIGHTNESS" type="Label" parent="TabContainer/VIDEO/VBoxContainer/BrightnessSlider"]
+layout_mode = 2
+text = "Brightness
+"
+label_settings = SubResource("LabelSettings_sejof")
+
+[node name="Brightness" type="HSlider" parent="TabContainer/VIDEO/VBoxContainer/BrightnessSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.125
+max_value = 8.0
+step = 0.125
+value = 1.0
+exp_edit = true
+tick_count = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/VIDEO/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullScreen" type="CheckBox" parent="TabContainer/VIDEO/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Fullscreen
+"
+
+[node name="VSync" type="CheckBox" parent="TabContainer/VIDEO/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+button_pressed = true
+text = "VSYNC
+"
+
+[node name="Control" type="Control" parent="TabContainer/VIDEO/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="ResetVideo" type="Button" parent="TabContainer/VIDEO/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "RESET VIDEO"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/MasterSlider/Master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/MusicSlider/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/SoundSlider/Sound" to="." method="_on_sound_value_changed"]
+[connection signal="toggled" from="TabContainer/Audio/VBoxContainer/HBoxContainer/MuteMusic" to="." method="_on_mute_music_toggled"]
+[connection signal="toggled" from="TabContainer/Audio/VBoxContainer/HBoxContainer/MuteSound" to="." method="_on_mute_sound_toggled"]
+[connection signal="pressed" from="TabContainer/Audio/VBoxContainer/HBoxContainer/ResetAudio" to="." method="_on_reset_audio_pressed"]
+[connection signal="value_changed" from="TabContainer/VIDEO/VBoxContainer/BrightnessSlider/Brightness" to="." method="_on_brightness_value_changed"]
+[connection signal="toggled" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/FullScreen" to="." method="_on_full_screen_toggled"]
+[connection signal="toggled" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/VSync" to="." method="_on_v_sync_toggled"]
+[connection signal="pressed" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/ResetVideo" to="." method="_on_reset_video_pressed"]

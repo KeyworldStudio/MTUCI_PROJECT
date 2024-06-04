@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
-[ext_resource type="Script" path="res://Scripts/brightness_slider.gd" id="8_md0hk"]
+[ext_resource type="PackedScene" uid="uid://bth52dx81lawv" path="res://Scenes/UI/pause_menu.tscn" id="9_gt5jq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngknl"]
 light_mode = 2
@@ -15,6 +15,7 @@ light_mode = 2
 [sub_resource type="Environment" id="Environment_7buv0"]
 background_mode = 3
 background_energy_multiplier = 0.0
+background_canvas_max_layer = 2
 glow_enabled = true
 glow_normalized = true
 glow_bloom = 0.1
@@ -24,9 +25,11 @@ glow_map_strength = 0.0
 adjustment_enabled = true
 
 [node name="MainScene" type="Node"]
+process_mode = 3
 script = ExtResource("1_yylq0")
 
 [node name="GameWorld" type="Node2D" parent="."]
+process_mode = 1
 material = SubResource("CanvasItemMaterial_ngknl")
 script = ExtResource("2_61ne2")
 starting_scene = ExtResource("3_v2f06")
@@ -87,24 +90,5 @@ environment = SubResource("Environment_7buv0")
 
 [node name="MainGUI" type="CanvasLayer" parent="."]
 
-[node name="CanvasGroup" type="CanvasGroup" parent="MainGUI"]
-
-[node name="HSlider" type="HSlider" parent="MainGUI/CanvasGroup" node_paths=PackedStringArray("world_env")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 121.5
-offset_top = 254.0
-offset_right = 358.5
-offset_bottom = 270.0
-grow_horizontal = 2
-grow_vertical = 0
-min_value = 0.125
-max_value = 16.0
-step = 0.125
-value = 1.0
-tick_count = 16
-script = ExtResource("8_md0hk")
-world_env = NodePath("../../../GameWorld/WorldEnvironment")
+[node name="PauseMenu" parent="MainGUI" instance=ExtResource("9_gt5jq")]
+visible = false

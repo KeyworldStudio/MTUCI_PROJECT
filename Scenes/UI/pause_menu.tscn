@@ -1,0 +1,149 @@
+[gd_scene load_steps=9 format=3 uid="uid://bth52dx81lawv"]
+
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_awq0k"]
+[ext_resource type="PackedScene" uid="uid://3sb423rahong" path="res://Scenes/UI/settings_menu.tscn" id="2_cn3bf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl5i4"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.109804, 0.0627451, 0.113725, 0)
+skew = Vector2(0.3, 0)
+border_width_left = 32
+border_width_top = 24
+border_width_right = 32
+border_width_bottom = 16
+border_color = Color(0.397686, 0.254767, 0.405061, 1)
+border_blend = true
+shadow_color = Color(0, 0, 0, 0.913725)
+shadow_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_arc6b"]
+font_size = 24
+shadow_color = Color(0.310218, 0.253728, 0.263197, 1)
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="InputEventAction" id="InputEventAction_xtheu"]
+action = &"pause"
+
+[sub_resource type="Shortcut" id="Shortcut_dnmmx"]
+events = [SubResource("InputEventAction_xtheu")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_5w0un"]
+action = &"pause"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_sdufp"]
+events = [SubResource("InputEventAction_5w0un")]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_awq0k")
+
+[node name="PauseContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.5
+offset_top = -75.5
+offset_right = 128.5
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dl5i4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="Label" parent="PauseContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " PAUSED"
+label_settings = SubResource("LabelSettings_arc6b")
+horizontal_alignment = 2
+
+[node name="Resume" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_dnmmx")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "RESUME"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Restart" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = " RESTART "
+
+[node name="Settings" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = " SETTINGS "
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="Control2" type="Control" parent="PauseContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+
+[node name="SettingsContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.067
+anchor_right = 0.5
+anchor_bottom = 0.067
+offset_left = -190.0
+offset_top = -0.0900002
+offset_right = 190.0
+offset_bottom = 228.91
+grow_horizontal = 2
+
+[node name="SettingsMenu" parent="SettingsContainer" instance=ExtResource("2_cn3bf")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SettingsCancel" type="Button" parent="SettingsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_sdufp")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "CANCEL"
+
+[node name="SettingsApply" type="Button" parent="SettingsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "APPLY"
+
+[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer2/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer2/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer4/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsCancel" to="." method="_on_settings_cancel_pressed"]
+[connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsApply" to="." method="_on_settings_apply_pressed"]
