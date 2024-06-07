@@ -42,7 +42,6 @@ enabled=PackedStringArray("res://addons/Souperior 2D Skeleton Modifications/plug
 
 theme/custom="res://Assets/Visual/DefaultTheme.tres"
 theme/custom_font="res://Assets/Visual/DefaultFont.tres"
-theme/default_font_antialiasing=0
 theme/default_font_subpixel_positioning=0
 
 [input]
@@ -127,3 +126,4 @@ common/physics_ticks_per_second=32
 textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 viewport/hdr_2d=true
+anti_aliasing/quality/use_debanding=true

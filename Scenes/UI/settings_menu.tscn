@@ -48,8 +48,10 @@ horizontal_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
+current_tab = 1
 
 [node name="Audio" type="PanelContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2cnl")
 
@@ -160,7 +162,6 @@ theme_override_font_sizes/font_size = 12
 text = "RESET AUDIO"
 
 [node name="VIDEO" type="PanelContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2cnl")
 
@@ -169,6 +170,7 @@ layout_mode = 2
 
 [node name="BrightnessSlider" type="HBoxContainer" parent="TabContainer/VIDEO/VBoxContainer"]
 layout_mode = 2
+alignment = 2
 
 [node name="Control" type="Control" parent="TabContainer/VIDEO/VBoxContainer/BrightnessSlider"]
 custom_minimum_size = Vector2(11, 0)
@@ -189,6 +191,33 @@ step = 0.125
 value = 1.0
 exp_edit = true
 tick_count = 5
+
+[node name="UIScaleSlider" type="HBoxContainer" parent="TabContainer/VIDEO/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Control" type="Control" parent="TabContainer/VIDEO/VBoxContainer/UIScaleSlider"]
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+
+[node name="UIScale2" type="Label" parent="TabContainer/VIDEO/VBoxContainer/UIScaleSlider"]
+layout_mode = 2
+text = "UI Scale"
+label_settings = SubResource("LabelSettings_sejof")
+
+[node name="UIScale" type="HSlider" parent="TabContainer/VIDEO/VBoxContainer/UIScaleSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.25
+max_value = 1.0
+step = 0.125
+value = 1.0
+tick_count = 7
+ticks_on_borders = true
+
+[node name="Control2" type="Control" parent="TabContainer/VIDEO/VBoxContainer/UIScaleSlider"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/VIDEO/VBoxContainer"]
 layout_mode = 2
@@ -225,6 +254,7 @@ text = "RESET VIDEO"
 [connection signal="toggled" from="TabContainer/Audio/VBoxContainer/HBoxContainer/MuteSound" to="." method="_on_mute_sound_toggled"]
 [connection signal="pressed" from="TabContainer/Audio/VBoxContainer/HBoxContainer/ResetAudio" to="." method="_on_reset_audio_pressed"]
 [connection signal="value_changed" from="TabContainer/VIDEO/VBoxContainer/BrightnessSlider/Brightness" to="." method="_on_brightness_value_changed"]
+[connection signal="drag_ended" from="TabContainer/VIDEO/VBoxContainer/UIScaleSlider/UIScale" to="." method="_on_ui_scale_drag_ended"]
 [connection signal="toggled" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/FullScreen" to="." method="_on_full_screen_toggled"]
 [connection signal="toggled" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/VSync" to="." method="_on_v_sync_toggled"]
 [connection signal="pressed" from="TabContainer/VIDEO/VBoxContainer/HBoxContainer/ResetVideo" to="." method="_on_reset_video_pressed"]

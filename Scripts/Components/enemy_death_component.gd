@@ -14,8 +14,9 @@ signal died
 
 # функция смерти
 func death():
-	if drop_spawner:
-		drop_spawner.spawn_drops()                                  
+	await get_tree().physics_frame
+	if is_instance_valid(drop_spawner):
+		drop_spawner.spawn_drops.call_deferred()
 	target.queue_free()
 	died.emit()
 	EnemyDeathSignalBus.enemy_died.emit(manager_linked)

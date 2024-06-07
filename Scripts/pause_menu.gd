@@ -3,6 +3,7 @@ extends Control
 @onready var pause_container: PanelContainer = $PauseContainer
 @onready var settings_container: VBoxContainer = $SettingsContainer
 @onready var settings_menu: VBoxContainer = $SettingsContainer/SettingsMenu
+@onready var credits_container: HBoxContainer = $CreditsContainer
 
 
 func _on_resume_pressed() -> void:
@@ -25,6 +26,8 @@ func _on_quit_pressed() -> void:
 
 
 func _on_settings_cancel_pressed() -> void:
+	SettingsManager.apply_video_settings()
+	SettingsManager.apply_audio_settings()
 	pause_container.show()
 	settings_container.hide()
 
@@ -35,3 +38,13 @@ func _on_settings_apply_pressed() -> void:
 	pause_container.show()
 	settings_container.hide()
 
+
+
+func _on_credits_pressed() -> void:
+	pause_container.hide()
+	credits_container.show()
+
+
+func _on_credits_return_pressed() -> void:
+	pause_container.show()
+	credits_container.hide()

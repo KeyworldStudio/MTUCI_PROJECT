@@ -2,6 +2,7 @@ extends Control
 
 
 @onready var brightness_slider: HSlider = $TabContainer/VIDEO/VBoxContainer/BrightnessSlider/Brightness
+@onready var ui_scale_slider: HSlider = $TabContainer/VIDEO/VBoxContainer/UIScaleSlider/UIScale
 @onready var vsync_tickbox: CheckBox = $TabContainer/VIDEO/VBoxContainer/HBoxContainer/VSync
 @onready var full_screen_tickbox: CheckBox = $TabContainer/VIDEO/VBoxContainer/HBoxContainer/FullScreen
 
@@ -22,13 +23,16 @@ var audio_settings: = {}
 
 
 func _on_visibility_changed() -> void:
+	video_settings = SettingsManager.load_video_settings()
+	audio_settings = SettingsManager.load_audio_settings()
 	update_video_setting_controls()
 	update_audio_setting_controls()
 
 
 func update_video_setting_controls() -> void:
-	video_settings = SettingsManager.load_video_settings()
 	brightness_slider.value = video_settings["Brightness"]
+	ui_scale_slider.value = video_settings["UIScale"]
+	SettingsManager.apply_ui_scale(video_settings["UIScale"])
 	vsync_tickbox.button_pressed = video_settings["VSync"]
 	full_screen_tickbox.button_pressed = video_settings["FullScreen"]
 	
@@ -36,10 +40,8 @@ func update_video_setting_controls() -> void:
 
 func update_audio_setting_controls() -> void:
 	sound_test = false
-	
 	await get_tree().process_frame
 	
-	audio_settings = SettingsManager.load_audio_settings()
 	sfx_slider.value = audio_settings["Sound"]
 	music_slider.value = audio_settings["Music"]
 	master_slider.value = audio_settings["Master"]
@@ -47,12 +49,16 @@ func update_audio_setting_controls() -> void:
 	mute_sound_tickbox.button_pressed = audio_settings["MuteSound"]
 	
 	await get_tree().process_frame
-	
 	sound_test = true
 
 func _on_brightness_value_changed(value: float) -> void:
 	video_settings["Brightness"] = value
 	SettingsManager.apply_brightness(video_settings["Brightness"])
+
+
+func _on_ui_scale_drag_ended(value_changed: bool) -> void:
+	video_settings["UIScale"] = ui_scale_slider.value
+	SettingsManager.apply_ui_scale(video_settings["UIScale"])
 
 
 func _on_v_sync_toggled(toggled_on: bool) -> void:
@@ -101,10 +107,10 @@ func _on_mute_sound_toggled(toggled_on: bool) -> void:
 
 
 func _on_reset_audio_pressed() -> void:
-	SettingsManager.reset_audio_settings()
+	audio_settings = SettingsManager.default_audio_settings.duplicate()
 	update_audio_setting_controls()
 
 
 func _on_reset_video_pressed() -> void:
-	SettingsManager.reset_video_settings()
+	video_settings = SettingsManager.default_video_settings.duplicate()
 	update_video_setting_controls()

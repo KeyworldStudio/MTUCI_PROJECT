@@ -281,16 +281,14 @@ region_rect = Rect2(54, 13, 8, 8)
 use_parent_material = true
 position = Vector2(-3.5135, -6.74067)
 rotation = 0.103933
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(44, 13, 9, 4)
 
 [node name="LBLeg1" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(-1.26349, -3.49066)
+position = Vector2(-1.26348, -3.49066)
 rotation = -1.49187
-scale = Vector2(1, 1)
 texture = ExtResource("2_cuodg")
 region_enabled = true
 region_rect = Rect2(33, 13, 10, 4)
@@ -378,8 +376,7 @@ region_rect = Rect2(33, 13, 10, 4)
 
 [node name="LMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(3.84341, 0.189495)
-rotation = -1.30901
+position = Vector2(6, -3)
 texture = ExtResource("2_cuodg")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -397,8 +394,7 @@ region_rect = Rect2(16, 0, 8, 5)
 
 [node name="RMandible" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(9.63896, 4.25763)
-rotation = 1.309
+position = Vector2(6, 3)
 texture = ExtResource("2_cuodg")
 centered = false
 offset = Vector2(0.5, 0.5)
@@ -425,7 +421,7 @@ region_enabled = true
 region_rect = Rect2(33, 1, 12, 11)
 
 [node name="BodyGlow1" type="Sprite2D" parent="VISUAL/SPRITES/Body"]
-self_modulate = Color(1.5, 1.5, 1.5, 1)
+self_modulate = Color(4, 0, 6, 1)
 use_parent_material = true
 position = Vector2(7, 2)
 texture = ExtResource("3_8ljrn")
@@ -434,7 +430,7 @@ region_enabled = true
 region_rect = Rect2(10, 0, 6, 4)
 
 [node name="BodyGlow2" type="Sprite2D" parent="VISUAL/SPRITES/Body"]
-self_modulate = Color(1.5, 1.5, 1.5, 1)
+self_modulate = Color(4, 0, 6, 1)
 use_parent_material = true
 position = Vector2(7, 9)
 texture = ExtResource("3_8ljrn")
@@ -502,7 +498,6 @@ remote_path = NodePath("../../../SPRITES/Body")
 [node name="LBLeg1" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(-4.5, -3.5)
 rotation = -1.49187
-scale = Vector2(1, 1)
 rest = Transform2D(0.0788428, -0.996887, 0.996887, 0.0788428, -4.5, -3.5)
 
 [node name="LBLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/LBLeg1"]

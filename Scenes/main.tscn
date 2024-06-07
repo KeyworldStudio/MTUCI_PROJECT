@@ -9,19 +9,19 @@
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
 [ext_resource type="PackedScene" uid="uid://bth52dx81lawv" path="res://Scenes/UI/pause_menu.tscn" id="9_gt5jq"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngknl"]
-light_mode = 2
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c07pc"]
 
 [sub_resource type="Environment" id="Environment_7buv0"]
 background_mode = 3
 background_energy_multiplier = 0.0
 background_canvas_max_layer = 2
+tonemap_mode = 3
+tonemap_exposure = 0.9
+tonemap_white = 16.0
 glow_enabled = true
 glow_normalized = true
-glow_bloom = 0.1
 glow_blend_mode = 0
-glow_hdr_threshold = 1.5
-glow_map_strength = 0.0
+glow_hdr_threshold = 1.1
 adjustment_enabled = true
 
 [node name="MainScene" type="Node"]
@@ -30,7 +30,7 @@ script = ExtResource("1_yylq0")
 
 [node name="GameWorld" type="Node2D" parent="."]
 process_mode = 1
-material = SubResource("CanvasItemMaterial_ngknl")
+material = SubResource("CanvasItemMaterial_c07pc")
 script = ExtResource("2_61ne2")
 starting_scene = ExtResource("3_v2f06")
 
@@ -85,6 +85,9 @@ inactive_update_mode = 0
 [node name="PlayerCameraFollowTarget" type="Marker2D" parent="GameWorld/Player"]
 script = ExtResource("7_okdpn")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="GameWorld"]
+color = Color(0, 0, 0, 1)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameWorld"]
 environment = SubResource("Environment_7buv0")
 
@@ -92,3 +95,4 @@ environment = SubResource("Environment_7buv0")
 
 [node name="PauseMenu" parent="MainGUI" instance=ExtResource("9_gt5jq")]
 visible = false
+pivot_offset = Vector2(0, 135)

@@ -9,38 +9,53 @@ const SETTINGS_FILE_PATH = "user://settings.ini"
 var base_glow_intensity: float = 0.8
 var base_brightness: float = 1.0
 
+var default_audio_settings: = \
+		{
+			"Master": 1.0,
+			"Sound": 1.0,
+			"Music": 1.0,
+			"MuteSound": false,
+			"MuteMusic": false,
+		}
+
+var default_video_settings: = \
+		{
+			"Brightness": 1.0,
+			"UIScale": 1.0,
+			"FullScreen": false,
+			"VSync": true,
+		}
 
 func _ready() -> void:
 	if !FileAccess.file_exists(SETTINGS_FILE_PATH):
 		reset_audio_settings()
-		
+		reset_video_settings()
+
 		
 	else:
 		config.load(SETTINGS_FILE_PATH)
 		apply_video_settings()
 		apply_audio_settings()
 
+#region Reset/Apply settings
 
 func reset_audio_settings() -> void:
-	config.set_value("Audio", "Master", 1.0)
-	config.set_value("Audio", "Sound", 1.0)
-	config.set_value("Audio", "Music", 1.0)
-	config.set_value("Audio", "MuteSound", false)
-	config.set_value("Audio", "MuteMusic", false)
-	
+	for key in default_audio_settings.keys():
+		config.set_value("Audio", key, default_audio_settings[key])
+	await get_tree().process_frame
 	config.save(SETTINGS_FILE_PATH)
 
 
 func reset_video_settings() -> void:
-	config.set_value("Video", "Brightness", 1.0)
-	config.set_value("Video", "FullScreen", false)
-	config.set_value("Video", "VSync", true)
-	
+	for key in default_video_settings.keys():
+		config.set_value("Video", key, default_video_settings[key])
+	await get_tree().process_frame
 	config.save(SETTINGS_FILE_PATH)
 
 func apply_video_settings():
 	var video_settings = load_video_settings()
 	apply_brightness(video_settings["Brightness"])
+	apply_ui_scale(video_settings["UIScale"])
 	apply_vsync(video_settings["VSync"])
 	apply_fullscreen(video_settings["FullScreen"])
 
@@ -52,14 +67,15 @@ func apply_audio_settings():
 	apply_music_volume(audio_settings["Music"])
 	apply_sfx_mute(audio_settings["MuteSound"])
 	apply_music_mute(audio_settings["MuteMusic"])
+#endregion
 
 
+#region Save/Load settings
 
 func save_audio_settings(values: Dictionary) -> void:
 	for key in values.keys():
 		config.set_value("Audio", key, values[key])
 	config.save(SETTINGS_FILE_PATH)
-
 
 func save_video_settings(values: Dictionary) -> void:
 	for key in values.keys():
@@ -68,25 +84,32 @@ func save_video_settings(values: Dictionary) -> void:
 
 
 func load_audio_settings() -> Dictionary:
-	var audio_settings = {}
+	var audio_settings = default_audio_settings.duplicate()
 	for key in config.get_section_keys("Audio"):
 		audio_settings[key] = config.get_value("Audio", key)
 	
-	return audio_settings
+	return audio_settings.duplicate()
 
 
 func load_video_settings() -> Dictionary:
-	var video_settings = {}
+	var video_settings = default_video_settings.duplicate()
 	for key in config.get_section_keys("Video"):
 		video_settings[key] = config.get_value("Video", key)
-	
-	return video_settings
+	return video_settings.duplicate()
+
+#endregion
 
 func apply_brightness(value: float) -> void:
 	await get_tree().process_frame
 	var world_env = GlobalRefs.world_environment
 	world_env.environment.adjustment_brightness = base_brightness * value
 	world_env.environment.glow_intensity = base_glow_intensity / value
+
+
+func apply_ui_scale(value: float) -> void:
+	await get_tree().process_frame
+	GlobalRefs.pause_menu.scale = Vector2(value, value)
+
 
 
 func apply_vsync(value: bool) -> void:

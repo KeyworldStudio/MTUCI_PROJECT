@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vqv1thdy8bvr"
-path="res://.godot/imported/random_audio_player.svg-ed0c398b9a6c4238980332d57c3c9474.ctex"
+uid="uid://cuo17enrdv5hv"
+path="res://.godot/imported/Keyworld Logo Transparent.png-2a41aa8e92b0f87502de63eee3ed01b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/random_audio_player/nodes/random_audio_player.svg"
-dest_files=["res://.godot/imported/random_audio_player.svg-ed0c398b9a6c4238980332d57c3c9474.ctex"]
+source_file="res://Assets/Visual/UI/Keyworld Logo Transparent.png"
+dest_files=["res://.godot/imported/Keyworld Logo Transparent.png-2a41aa8e92b0f87502de63eee3ed01b0.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

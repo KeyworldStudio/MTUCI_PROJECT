@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dond1538t8oj7"]
+[gd_scene load_steps=17 format=3 uid="uid://dond1538t8oj7"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_eawms"]
 [ext_resource type="TileSet" uid="uid://r66y185oj36x" path="res://Assets/Visual/Tilesets/TestTileSet.tres" id="2_sbtgi"]
@@ -10,15 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://dun4u75418ht4" path="res://Scenes/Objects/Enemies/enemy_exploder.tscn" id="8_f5r5g"]
 [ext_resource type="Script" path="res://Scripts/Player/player_spawn_point.gd" id="9_yeaht"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gmifl"]
+light_mode = 2
+
 [sub_resource type="Resource" id="Resource_lj2xq"]
 script = ExtResource("7_n0oiv")
-price = 60
+price = 80
 starting_wave = 0
 scene = ExtResource("6_ykx3v")
 
 [sub_resource type="Resource" id="Resource_qk270"]
 script = ExtResource("7_n0oiv")
-price = 60
+price = 80
 starting_wave = 0
 scene = ExtResource("8_f5r5g")
 
@@ -33,7 +36,9 @@ render_mode blend_mix;
 shader = SubResource("Shader_jsha0")
 
 [sub_resource type="Gradient" id="Gradient_jjalf"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0mpio"]
 gradient = SubResource("Gradient_jjalf")
@@ -43,6 +48,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="PathfindingTest" type="Node2D" node_paths=PackedStringArray("top_left_limit", "bottom_right_limit")]
+material = SubResource("CanvasItemMaterial_gmifl")
 use_parent_material = true
 script = ExtResource("1_eawms")
 top_left_limit = NodePath("TopLeft")
@@ -90,13 +96,31 @@ position = Vector2(767, 79)
 position = Vector2(508, 541)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_tesag")
-position = Vector2(128, 304)
+position = Vector2(383, 516)
 scale = Vector2(1.1, 1.1)
 editor_only = true
 energy = 0.6
-blend_mode = 2
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0mpio")
+texture_scale = 6.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_tesag")
+position = Vector2(383, 346)
+scale = Vector2(1.1, 1.1)
+editor_only = true
+energy = 0.6
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0mpio")
+texture_scale = 2.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_tesag")
+position = Vector2(589, 302)
+scale = Vector2(1.1, 1.1)
+editor_only = true
+energy = 0.6
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_0mpio")
 texture_scale = 6.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://08tbf1hiogqj"]
+[gd_scene load_steps=50 format=3 uid="uid://08tbf1hiogqj"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="1_i8rwf"]
 [ext_resource type="AudioStream" uid="uid://b3ffk3webmylm" path="res://addons/kenney sci-fi sounds/impact_metal_000.ogg" id="2_mf6g7"]
@@ -147,19 +147,19 @@ frequency = 2.001
 damping = 0.6
 reaction = 8.0
 
-[sub_resource type="Resource" id="Resource_le8yy"]
+[sub_resource type="Resource" id="Resource_x4dj4"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_kfpog"]
+[sub_resource type="Resource" id="Resource_fnaxu"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Shader" id="Shader_q55me"]
+[sub_resource type="Shader" id="Shader_t0rqb"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's CanvasItemMaterial.
 
 shader_type canvas_item;
@@ -167,13 +167,15 @@ render_mode blend_mix;
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kf7cm"]
-shader = SubResource("Shader_q55me")
+shader = SubResource("Shader_t0rqb")
 
-[sub_resource type="Gradient" id="Gradient_hbhjq"]
+[sub_resource type="Gradient" id="Gradient_c2o6u"]
+interpolation_mode = 2
+interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tryng"]
-gradient = SubResource("Gradient_hbhjq")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vg2ne"]
+gradient = SubResource("Gradient_c2o6u")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -197,16 +199,24 @@ turret_id = ""
 
 [sub_resource type="Resource" id="Resource_ih7uf"]
 script = ExtResource("16_56avs")
-price = 10
+price = 15
 size = 24.0
 scene = ExtResource("19_gtjsg")
 turret_id = ""
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl8fu"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sx7tv"]
-blend_mode = 1
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sysdg"]
 light_mode = 2
+
+[sub_resource type="FontVariation" id="FontVariation_nw6gy"]
+spacing_bottom = -1
+
+[sub_resource type="LabelSettings" id="LabelSettings_onpg8"]
+font = SubResource("FontVariation_nw6gy")
+font_size = 12
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_fggk5"]
 interpolation_color_space = 2
@@ -355,7 +365,7 @@ region_enabled = true
 region_rect = Rect2(23, 6, 6, 7)
 
 [node name="HeadGlow" type="Sprite2D" parent="VISUALS/SPRITES/Head"]
-self_modulate = Color(1, 3, 3, 1)
+self_modulate = Color(0, 2, 5, 1)
 use_parent_material = true
 position = Vector2(4, 2)
 rotation = 0.0178304
@@ -409,7 +419,7 @@ target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Head")
 use_easing = true
-easing = SubResource("Resource_le8yy")
+easing = SubResource("Resource_x4dj4")
 
 [node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_j2uqd")
@@ -417,7 +427,7 @@ target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Crotch")
 use_easing = true
-easing = SubResource("Resource_kfpog")
+easing = SubResource("Resource_fnaxu")
 
 [node name="ArmLLookAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_lfrkt")
@@ -594,9 +604,8 @@ material = SubResource("ShaderMaterial_kf7cm")
 use_parent_material = true
 position = Vector2(1, 0)
 energy = 0.8
-blend_mode = 2
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_tryng")
+texture = SubResource("GradientTexture2D_vg2ne")
 texture_scale = 6.0
 
 [node name="COMBAT" type="Node2D" parent="."]
@@ -650,23 +659,56 @@ resource_component = NodePath("../COMBAT/ResourceComponent")
 placement_collider = NodePath("CollisionShape2D")
 placement_indicator = NodePath("Sprite2D")
 aim_indicator = NodePath("Polygon2D")
+indicator_disabled_color = Color(3.22476e-06, 0.440871, 0.628762, 0.152941)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurretCreator"]
 shape = SubResource("CircleShape2D_vl8fu")
 debug_color = Color(0, 0.6, 0, 0.164706)
 
+[node name="PriceLabelRT" type="RemoteTransform2D" parent="TurretCreator"]
+remote_path = NodePath("../Node/PriceLabelRTA")
+update_rotation = false
+update_scale = false
+
+[node name="Node" type="Node" parent="TurretCreator"]
+
+[node name="PriceLabelRTA" type="Node2D" parent="TurretCreator/Node"]
+top_level = true
+material = SubResource("CanvasItemMaterial_sysdg")
+use_parent_material = true
+position = Vector2(18, 0)
+
+[node name="PriceLabel" type="Label" parent="TurretCreator/Node/PriceLabelRTA"]
+self_modulate = Color(1, 1, 1, 0.447059)
+use_parent_material = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -58.5
+offset_right = 80.0
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = " 2"
+label_settings = SubResource("LabelSettings_onpg8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Polygon2D" type="Polygon2D" parent="TurretCreator"]
 self_modulate = Color(1, 1, 1, 0.376471)
 use_parent_material = true
 position = Vector2(17, -2.11758e-22)
-scale = Vector2(1, 1)
 offset = Vector2(-25, 0)
 antialiased = true
 polygon = PackedVector2Array(31, 2.11758e-22, 35, -1, 36, -2, 37, -1, 66, -0.5, 480, 0, 66, 0.5, 37, 1, 36, 2, 35, 1)
 
 [node name="Polygon2D2" type="Polygon2D" parent="TurretCreator/Polygon2D"]
 modulate = Color(1, 1, 1, 0.054902)
-material = SubResource("CanvasItemMaterial_sx7tv")
+use_parent_material = true
 position = Vector2(-1, 2.11758e-22)
 scale = Vector2(2, 2)
 offset = Vector2(-30, 0)
@@ -696,7 +738,8 @@ position = Vector2(-44, 0)
 remote_path = NodePath("../Node/Node2D")
 update_rotation = false
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="Node2D" type="Node2D" parent="Node"]
 position = Vector2(-44, 0)
@@ -716,7 +759,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 1
+theme_override_constants/outline_size = 0
 text = "H:5
 R:10"
 label_settings = SubResource("LabelSettings_o2h60")
@@ -730,4 +773,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="hit_received" from="COMBAT/HitboxComponent" to="AUDIO/OnHitAudio" method="start"]
 [connection signal="health_changed" from="COMBAT/HealthComponent" to="Node/Node2D/Label" method="_on_health_component_damaged"]
 [connection signal="died" from="COMBAT/DeathComponent" to="." method="_on_death_component_died"]
+[connection signal="scrap_changed" from="COMBAT/ResourceComponent" to="TurretCreator" method="_on_resource_component_scrap_changed"]
 [connection signal="scrap_changed" from="COMBAT/ResourceComponent" to="Node/Node2D/Label" method="_on_resource_component_scrap_changed"]

@@ -4,7 +4,7 @@ extends Node2D
 
 
 func _ready():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().process_frame
 	var instanced_scene = starting_scene.instantiate()
 	add_child(instanced_scene)
 	move_child(instanced_scene,0)

@@ -10,6 +10,7 @@ extends Area2D
 		indicator_tex_size = placement_indicator.texture.get_size()
 		placement_indicator.modulate = indicator_disabled_color
 @export var aim_indicator: Node2D
+@onready var price_label: Label = $Node/PriceLabelRTA/PriceLabel
 @export var indicator_disabled_color: Color = Color.TRANSPARENT
 @export var indicator_allowed_color: Color = Color.GREEN
 @export var indicator_blocked_color: Color = Color.RED
@@ -17,11 +18,15 @@ extends Area2D
 
 var indicator_tex_size: Vector2 = Vector2(64, 64)
 var objects_in_scope: int = 0
-var current: int = 0
+var current: int = 0: 
+	set(value):
+		current = value
+		update_price_label()
 
 func _ready():
 	body_entered.connect(_on_area_2d_body_entered)
 	body_exited.connect(_on_area_2d_body_exited)
+	update_price_label()
 
 func _on_area_2d_body_entered(_body):
 	objects_in_scope += 1
@@ -57,22 +62,34 @@ func turret_creation():
 		instance.set_deferred("global_position", global_position)
 		instance.set_deferred("global_rotation", global_rotation)
 
-func indicator_color_set()->void:
+func indicator_color_set() -> void:
 	if !Input.is_action_pressed('place_turret'):
 		aim_indicator.hide()
+		price_label.hide()
 		placement_indicator.modulate = indicator_disabled_color
 		return
 	aim_indicator.show()
+	price_label.show()
 	if objects_in_scope <= 0:
 		aim_indicator.modulate = indicator_allowed_color
 		placement_indicator.modulate = indicator_allowed_color
 		return
 	aim_indicator.modulate = indicator_blocked_color
 	placement_indicator.modulate = indicator_blocked_color
-	
+
+func update_price_label() -> void:
+	price_label.text = " " + str(turrets[current].price)
+	if turrets[current].price > resource_component.collected_scrap:
+		price_label.modulate = indicator_blocked_color
+		return
+	price_label.modulate = indicator_allowed_color
 
 func _physics_process(_delta):
 	if len(turrets)>0:
 		turret_creation()
 		turret_change()
 		indicator_color_set()
+
+
+func _on_resource_component_scrap_changed(new_value: Variant) -> void:
+	update_price_label()

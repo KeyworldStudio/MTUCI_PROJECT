@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bth52dx81lawv"]
+[gd_scene load_steps=11 format=3 uid="uid://bth52dx81lawv"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_awq0k"]
 [ext_resource type="PackedScene" uid="uid://3sb423rahong" path="res://Scenes/UI/settings_menu.tscn" id="2_cn3bf"]
+[ext_resource type="PackedScene" uid="uid://c0d3jfbmb7qjj" path="res://Scenes/UI/credits.tscn" id="3_r0r78"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl5i4"]
 content_margin_left = 20.0
@@ -19,7 +20,12 @@ shadow_color = Color(0, 0, 0, 0.913725)
 shadow_size = 128
 
 [sub_resource type="LabelSettings" id="LabelSettings_arc6b"]
-font_size = 24
+font_size = 12
+shadow_color = Color(0.310218, 0.253728, 0.263197, 1)
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_71lol"]
+font_size = 18
 shadow_color = Color(0.310218, 0.253728, 0.263197, 1)
 shadow_offset = Vector2(0, 2)
 
@@ -39,8 +45,9 @@ events = [SubResource("InputEventAction_5w0un")]
 [node name="PauseMenu" type="Control"]
 process_mode = 2
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -63,47 +70,83 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dl5i4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+[node name="R0Container" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = -6
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseContainer/VBoxContainer/R0Container"]
+layout_mode = 2
+theme_override_constants/separation = -2
 alignment = 1
 
-[node name="RichTextLabel" type="Label" parent="PauseContainer/VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel" type="Label" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer2"]
 layout_mode = 2
-text = " PAUSED"
+size_flags_horizontal = 8
+text = "   SIMULATION"
 label_settings = SubResource("LabelSettings_arc6b")
 horizontal_alignment = 2
 
-[node name="Resume" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel2" type="Label" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer2"]
+layout_mode = 2
+text = "PAUSED  "
+label_settings = SubResource("LabelSettings_71lol")
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseContainer/VBoxContainer/R0Container"]
+layout_mode = 2
+
+[node name="R1Container" type="HBoxContainer" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Control2" type="Control" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_dnmmx")
 shortcut_feedback = false
 shortcut_in_tooltip = false
 text = "RESUME"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="PauseContainer/VBoxContainer/R0Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = " RESTART "
+
+[node name="R2Container" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Restart" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = " RESTART "
-
-[node name="Settings" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer2"]
+[node name="Settings" type="Button" parent="PauseContainer/VBoxContainer/R2Container"]
+custom_minimum_size = Vector2(172, 0)
 layout_mode = 2
 text = " SETTINGS "
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+[node name="R3Container" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
 layout_mode = 2
-alignment = 1
+size_flags_horizontal = 0
 
-[node name="Quit" type="Button" parent="PauseContainer/VBoxContainer/HBoxContainer4"]
+[node name="Credits" type="Button" parent="PauseContainer/VBoxContainer/R3Container"]
+layout_mode = 2
+text = "CREDITS"
+
+[node name="R4Container" type="HBoxContainer" parent="PauseContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Control2" type="Control" parent="PauseContainer/VBoxContainer/R4Container"]
+custom_minimum_size = Vector2(13, 0)
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="PauseContainer/VBoxContainer/R4Container"]
 layout_mode = 2
 text = "QUIT"
-
-[node name="Control2" type="Control" parent="PauseContainer/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(84, 0)
-layout_mode = 2
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -141,9 +184,46 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "APPLY"
 
-[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer2/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer2/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="PauseContainer/VBoxContainer/HBoxContainer4/Quit" to="." method="_on_quit_pressed"]
+[node name="CreditsContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.048
+anchor_bottom = 0.934
+offset_left = -238.0
+offset_top = 0.04
+offset_right = 238.0
+offset_bottom = -0.180008
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="CreditsContainer"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+
+[node name="CreditsReturn" type="Button" parent="CreditsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+shortcut = SubResource("Shortcut_sdufp")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "BACK"
+
+[node name="Control2" type="Control" parent="CreditsContainer"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+
+[node name="Credits" parent="CreditsContainer" instance=ExtResource("3_r0r78")]
+layout_mode = 2
+
+[connection signal="pressed" from="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/R0Container/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/R2Container/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/R3Container/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="PauseContainer/VBoxContainer/R4Container/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsCancel" to="." method="_on_settings_cancel_pressed"]
 [connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsApply" to="." method="_on_settings_apply_pressed"]
+[connection signal="pressed" from="CreditsContainer/CreditsReturn" to="." method="_on_credits_return_pressed"]

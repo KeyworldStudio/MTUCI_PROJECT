@@ -764,8 +764,9 @@ region_rect = Rect2(52, 22, 11, 11)
 
 [node name="FLLeg" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(0.394237, 6.62954)
+position = Vector2(0.394238, 6.62955)
 rotation = -1.76082
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -817,6 +818,7 @@ region_rect = Rect2(45, 47, 17, 7)
 use_parent_material = true
 position = Vector2(9.69517, 22.0748)
 rotation = 0.797842
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 offset = Vector2(0.5, 0)
 flip_h = true
@@ -827,6 +829,7 @@ region_rect = Rect2(52, 22, 11, 11)
 use_parent_material = true
 position = Vector2(-3.43373, 21.7778)
 rotation = -1.33758
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -838,6 +841,7 @@ region_rect = Rect2(45, 36, 17, 10)
 use_parent_material = true
 position = Vector2(12.4128, 24.5403)
 rotation = 2.88407
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -849,6 +853,7 @@ region_rect = Rect2(45, 47, 17, 7)
 use_parent_material = true
 position = Vector2(-17.6801, 14.3769)
 rotation = -2.98577
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 offset = Vector2(0.5, 0)
 flip_h = true
@@ -859,6 +864,7 @@ region_rect = Rect2(52, 22, 11, 11)
 use_parent_material = true
 position = Vector2(-14.9542, 18.6026)
 rotation = -1.02984
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -870,7 +876,8 @@ region_rect = Rect2(45, 36, 17, 10)
 [node name="BRLeg2" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
 position = Vector2(-15.9246, 10.2637)
-rotation = 0.870088
+rotation = 0.870087
+scale = Vector2(1, 1)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0.5, 0)
@@ -881,7 +888,7 @@ region_rect = Rect2(45, 47, 17, 7)
 
 [node name="Head" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(1, 2)
+position = Vector2(5, 2)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)
@@ -889,6 +896,7 @@ region_enabled = true
 region_rect = Rect2(14, 43, 10, 7)
 
 [node name="HeadGlow" type="Sprite2D" parent="VISUAL/SPRITES/Head"]
+modulate = Color(4, 0, 6, 1)
 self_modulate = Color(2, 2, 2, 1)
 use_parent_material = true
 position = Vector2(5, 1)
@@ -1041,7 +1049,6 @@ rest = Transform2D(1, 8.88506e-06, -8.88506e-06, 1, -5, 4)
 [node name="BRLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BRLeg"]
 position = Vector2(0.000123877, 14)
 rotation = 1.89994
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 0.000123877, 14)
 
 [node name="BRFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BRLeg/BRLeg2"]
@@ -1104,7 +1111,6 @@ remote_path = NodePath("../../../../SPRITES/FRLeg")
 [node name="BLLeg" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(-5, -4)
 rotation = 2.56621
-scale = Vector2(1, 1)
 rest = Transform2D(-1, 4.44253e-06, -4.44253e-06, -1, -5, -4)
 
 [node name="BLLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/BLLeg"]
@@ -1138,12 +1144,12 @@ remote_path = NodePath("../../../../SPRITES/BLLeg")
 [node name="FLLeg" type="Bone2D" parent="VISUAL/Skeleton2D/Body"]
 position = Vector2(2, -7)
 rotation = 2.95156
+scale = Vector2(1, 1)
 rest = Transform2D(-1, -4.44253e-06, 4.44253e-06, -1, 2, -7)
 
 [node name="FLLeg2" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FLLeg"]
 position = Vector2(0.039715, 12.9999)
 rotation = 2.1408
-scale = Vector2(1, 1)
 rest = Transform2D(1, 0, 0, 1, 0.039715, 12.9999)
 
 [node name="FLFoot" type="Bone2D" parent="VISUAL/Skeleton2D/Body/FLLeg/FLLeg2"]
@@ -1321,7 +1327,7 @@ debug_color = Color(0.956863, 0, 0.529412, 0.419608)
 
 [node name="HealthComponent" type="Node" parent="COMBAT"]
 script = ExtResource("5_vh5re")
-max_health = 3.0
+max_health = 5.0
 
 [node name="KnockbackComponent" type="Node" parent="COMBAT" node_paths=PackedStringArray("target")]
 script = ExtResource("6_176dn")
@@ -1336,8 +1342,8 @@ drop_spawner = NodePath("../DropSpawner")
 [node name="DropSpawner" type="Node2D" parent="COMBAT"]
 use_parent_material = true
 script = ExtResource("8_b2gc4")
-min_drops = 2
-max_drops = 4
+min_drops = 6
+max_drops = 10
 drop_velocity = 512
 
 [node name="KnockbackOrigin" type="Marker2D" parent="COMBAT"]

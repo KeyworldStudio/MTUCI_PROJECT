@@ -84,7 +84,7 @@ region_enabled = true
 region_rect = Rect2(40, 1, 11, 6)
 
 [node name="Core" type="Sprite2D" parent="VISUALS"]
-modulate = Color(6, 1, 2, 1)
+self_modulate = Color(4, 0, 6, 1)
 use_parent_material = true
 texture = ExtResource("2_vr2yo")
 region_enabled = true
