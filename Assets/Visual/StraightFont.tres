@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bi7nqtgufcgu5"]
+
+[ext_resource type="FontFile" uid="uid://d2exi21njnn5g" path="res://Assets/Visual/Kenney Future Narrow.ttf" id="1_dh2r2"]
+
+[resource]
+base_font = ExtResource("1_dh2r2")
+opentype_features = {
+1667329140: 0
+}

@@ -42,10 +42,10 @@ func size_change():
 	placement_indicator.scale.y = 2 * turrets[current].size / indicator_tex_size.y
 
 func turret_change():
-	if (Input.is_action_just_pressed('turret_change_left') and current > 0):
-		current -= 1
-	if (Input.is_action_just_pressed('turret_change_right') and current < (len(turrets) -1)):
-		current += 1
+	if (Input.is_action_just_pressed('turret_change_left')):
+		current = wrapi(current-1, 0, len(turrets))
+	if (Input.is_action_just_pressed('turret_change_right')):
+		current = wrapi(current+1, 0, len(turrets))
 	size_change()
 		
 func turret_creation():
@@ -71,8 +71,11 @@ func indicator_color_set() -> void:
 	aim_indicator.show()
 	price_label.show()
 	if objects_in_scope <= 0:
-		aim_indicator.modulate = indicator_allowed_color
 		placement_indicator.modulate = indicator_allowed_color
+		if turrets[current].price <= resource_component.collected_scrap:
+			aim_indicator.modulate = indicator_allowed_color
+		else:
+			aim_indicator.modulate = indicator_blocked_color
 		return
 	aim_indicator.modulate = indicator_blocked_color
 	placement_indicator.modulate = indicator_blocked_color

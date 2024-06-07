@@ -16,7 +16,7 @@ linear_damp = 10.0
 script = ExtResource("1_3sopg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.526666, 0.29, 1, 1)
+modulate = Color(0.878334, 0.455054, 7.70092e-07, 1)
 use_parent_material = true
 texture = ExtResource("1_adla4")
 

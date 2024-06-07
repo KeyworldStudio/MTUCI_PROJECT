@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_yylq0"]
 [ext_resource type="Script" path="res://Scripts/game_world.gd" id="2_61ne2"]
 [ext_resource type="PackedScene" uid="uid://08tbf1hiogqj" path="res://Scenes/Objects/Player/player.tscn" id="2_ayoe2"]
-[ext_resource type="PackedScene" uid="uid://dond1538t8oj7" path="res://Scenes/_Debug/pathfinding_test.tscn" id="3_v2f06"]
+[ext_resource type="PackedScene" uid="uid://c7e81sb823ov1" path="res://Scenes/Levels/lv_hub.tscn" id="3_5uidb"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_0sysi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_7ywhw"]
 [ext_resource type="Script" path="res://Scripts/Player/player_camera_target.gd" id="7_okdpn"]
@@ -27,12 +27,14 @@ adjustment_enabled = true
 [node name="MainScene" type="Node"]
 process_mode = 3
 script = ExtResource("1_yylq0")
+metadata/_edit_horizontal_guides_ = [135.0]
+metadata/_edit_vertical_guides_ = [240.0]
 
 [node name="GameWorld" type="Node2D" parent="."]
 process_mode = 1
 material = SubResource("CanvasItemMaterial_c07pc")
 script = ExtResource("2_61ne2")
-starting_scene = ExtResource("3_v2f06")
+starting_scene = ExtResource("3_5uidb")
 
 [node name="Drops" type="Node2D" parent="GameWorld"]
 use_parent_material = true
@@ -54,21 +56,22 @@ position = Vector2(308, 177)
 
 [node name="PlayerCamera" type="Camera2D" parent="GameWorld/Player"]
 use_parent_material = true
+position = Vector2(240, 135)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameWorld/Player/PlayerCamera"]
 script = ExtResource("6_7ywhw")
 
 [node name="PlayerCameraController" type="Node2D" parent="GameWorld/Player"]
+position = Vector2(240, 135)
 script = ExtResource("5_0sysi")
 priority_override = false
 priority = 0
 zoom = Vector2(1, 1)
-follow_mode = 2
+follow_mode = 1
 follow_target = NodePath("../PlayerCameraFollowTarget")
-follow_parameters/target_offset = Vector2(0, 0)
 follow_parameters/damping = true
-follow_parameters/damping_value = 4.0
+follow_parameters/damping_value = 10.0
 frame_preview = true
 pixel_perfect = false
 limit/draw_limits = true
@@ -77,12 +80,13 @@ limit/top = -10000000
 limit/right = 10000000
 limit/bottom = 10000000
 limit/limit_node_target = NodePath("")
-limit/smoothed = false
+limit/smoothed = true
 tween_parameters = null
-tween_on_load = true
+tween_on_load = false
 inactive_update_mode = 0
 
 [node name="PlayerCameraFollowTarget" type="Marker2D" parent="GameWorld/Player"]
+position = Vector2(240, 135)
 script = ExtResource("7_okdpn")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameWorld"]

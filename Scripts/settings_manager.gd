@@ -30,12 +30,13 @@ func _ready() -> void:
 	if !FileAccess.file_exists(SETTINGS_FILE_PATH):
 		reset_audio_settings()
 		reset_video_settings()
-
-		
+		apply_video_settings()
+		apply_audio_settings()
 	else:
 		config.load(SETTINGS_FILE_PATH)
 		apply_video_settings()
 		apply_audio_settings()
+
 
 #region Reset/Apply settings
 

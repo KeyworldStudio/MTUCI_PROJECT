@@ -1,6 +1,9 @@
-[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://r66y185oj36x"]
+[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://r66y185oj36x"]
 
 [ext_resource type="Texture2D" uid="uid://ex4qfvs3byy8" path="res://Assets/Visual/Sheets/TestTileSheet.png" id="1_auk86"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_mhsba"]
+tile_data = PackedInt32Array(131072, 65536, 1, 196608, 65536, 2, 262144, 65536, 2, 327680, 65536, 3, 1, 131072, 2, 65537, 65536, 2, 131073, 131072, 2, 196609, 131072, 2, 262145, 131072, 2, 327681, 131072, 3, 2, 131072, 2, 65538, 196608, 2, 131074, 131072, 2, 196610, 131072, 2, 262146, 131072, 2, 327682, 131072, 3, 131075, 196608, 1, 196611, 196608, 2, 262147, 196608, 2, 327683, 196608, 3)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wtdyb"]
 vertices = PackedVector2Array(2, 2, -2, 2, -2, -2, 2, -2)
@@ -398,3 +401,4 @@ terrain_set_0/terrain_1/name = "Floor"
 terrain_set_0/terrain_1/color = Color(0.337255, 0.501961, 0, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_3pt1d")
+pattern_0 = SubResource("TileMapPattern_mhsba")

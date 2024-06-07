@@ -6,6 +6,9 @@ extends Control
 @onready var credits_container: HBoxContainer = $CreditsContainer
 
 
+func _ready() -> void:
+	SettingsManager.apply_video_settings()
+
 func _on_resume_pressed() -> void:
 	await get_tree().process_frame
 	GlobalRefs.main_scene_node.toggle_pause()

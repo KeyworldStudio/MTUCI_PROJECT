@@ -1060,7 +1060,6 @@ region_rect = Rect2(1, 25, 16, 16)
 [node name="Base4" type="Sprite2D" parent="VISUAL/SPRITES/BASE"]
 use_parent_material = true
 rotation = -1.57079
-scale = Vector2(1, 1)
 texture = ExtResource("1_njsu2")
 centered = false
 flip_h = true

@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://caw8fg2ky6p4u" path="res://Scenes/Objects/Turrets/turret_autocannon.tscn" id="19_gtjsg"]
 [ext_resource type="AudioStream" uid="uid://csdi7hrjnjxaj" path="res://Assets/Sound/Mechanical_Dark_Arts.wav" id="23_q5mjn"]
 [ext_resource type="AudioStream" uid="uid://dk1rrj2f6dh23" path="res://addons/kenney impact sounds/impact_plate_light_003.ogg" id="24_ogtvt"]
+[ext_resource type="FontVariation" uid="uid://bi7nqtgufcgu5" path="res://Assets/Visual/StraightFont.tres" id="25_7ddto"]
 [ext_resource type="Script" path="res://Scripts/self_cleanup_audio.gd" id="25_wax44"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nro1a"]
@@ -147,13 +148,13 @@ frequency = 2.001
 damping = 0.6
 reaction = 8.0
 
-[sub_resource type="Resource" id="Resource_x4dj4"]
+[sub_resource type="Resource" id="Resource_ja5pb"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
 reaction = 0.0
 
-[sub_resource type="Resource" id="Resource_fnaxu"]
+[sub_resource type="Resource" id="Resource_phnkc"]
 script = ExtResource("6_5hktl")
 frequency = 2.001
 damping = 1.0
@@ -169,17 +170,18 @@ render_mode blend_mix;
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kf7cm"]
 shader = SubResource("Shader_t0rqb")
 
-[sub_resource type="Gradient" id="Gradient_c2o6u"]
+[sub_resource type="Gradient" id="Gradient_cqghj"]
 interpolation_mode = 2
 interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vg2ne"]
-gradient = SubResource("Gradient_c2o6u")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8wt8h"]
+gradient = SubResource("Gradient_cqghj")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
 
 [sub_resource type="Resource" id="Resource_v6yhw"]
 script = ExtResource("4_fbra3")
@@ -200,7 +202,7 @@ turret_id = ""
 [sub_resource type="Resource" id="Resource_ih7uf"]
 script = ExtResource("16_56avs")
 price = 15
-size = 24.0
+size = 20.0
 scene = ExtResource("19_gtjsg")
 turret_id = ""
 
@@ -234,14 +236,12 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv12w"]
 radius = 33.0151
 
-[sub_resource type="LabelSettings" id="LabelSettings_o2h60"]
-line_spacing = -4.0
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 use_parent_material = true
 collision_layer = 2
 script = ExtResource("1_i8rwf")
 hitbox = NodePath("COMBAT/HitboxComponent")
+dash_cooldown = 1.0
 
 [node name="AUDIO" type="Node2D" parent="."]
 
@@ -258,6 +258,7 @@ stream = ExtResource("23_q5mjn")
 volume_db = -10.0
 autoplay = true
 max_distance = 1024.0
+panning_strength = 0.0
 bus = &"Music"
 
 [node name="OnHitAudio" type="AudioStreamPlayer2D" parent="AUDIO"]
@@ -419,7 +420,7 @@ target_node = NodePath("../../Torso/HeadTarget/HeadJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Head")
 use_easing = true
-easing = SubResource("Resource_x4dj4")
+easing = SubResource("Resource_ja5pb")
 
 [node name="CrotchJiggle" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_j2uqd")
@@ -427,7 +428,7 @@ target_node = NodePath("../../Torso/CrotchTarget/CrotchJiggle")
 enabled = true
 bone_node = NodePath("../../Torso/Crotch")
 use_easing = true
-easing = SubResource("Resource_fnaxu")
+easing = SubResource("Resource_phnkc")
 
 [node name="ArmLLookAt" type="Node" parent="VISUALS/Skeleton2D/SoupStack" node_paths=PackedStringArray("target_node", "bone_node")]
 script = ExtResource("7_lfrkt")
@@ -599,13 +600,16 @@ position = Vector2(-4, 1.25467)
 [node name="ArmTarget" type="Marker2D" parent="VISUALS/Skeleton2D"]
 position = Vector2(36, 0)
 
-[node name="PointLight2D" type="PointLight2D" parent="VISUALS"]
+[node name="VisionLight" type="PointLight2D" parent="VISUALS"]
 material = SubResource("ShaderMaterial_kf7cm")
 use_parent_material = true
 position = Vector2(1, 0)
 energy = 0.8
+range_item_cull_mask = 32769
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_vg2ne")
+shadow_item_cull_mask = 32769
+texture = SubResource("GradientTexture2D_8wt8h")
+offset = Vector2(64, 0)
 texture_scale = 6.0
 
 [node name="COMBAT" type="Node2D" parent="."]
@@ -734,42 +738,51 @@ shape = SubResource("CircleShape2D_hv12w")
 debug_color = Color(0.423529, 0.458824, 1, 0.0392157)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-position = Vector2(-44, 0)
+position = Vector2(-25, 0)
 remote_path = NodePath("../Node/Node2D")
 update_rotation = false
 
 [node name="Node" type="CanvasLayer" parent="."]
+layer = 0
 follow_viewport_enabled = true
 
 [node name="Node2D" type="Node2D" parent="Node"]
-position = Vector2(-44, 0)
+position = Vector2(-25, 0)
 
-[node name="Label" type="Label" parent="Node/Node2D"]
+[node name="Label" type="RichTextLabel" parent="Node/Node2D"]
 layout_direction = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+offset_left = -19.0
+offset_top = -9.0
+offset_right = 17.0
+offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 0
-text = "H:5
-R:10"
-label_settings = SubResource("LabelSettings_o2h60")
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 139
-uppercase = true
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("25_7ddto")
+theme_override_fonts/bold_font = ExtResource("25_7ddto")
+theme_override_fonts/italics_font = ExtResource("25_7ddto")
+theme_override_fonts/bold_italics_font = ExtResource("25_7ddto")
+theme_override_fonts/mono_font = ExtResource("25_7ddto")
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/italics_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+bbcode_enabled = true
+text = "[center][color=crimson]5/5[/color]
+[color=gold]0[/color]"
+fit_content = true
+autowrap_mode = 0
 script = ExtResource("10_uc35w")
 metadata/_edit_use_anchors_ = true
 
+[connection signal="finished" from="AUDIO/MusicAudio" to="AUDIO/MusicAudio" method="play"]
 [connection signal="hit_received" from="COMBAT/HitboxComponent" to="AUDIO/OnHitAudio" method="start"]
 [connection signal="health_changed" from="COMBAT/HealthComponent" to="Node/Node2D/Label" method="_on_health_component_damaged"]
 [connection signal="died" from="COMBAT/DeathComponent" to="." method="_on_death_component_died"]

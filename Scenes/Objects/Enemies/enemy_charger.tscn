@@ -707,7 +707,7 @@ script = ExtResource("4_yvi1u")
 
 [node name="OnStepHeavy" type="AudioStreamPlayer2D" parent="AUDIO"]
 stream = ExtResource("6_wrrd5")
-volume_db = -15.0
+volume_db = -5.0
 pitch_scale = 0.75
 max_distance = 512.0
 attenuation = 8.0
@@ -888,7 +888,7 @@ region_rect = Rect2(45, 47, 17, 7)
 
 [node name="Head" type="Sprite2D" parent="VISUAL/SPRITES"]
 use_parent_material = true
-position = Vector2(5, 2)
+position = Vector2(1, 2)
 texture = ExtResource("2_h4lln")
 centered = false
 offset = Vector2(0, 0.5)

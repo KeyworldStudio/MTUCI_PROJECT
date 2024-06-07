@@ -731,7 +731,6 @@ region_rect = Rect2(1, 17, 7, 7)
 use_parent_material = true
 position = Vector2(2, 3)
 rotation = -2.87979
-scale = Vector2(1, 1)
 texture = ExtResource("1_p6wo8")
 centered = false
 flip_h = true

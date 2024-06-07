@@ -1,4 +1,4 @@
-extends Label
+extends RichTextLabel
 
 @onready var health: float
 @onready var scrap: int
@@ -17,4 +17,4 @@ func _on_resource_component_scrap_changed(new_value):
 	update_label()
 
 func update_label():
-	text = "H:" + str(health) +  "\nM:" + str(scrap)
+	text = "[center][color=crimson]" + str(health) + "/5[/color]\n[color=gold]" + str(scrap) + "[/color]"

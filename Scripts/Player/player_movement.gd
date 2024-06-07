@@ -14,6 +14,7 @@ var can_dash: bool = true
 @onready var dash_cooldown_timer: Timer = Timer.new()
 @onready var dash_invuln_timer: Timer = Timer.new()
 @onready var anim_player: = $VISUALS/AnimationPlayer
+@onready var resource_component: ResourceTrackerComponent = $COMBAT/ResourceComponent
 
 func _ready():
 	add_child(dash_cooldown_timer)

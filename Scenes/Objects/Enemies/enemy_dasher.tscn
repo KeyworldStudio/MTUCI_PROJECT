@@ -759,8 +759,6 @@ drop_spawner = NodePath("../DropSpawner")
 [node name="DropSpawner" type="Node2D" parent="COMBAT"]
 use_parent_material = true
 script = ExtResource("13_k6st2")
-min_drops = 2
-max_drops = 4
 drop_velocity = 512
 
 [node name="StateChart" type="Node" parent="."]
