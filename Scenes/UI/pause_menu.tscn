@@ -219,11 +219,15 @@ layout_mode = 2
 [node name="Credits" parent="CreditsContainer" instance=ExtResource("3_r0r78")]
 layout_mode = 2
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container/Resume" to="." method="_on_resume_pressed"]
+[connection signal="visibility_changed" from="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container/Resume" to="PauseContainer/VBoxContainer/R0Container/VBoxContainer/R1Container/Resume" method="grab_focus"]
 [connection signal="pressed" from="PauseContainer/VBoxContainer/R0Container/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PauseContainer/VBoxContainer/R2Container/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="PauseContainer/VBoxContainer/R3Container/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="PauseContainer/VBoxContainer/R4Container/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsCancel" to="." method="_on_settings_cancel_pressed"]
+[connection signal="visibility_changed" from="SettingsContainer/HBoxContainer/SettingsCancel" to="SettingsContainer/HBoxContainer/SettingsCancel" method="grab_focus"]
 [connection signal="pressed" from="SettingsContainer/HBoxContainer/SettingsApply" to="." method="_on_settings_apply_pressed"]
 [connection signal="pressed" from="CreditsContainer/CreditsReturn" to="." method="_on_credits_return_pressed"]
+[connection signal="visibility_changed" from="CreditsContainer/CreditsReturn" to="CreditsContainer/CreditsReturn" method="grab_focus"]

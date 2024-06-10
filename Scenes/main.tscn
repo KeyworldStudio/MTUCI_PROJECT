@@ -57,6 +57,7 @@ position = Vector2(308, 177)
 [node name="PlayerCamera" type="Camera2D" parent="GameWorld/Player"]
 use_parent_material = true
 position = Vector2(240, 135)
+process_callback = 0
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameWorld/Player/PlayerCamera"]
@@ -71,7 +72,7 @@ zoom = Vector2(1, 1)
 follow_mode = 1
 follow_target = NodePath("../PlayerCameraFollowTarget")
 follow_parameters/damping = true
-follow_parameters/damping_value = 10.0
+follow_parameters/damping_value = 5.0
 frame_preview = true
 pixel_perfect = false
 limit/draw_limits = true

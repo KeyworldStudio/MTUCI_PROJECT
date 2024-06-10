@@ -25,7 +25,12 @@ func _ready():
 	dash_invuln_timer.timeout.connect(_on_dash_invuln_timeout)
 
 func _physics_process(delta):
-	var direction: Vector2 = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up","move_down"))
+	var direction: Vector2 = \
+			Vector2(
+				Input.get_axis("move_left", "move_right"), 
+				Input.get_axis("move_up","move_down")
+			)
+	
 	direction = direction.normalized()
 	velocity = velocity.move_toward(direction * max_speed, acceleration * delta)
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
@@ -36,7 +41,16 @@ func _physics_process(delta):
 		hitbox.active = false
 		dash_invuln_timer.start(dash_invuln)
 	move_and_slide()
-	look_at(get_global_mouse_position())
+	
+	var aim_direction:= \
+			Vector2(
+				Input.get_axis("aim_left","aim_right"),
+				Input.get_axis("aim_up","aim_down")
+				)
+	if aim_direction.length_squared() > 0.0:
+		global_rotation = aim_direction.angle()
+	elif Input.get_last_mouse_velocity().length_squared() > 0.0:
+		look_at(get_global_mouse_position())
 	
 	anim_player.speed_scale = velocity.length()/max_speed
 

@@ -14,6 +14,8 @@ func _on_resume_pressed() -> void:
 	GlobalRefs.main_scene_node.toggle_pause()
 
 
+
+
 func _on_settings_pressed() -> void:
 	pause_container.hide()
 	settings_container.show()
@@ -51,3 +53,4 @@ func _on_credits_pressed() -> void:
 func _on_credits_return_pressed() -> void:
 	pause_container.show()
 	credits_container.hide()
+
